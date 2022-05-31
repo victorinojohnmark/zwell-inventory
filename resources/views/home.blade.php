@@ -2,16 +2,22 @@
 
 @section('title', 'Zwell Inventory')
 
-@section('content_header')
-    <h1>Dashboard</h1>
-@stop
-
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+<div class="card">
+
+    <div class="card-header">
+        <strong>Dashboard</strong>
+    </div>
+
+    <div class="card-body">
+        <p>Welcome to this beautiful admin panel.</p>
+    </div>
+</div>
+    
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="/css/custom.css">
 @stop
 
 @section('js')
