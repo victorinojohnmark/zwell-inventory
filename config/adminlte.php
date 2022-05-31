@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Zwell</b>Inventory',
+    'logo' => '<b>Inventory</b>System',
     'logo_img' => 'img/zwell-logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'dashboard',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -233,17 +233,22 @@ return [
 
         // Sidebar items:
         [
+            'text' => 'Dashboard',
+            'icon' => 'fas fa-fw fa-circle',
+            'url'  => 'dashboard'
+        ],
+        [
             'text' => 'Master Records',
             'icon' => 'fas fa-fw fa-clipboard-list',
             'submenu' => [
                 [
                     'text' => 'Companies',
-                    'url'  => '#',
+                    'url'  => 'company/view',
                     'icon' => 'fas fa-fw fa-building',
                 ],
                 [
                     'text' => 'Suppliers',
-                    'url'  => '#',
+                    'url'  => 'supplier/view',
                     'icon' => 'fas fa-fw fa-check-circle',
                 ],
                 [
@@ -258,6 +263,19 @@ return [
                 ]
             ]
         ],
+
+        [
+            'text' => 'Transactions',
+            'icon' => 'fas fa-fw fa-circle',
+            'submenu' => [
+                [
+                    'text' => 'Purchase Order',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-circle',
+                ],
+            ]
+        ],
+        
     ],
 
     /*
