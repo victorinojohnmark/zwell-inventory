@@ -48,6 +48,9 @@ class CompanyController extends Controller
 
     public function companysave(Request $request)
     {
+        // adjust active value
+        $request['active'] = $request['active'] ? 1 : 0;
+        
         list($validator, $record, $success) = LogicCRUD::saveRecord('Company', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){
