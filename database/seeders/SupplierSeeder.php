@@ -16,8 +16,8 @@ class SupplierSeeder extends Seeder
     {
 
         Supplier::create([
-            'supplier_name' => 'Robinson',
-            'supplier_code' => '20220001',
+            'supplier_name' => 'Robinsons Mall Glorietta',
+            'supplier_code' => 'Robinsons Mall Glorietta',
             'contact_person' => 'Mr Robinson',
             'contact_no' => '09112233445',
             'email' => 'robinson@gmail.com',
@@ -27,7 +27,7 @@ class SupplierSeeder extends Seeder
 
         Supplier::create([
             'supplier_name' => 'Walter Mart',
-            'supplier_code' => '20220002',
+            'supplier_code' => 'Walter Mart',
             'contact_person' => 'Mr Walter',
             'contact_no' => '09212233446',
             'email' => 'WalterMart@gmail.com',

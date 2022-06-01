@@ -3,7 +3,7 @@
 
 @section('content')
 
-    @if ($errors->any())
+    {{-- @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -11,7 +11,7 @@
             @endforeach
         </ul>
     </div>
-    @endif
+    @endif --}}
     
     <div class="card">
         <div class="card-header">
@@ -39,15 +39,20 @@
                         value="{{ old('item_name', !is_null($item->item_name)? $item->item_name : null) }}"/>
                     </div>
 
+                    <div class="col-md-12">
+                        <x-adminlte-input name="description" label="Description" type="text" placeholder="e.g. Description here ...." required
+                        value="{{ old('description', !is_null($item->description)? $item->description : null) }}"/>
+                    </div>
+
                     <div class="col-md-4">
                         <x-adminlte-input name="minimum_stock_qty" label="Minimum Stock Quantity" type="number" placeholder="e.g. 30" min="0" required
                         value="{{ old('minimum_stock_qty', !is_null($item->minimum_stock_qty)? $item->minimum_stock_qty : null) }}"/>
                     </div>
 
                     <div class="col-md-4">
-                        <x-adminlte-select name="unit_id" label="Unit/s">
-                            <option>Select here...</option>
-                            <option>Option 2</option>
+                        <x-adminlte-select name="unit_id" label="Unit/s" required>
+                            <option selected>Select here...</option>
+                            <option value="1">PC/s</option>
                         </x-adminlte-select>
                     </div>
 
@@ -55,6 +60,14 @@
                         <x-adminlte-textarea name="notes" label="Notes" placeholder="Notes here ...">
                             {{ old('notes', !is_null($item->notes)? $item->notes : null) }}
                         </x-adminlte-textarea>
+                    </div>
+
+                    <div class="col-md-3">
+                        
+                        <input type="number" name="active" value="{{ old('active', !is_null($item->active) ? $item->active : 1) }}">
+                        
+                        <x-adminlte-input-switch name="activeToggler" id="activeToggler" data-on-color="success" data-off-color="danger" label="Active" />
+                        
                     </div>
                 </div>
 
@@ -66,10 +79,11 @@
     
 @stop
 
+@section('plugins.BootstrapSwitch', true)
 @section('css')
     <link rel="stylesheet" href="/css/custom.css">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+   <script src="/js/custom.js"></script>
 @stop

@@ -48,6 +48,11 @@ class LogicCRUD
                 $record->validationrules['location_code'] = 'nullable|max:50';
                 break;
 
+            case 'Item':
+                $record->validationrules['item_name'] = 'required|max:255';
+                $record->validationrules['item_code'] = 'nullable|max:50';
+                break;
+
             default:
                 # code...
                 break;

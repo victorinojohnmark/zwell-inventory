@@ -383,6 +383,22 @@ return [
                 ],
             ],
         ],
+
+        'BootstrapSwitch' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/bootstrap-switch/js/bootstrap-switch.min.js',
+                ],
+            ]
+        ],
     ],
 
     /*

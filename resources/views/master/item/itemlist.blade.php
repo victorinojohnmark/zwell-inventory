@@ -20,17 +20,19 @@
                         <th scope="col">Minimum Stock QTY.</th>
                         <th scope="col">Unit/s</th>
                         <th scope="col">Notes</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
                 <tbody> 
                     @forelse ($items as $item)
                     <tr>
-                        <td>{{ $item->location_code }}</td>
-                        <td>{{ $item->location_name }} <span class="badge badge-primary">Active </span></td>
+                        <td><b>{{ $item->item_code }}</b></td>
+                        <td>{{ $item->item_name }}</span></td>
                         <td>{{ $item->minimum_stock_qty }}</td>
                         <td>{{ $item->unit_id }}</td>
                         <td>{{ $item->notes }}</td>
+                        <td><span class="badge badge-{{ $item->active ? 'success' : 'danger' }}">{{ $item->active ? 'Active' : 'Inactive' }}</span></td>
                         <td>
                             <a href="{{ route('itemupdate', ['id' => $item->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
                         </td>
