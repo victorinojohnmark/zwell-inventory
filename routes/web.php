@@ -33,7 +33,19 @@ Route::post('company/save', 'Master\CompanyController@companysave')->name('compa
 
 
 //Supplier
-Route::get('supplier/view', 'Master\CompanyController@supplierview')->name('supplierview');
-Route::get('supplier/create', 'Master\CompanyController@suppliercreate')->name('suppliercreate');
-Route::get('supplier/update', 'Master\CompanyController@supplierupdate')->name('supplierupdate');
-Route::post('supplier/save', 'Master\CompanyController@suppliersave')->name('suppliersave');
+Route::get('supplier/view', 'Master\SupplierController@supplierview')->name('supplierview');
+Route::get('supplier/create', 'Master\SupplierController@suppliercreate')->name('suppliercreate');
+Route::get('supplier/update', 'Master\SupplierController@supplierupdate')->name('supplierupdate');
+Route::post('supplier/save', 'Master\SupplierController@suppliersave')->name('suppliersave');
+
+//Location
+Route::get('location/view', 'Master\LocationController@locationview')->name('locationview');
+Route::get('location/create', 'Master\LocationController@locationcreate')->name('locationcreate');
+Route::get('location/update', 'Master\LocationController@locationupdate')->name('locationupdate');
+Route::post('location/save', 'Master\LocationController@locationsave')->name('locationsave');
+
+//Item
+Route::get('item/view', 'Master\ItemController@itemview')->name('itemview');
+Route::get('item/create', 'Master\ItemController@itemcreate')->name('itemcreate');
+Route::get('item/update', 'Master\ItemController@itemupdate')->name('itemupdate');
+Route::post('item/save', 'Master\ItemController@itemsave')->name('itemsave');

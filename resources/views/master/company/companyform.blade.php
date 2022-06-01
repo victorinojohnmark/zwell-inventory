@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <x-adminlte-input name="contact_no" label="Contact No." type="text" placeholder="e.g. John Doe" required
+                        <x-adminlte-input name="contact_no" label="Contact No." type="text" placeholder="e.g. 09171239876" required
                         value="{{ old('contact_no', !is_null($company->contact_no)? $company->contact_no : null) }}"/>
                     </div>
 

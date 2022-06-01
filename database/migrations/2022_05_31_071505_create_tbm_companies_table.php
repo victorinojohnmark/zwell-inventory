@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTbmCompanies extends Migration
+class CreateTbmCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -35,6 +35,6 @@ class CreateTbmCompanies extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_tbm_companies');
+        Schema::dropIfExists('tbm_companies');
     }
 }

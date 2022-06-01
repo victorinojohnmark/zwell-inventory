@@ -253,12 +253,12 @@ return [
                 ],
                 [
                     'text' => 'Locations',
-                    'url'  => '#',
+                    'url'  => 'location/view',
                     'icon' => 'fas fa-fw fa-map-marked-alt',
                 ],
                 [
                     'text' => 'Items',
-                    'url'  => '#',
+                    'url'  => 'item/view',
                     'icon' => 'fas fa-fw fa-boxes',
                 ]
             ]

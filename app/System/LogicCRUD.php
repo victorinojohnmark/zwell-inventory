@@ -25,18 +25,32 @@ class LogicCRUD
          
     }
 
-    public static function saveRecord($record_type, $namespace, $values, $id = null, $event = null, $successview = null) 
+    public static function saveRecord($model, $namespace, $values, $id = null, $event = null, $successview = null) 
     {
-        $record_type = "App"."\\".$namespace."\\".$record_type;
+        $record_type = "App"."\\".$namespace."\\".$model;
         $record = new $record_type();
         $success = false;   
-
-        //remove rules not applicable for update: unique fields
-        if (!is_null($id) && in_array(substr($record_type, strrpos($record_type, '\\') + 1), ['Company'])) { 
+        
+        //update validation rules upon update request
+        switch ($model) {
+            case 'Company':
+                $record->validationrules['company_name'] = 'required|max:255';
+                $record->validationrules['company_code'] = 'nullable|max:50';
+                break;
             
-            //Company
-            $record->validationrules['company_name'] = 'required|max:255'; //remove unique validation for Company
-            $record->validationrules['company_code'] = 'nullable|max:50';
+            case 'Supplier':
+                $record->validationrules['supplier_name'] = 'required|max:255';
+                $record->validationrules['supplier_code'] = 'nullable|max:50';
+                break;
+
+            case 'Location':
+                $record->validationrules['location_name'] = 'required|max:255';
+                $record->validationrules['location_code'] = 'nullable|max:50';
+                break;
+
+            default:
+                # code...
+                break;
         }
 
         $validator = Validator::make($values, $record->validationrules, $record->validationmessages);

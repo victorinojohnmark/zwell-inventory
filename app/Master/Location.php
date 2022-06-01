@@ -7,19 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Company extends Model
+class Location extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'tbm_companies';
+    protected $table = 'tbm_locations';
 
     protected $fillable = [
-        'company_name', 'company_code', 'contact_person', 'contact_no', 'email', 'address', 'notes', 'active'
+        'location_name', 'location_code', 'contact_person', 'contact_no', 'email', 'address', 'notes', 'active'
     ];
 
     public $validationrules = [
-        'company_name' => 'required|max:255|unique:tbm_companies', 
-        'company_code' => 'nullable|max:50|unique:tbm_companies', 
+        'location_name' => 'required|max:255|unique:tbm_locations', 
+        'location_code' => 'nullable|max:50|unique:tbm_locations', 
         'contact_person' => 'required|max:50', 
         'contact_no' => 'required|max:50', 
         'email' => 'nullable|email|max:50', 
@@ -34,8 +34,8 @@ class Company extends Model
     public static function createRecord($values): self
     {
         return self::create([
-            'company_name' => $values['company_name'], 
-            'company_code' => $values['company_code'], 
+            'location_name' => $values['location_name'], 
+            'location_code' => $values['location_name'], 
             'contact_person' => $values['contact_person'], 
             'contact_no' => $values['contact_no'], 
             'email' => $values['email'], 
@@ -44,7 +44,4 @@ class Company extends Model
         ]);
 
     }
-
-    
-
 }
