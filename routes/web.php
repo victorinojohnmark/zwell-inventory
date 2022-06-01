@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,7 +34,7 @@ Route::post('company/save', 'Master\CompanyController@companysave')->name('compa
 
 
 //Supplier
-Route::get('supplier/view', 'Master\CompanyController@supplierview')->name('supplierview');
-Route::get('supplier/create', 'Master\CompanyController@suppliercreate')->name('suppliercreate');
-Route::get('supplier/update', 'Master\CompanyController@supplierupdate')->name('supplierupdate');
-Route::post('supplier/save', 'Master\CompanyController@suppliersave')->name('suppliersave');
+Route::get('supplier/view', 'Master\SupplierController@supplierview')->name('supplierview');
+Route::get('supplier/create', 'Master\SupplierController@suppliercreate')->name('suppliercreate');
+Route::get('supplier/update', 'Master\SupplierController@supplierupdate')->name('supplierupdate');
+Route::post('supplier/save', 'Master\SupplierController@suppliersave')->name('suppliersave');
