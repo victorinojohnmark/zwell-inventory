@@ -46,6 +46,9 @@ class ItemController extends Controller
 
     public function itemsave(Request $request)
     {
+        // adjust active value
+        $request['active'] = $request['active'] ? 1 : 0;
+
         list($validator, $record, $success) = LogicCRUD::saveRecord('Item', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){
