@@ -65,6 +65,11 @@
                             {{ old('notes', !is_null($supplier->notes)? $supplier->notes : null) }}
                         </x-adminlte-textarea>
                     </div>
+
+                    <div class="col-md-3">
+                        <input type="hidden" name="active" value="{{ old('active', !is_null($supplier->active) ? $supplier->active : 1) }}">
+                        <x-adminlte-input-switch name="activeToggler" id="activeToggler" data-on-color="success" data-off-color="danger" label="Active" />
+                    </div>
                 </div>
 
                 
@@ -77,10 +82,11 @@
     
 @stop
 
+@section('plugins.BootstrapSwitch', true)
 @section('css')
     <link rel="stylesheet" href="/css/custom.css">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+   <script src="/js/custom.js"></script>
 @stop

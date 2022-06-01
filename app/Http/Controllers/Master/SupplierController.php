@@ -33,7 +33,9 @@ class SupplierController extends Controller
 
     public function suppliersave(Request $request)
     {
-        //dd($request);
+        // adjust active value
+        $request['active'] = $request['active'] ? 1 : 0;
+        
         list($validator, $record, $success) = LogicCRUD::saveRecord('Supplier', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){

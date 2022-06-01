@@ -22,6 +22,7 @@ class CreateTbmSuppliersTable extends Migration
             $table->string('email', 50)->nullable();
             $table->string('address', 255)->nullable();
             $table->string('notes', 255)->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

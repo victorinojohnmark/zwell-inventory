@@ -20,6 +20,7 @@
                         <th scope="col">Contact Person</th>
                         <th scope="col">Contact No.</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Options</th>
                     </tr>
                 </thead>
@@ -31,6 +32,7 @@
                         <td>{{ $supplier->contact_person }}</td>
                         <td>{{ $supplier->contact_no }}</td>
                         <td>{{ $supplier->email }}</td>
+                        <td><span class="badge badge-{{ $supplier->active ? 'success' : 'danger' }}">{{ $supplier->active ? 'Active' : 'Inactive' }}</span></td>
                         <td>
                             <a href="{{ route('supplierupdate', ['id' => $supplier->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
                         </td>

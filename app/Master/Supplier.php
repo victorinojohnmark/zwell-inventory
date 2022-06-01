@@ -12,7 +12,7 @@ class Supplier extends Model
     protected $table = 'tbm_suppliers';
 
     protected $fillable = [
-        'supplier_name', 'supplier_code', 'contact_person', 'contact_no', 'email', 'address', 'notes'
+        'supplier_name', 'supplier_code', 'contact_person', 'contact_no', 'email', 'address', 'notes', 'active'
     ];
 
     public $validationrules = [
@@ -22,7 +22,8 @@ class Supplier extends Model
         'contact_no' => 'required|max:50', 
         'email' => 'nullable|email|max:50', 
         'address' => 'nullable|max:255', 
-        'notes' => 'nullable|max:255'
+        'notes' => 'nullable|max:255',
+        'active' => 'nullable|numeric'
     ];
 
     public $validationmessages = [
@@ -39,6 +40,7 @@ class Supplier extends Model
             'email' => $values['email'], 
             'address' => $values['address'], 
             'notes' => $values['notes'],
+            'active' => $values['active'],
         ]);
 
     }
