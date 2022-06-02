@@ -46,6 +46,9 @@ class LocationController extends Controller
 
     public function locationsave(Request $request)
     {
+        // adjust active value
+        $request['active'] = $request['active'] ? 1 : 0;
+        
         list($validator, $record, $success) = LogicCRUD::saveRecord('Location', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){

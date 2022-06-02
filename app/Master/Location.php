@@ -24,7 +24,8 @@ class Location extends Model
         'contact_no' => 'required|max:50', 
         'email' => 'nullable|email|max:50', 
         'address' => 'nullable|max:255', 
-        'notes' => 'nullable|max:255'
+        'notes' => 'nullable|max:255',
+        'active' => 'nullable|numeric'
     ];
 
     public $validationmessages = [
@@ -41,6 +42,7 @@ class Location extends Model
             'email' => $values['email'], 
             'address' => $values['address'], 
             'notes' => $values['notes'],
+            'active' => $values['active'],
         ]);
 
     }

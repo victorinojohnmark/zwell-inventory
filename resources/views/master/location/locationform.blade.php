@@ -2,16 +2,6 @@
 @section('title', "Zwell | Location Form")
 
 @section('content')
-
-    {{-- @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif --}}
     
     <div class="card">
         <div class="card-header">
@@ -65,9 +55,14 @@
                             {{ old('notes', !is_null($location->notes)? $location->notes : null) }}
                         </x-adminlte-textarea>
                     </div>
+
+                    
                 </div>
 
-
+                <div class="col-md-3">      
+                    <input type="hidden" name="active" value="{{ old('active', !is_null($location->active) ? $location->active : 1) }}">
+                    <x-adminlte-input-switch name="activeToggler" id="activeToggler" data-on-color="success" data-off-color="danger" label="Active" />
+                </div>
 
                 <x-adminlte-button class="btn-sm font-weight-bold" type="submit" label="Save" theme="primary" icon="fas fa-save"/>
 
@@ -77,10 +72,11 @@
     
 @stop
 
+@section('plugins.BootstrapSwitch', true)
 @section('css')
     <link rel="stylesheet" href="/css/custom.css">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+   <script src="/js/custom.js"></script>
 @stop

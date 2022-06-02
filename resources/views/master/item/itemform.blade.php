@@ -51,7 +51,7 @@
 
                     <div class="col-md-4">
                         <x-adminlte-select name="unit_id" label="Unit/s" required>
-                            <option selected>Select here...</option>
+                            <option>Select here...</option>
                             <option value="1">PC/s</option>
                         </x-adminlte-select>
                     </div>
@@ -64,7 +64,7 @@
 
                     <div class="col-md-3">
                         
-                        <input type="number" name="active" value="{{ old('active', !is_null($item->active) ? $item->active : 1) }}">
+                        <input type="hidden" name="active" value="{{ old('active', !is_null($item->active) ? $item->active : 1) }}">
                         
                         <x-adminlte-input-switch name="activeToggler" id="activeToggler" data-on-color="success" data-off-color="danger" label="Active" />
                         
