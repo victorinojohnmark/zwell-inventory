@@ -18,7 +18,7 @@ class CreateTbmItemsTable extends Migration
             $table->string('item_name', 255)->unique();
             $table->string('item_code', 50)->nullable()->unique();
             $table->string('description', 255)->nullable();
-            $table->unsignedInteger('unit_id');
+            $table->string('unit', 30);
             $table->unsignedMediumInteger('minimum_stock_qty');
             $table->string('notes', 255)->nullable();
             $table->boolean('active')->default(1);

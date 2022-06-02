@@ -49,10 +49,14 @@
                         value="{{ old('minimum_stock_qty', !is_null($item->minimum_stock_qty)? $item->minimum_stock_qty : null) }}"/>
                     </div>
 
-                    <div class="col-md-4">
-                        <x-adminlte-select name="unit_id" label="Unit/s" required>
+                    <div class="col-md-2">
+                        <x-adminlte-select name="unit" label="Unit/s" required>
                             <option>Select here...</option>
-                            <option value="1">PC/s</option>
+                            @foreach ($units as $unit)
+                            <option value="{{ $unit }}" {{!is_null($item->id) && ($item->unit == $unit)? 'selected' : '' }}>
+                                {{ $unit }}
+                            </option>
+                            @endforeach
                         </x-adminlte-select>
                     </div>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\System\LogicCRUD;
+use App\System\LogicCONF;
 
 class ItemController extends Controller
 {
@@ -27,6 +28,7 @@ class ItemController extends Controller
     public function itemcreate()
     {
         return view('master.item.itemform', [
+            'units' => LogicCONF::getDropDownJson('units.json'),
             'item' => LogicCRUD::createRecord('Item', 'Master'),
         ]);
     }
@@ -35,6 +37,7 @@ class ItemController extends Controller
     {
         if(!is_null($request->id)) {
             return view('master.item.itemform', [
+                'units' => LogicCONF::getDropDownJson('units.json'),
                 'item' => LogicCRUD::retrieveRecord('Item', 'Master', $request->id),
             ]);
         } else {
