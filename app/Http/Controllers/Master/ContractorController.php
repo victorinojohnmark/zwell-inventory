@@ -35,7 +35,7 @@ class ContractorController extends Controller
         // adjust active value
         $request['active'] = $request['active'] ? 1 : 0;
         
-        list($validator, $record, $success) = LogicCRUD::saveRecord('contractor', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
+        list($validator, $record, $success) = LogicCRUD::saveRecord('Contractor', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){
             return redirect()->route('contractorview');
