@@ -253,7 +253,7 @@ return [
                 ],
                 [
                     'text' => 'Contractor',
-                    'url'  => 'sontractor/view',
+                    'url'  => 'contractor/view',
                     'icon' => 'fas fa-fw fa-user-astronaut',
                 ],
                 [
