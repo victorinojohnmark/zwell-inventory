@@ -53,6 +53,11 @@ class LogicCRUD
                 $record->validationrules['item_code'] = 'nullable|max:50';
                 break;
 
+            case 'Contractor':
+                $record->validationrules['contractor_name'] = 'required|max:255';
+                $record->validationrules['contractor_code'] = 'nullable|max:50';
+                break;
+
             default:
                 # code...
                 break;
