@@ -25,6 +25,8 @@ Auth::routes([
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
+## MASTER RECORD ##
+
 //Company
 Route::get('company/view', 'Master\CompanyController@companyview')->name('companyview');
 Route::get('company/create', 'Master\CompanyController@companycreate')->name('companycreate');
@@ -55,3 +57,11 @@ Route::get('item/view', 'Master\ItemController@itemview')->name('itemview');
 Route::get('item/create', 'Master\ItemController@itemcreate')->name('itemcreate');
 Route::get('item/update', 'Master\ItemController@itemupdate')->name('itemupdate');
 Route::post('item/save', 'Master\ItemController@itemsave')->name('itemsave');
+
+## TRANSACTION RECORD ##
+
+//Purchase Order
+Route::get('purchaseorder/view', 'Transaction\PurchaseOrderController@purchaseorderview')->name('purchaseorderview');
+Route::get('purchaseorder/create', 'Transaction\PurchaseOrderController@purchaseordercreate')->name('purchaseordercreate');
+Route::get('purchaseorder/update', 'Transaction\PurchaseOrderController@purchaseorderupdate')->name('purchaseorderupdate');
+Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
