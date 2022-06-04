@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <x-adminlte-textarea name="notes" label="Notes" placeholder="Notes here ..." required>
+                        <x-adminlte-textarea name="notes" label="Notes" placeholder="Notes here ...">
                             {{ old('notes', !is_null($contractor->notes)? $contractor->notes : null) }}
                         </x-adminlte-textarea>
                     </div>

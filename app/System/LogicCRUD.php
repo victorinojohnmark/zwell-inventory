@@ -30,37 +30,40 @@ class LogicCRUD
         $record_type = "App"."\\".$namespace."\\".$model;
         $record = new $record_type();
         $success = false;   
-        
-        //update validation rules upon update request
-        switch ($model) {
-            case 'Company':
-                $record->validationrules['company_name'] = 'required|max:255';
-                $record->validationrules['company_code'] = 'nullable|max:50';
-                break;
-            
-            case 'Supplier':
-                $record->validationrules['supplier_name'] = 'required|max:255';
-                $record->validationrules['supplier_code'] = 'nullable|max:50';
-                break;
 
-            case 'Location':
-                $record->validationrules['location_name'] = 'required|max:255';
-                $record->validationrules['location_code'] = 'nullable|max:50';
-                break;
+        ## Checking if id exist, true result - meaning update transaction
+        if(!is_null($id)) {
+            //update validation rules upon update request
+            switch ($model) {
+                case 'Company':
+                    $record->validationrules['company_name'] = 'required|max:255';
+                    $record->validationrules['company_code'] = 'nullable|max:50';
+                    break;
+                
+                case 'Supplier':
+                    $record->validationrules['supplier_name'] = 'required|max:255';
+                    $record->validationrules['supplier_code'] = 'nullable|max:50';
+                    break;
 
-            case 'Item':
-                $record->validationrules['item_name'] = 'required|max:255';
-                $record->validationrules['item_code'] = 'nullable|max:50';
-                break;
+                case 'Location':
+                    $record->validationrules['location_name'] = 'required|max:255';
+                    $record->validationrules['location_code'] = 'nullable|max:50';
+                    break;
 
-            case 'Contractor':
-                $record->validationrules['contractor_name'] = 'required|max:255';
-                $record->validationrules['contractor_code'] = 'nullable|max:50';
-                break;
+                case 'Item':
+                    $record->validationrules['item_name'] = 'required|max:255';
+                    $record->validationrules['item_code'] = 'nullable|max:50';
+                    break;
 
-            default:
-                # code...
-                break;
+                case 'Contractor':
+                    $record->validationrules['contractor_name'] = 'required|max:255';
+                    $record->validationrules['contractor_code'] = 'nullable|max:50';
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
         }
 
         $validator = Validator::make($values, $record->validationrules, $record->validationmessages);
