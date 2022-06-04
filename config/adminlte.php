@@ -252,7 +252,11 @@ return [
                     'icon' => 'fas fa-fw fa-check-circle',
                 ],
                 [
+<<<<<<< HEAD
                     'text' => 'Contractors',
+=======
+                    'text' => 'Contractor',
+>>>>>>> 66f5666c9b422bd619f3f6a922fb3c7700173e48
                     'url'  => 'contractor/view',
                     'icon' => 'fas fa-fw fa-user-astronaut',
                 ],
