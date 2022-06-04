@@ -252,6 +252,11 @@ return [
                     'icon' => 'fas fa-fw fa-check-circle',
                 ],
                 [
+                    'text' => 'Contractor',
+                    'url'  => 'sontractor/view',
+                    'icon' => 'fas fa-fw fa-user-astronaut',
+                ],
+                [
                     'text' => 'Locations',
                     'url'  => 'location/view',
                     'icon' => 'fas fa-fw fa-map-marked-alt',
