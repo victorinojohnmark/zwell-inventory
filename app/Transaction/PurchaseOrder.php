@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Master\Contractor;
+
 class PurchaseOrder extends Model
 {
     use HasFactory, SoftDeletes;
@@ -46,8 +48,13 @@ class PurchaseOrder extends Model
             'purchase_date' => $values['purchase_date'], 
             'purchase_cost' => $values['purchase_cost'], 
             'prepared_by_id' => $values['prepared_by_id'], 
-            'notes' => $values['notes'],
+            'notes' => $values['notes']
         ]);
 
+    }
+
+    public function contractor()
+    {
+        return $this->hasOne(Contractor::class);
     }
 }

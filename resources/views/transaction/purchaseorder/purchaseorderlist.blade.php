@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ $purchaseOrder->po_no }}</td>
                         <td>{{ $purchaseOrder->requisition_slip_no }}</td>
-                        <td>{{ $purchaseOrder->contractor_id }}</td>
+                        <td>{{ $purchaseOrder->contractor->contractor_name }}</td>
                         <td>{{ $purchaseOrder->supplier_id }}</td>
                         <td>{{ $purchaseOrder->purchase_date }}</td>
                         <td>{{ $purchaseOrder->purchase_cost }}</td>

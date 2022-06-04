@@ -20,6 +20,7 @@ class CreateTbtPurchaseOrdersTable extends Migration
             $table->string('requisition_slip_no', 20);
             $table->unsignedMediumInteger('contractor_id');
             $table->unsignedMediumInteger('supplier_id');
+            $table->unsignedMediumInteger('location_id');
             $table->date('purchase_date');
             $table->decimal('purchase_cost', $precision = 15, $scale = 2)->nullable();
             $table->unsignedMediumInteger('prepared_by_id');

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Transaction\PurchaseOrder;
+use App\Master\Contractor;
+use App\Master\Supplier;
+use App\Master\Location;
 
 use App\System\LogicCRUD;
 
@@ -15,7 +18,10 @@ class PurchaseOrderController extends Controller
     {
         if(isset($request->id)) {
             return view('transaction.purchaseorder.purchaseorderform', [
-                'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id)
+                'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
+                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null),
+                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null),
+                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null)
             ]);
         } 
 
@@ -30,6 +36,9 @@ class PurchaseOrderController extends Controller
     {
         return view('transaction.purchaseorder.purchaseorderform', [
             'purchaseOrder' => LogicCRUD::createRecord('PurchaseOrder', 'Transaction'),
+            'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null),
+            'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null),
+            'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null)
         ]);
     }
 
@@ -38,12 +47,14 @@ class PurchaseOrderController extends Controller
         if(!is_null($request->id)) {
             return view('transaction.purchaseorder.purchaseorderform', [
                 'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
+                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null),
+                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null),
+                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null)
             ]);
         } else {
             return redirect()->back();
         }
 
-        
     }
 
     public function purchaseordersave(Request $request)
