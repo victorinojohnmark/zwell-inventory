@@ -38,6 +38,12 @@ Route::get('supplier/create', 'Master\SupplierController@suppliercreate')->name(
 Route::get('supplier/update', 'Master\SupplierController@supplierupdate')->name('supplierupdate');
 Route::post('supplier/save', 'Master\SupplierController@suppliersave')->name('suppliersave');
 
+//Contractor
+Route::get('contractor/view', 'Master\ContractorController@itemview')->name('contractorview');
+Route::get('contractor/create', 'Master\ContractorController@itemcreate')->name('contractorcreate');
+Route::get('contractor/update', 'Master\ContractorController@itemupdate')->name('contractorupdate');
+Route::post('contractor/save', 'Master\ContractorController@itemsave')->name('contractorsave');
+
 //Location
 Route::get('location/view', 'Master\LocationController@locationview')->name('locationview');
 Route::get('location/create', 'Master\LocationController@locationcreate')->name('locationcreate');
