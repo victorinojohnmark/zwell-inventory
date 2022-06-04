@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Inventory</b>System',
+    'logo' => '<b>Warehouse</b> Inventory',
     'logo_img' => 'img/zwell-logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -234,7 +234,7 @@ return [
         // Sidebar items:
         [
             'text' => 'Dashboard',
-            'icon' => 'fas fa-fw fa-circle',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
             'url'  => 'dashboard'
         ],
         [
@@ -252,8 +252,8 @@ return [
                     'icon' => 'fas fa-fw fa-check-circle',
                 ],
                 [
-                    'text' => 'Contractor',
-                    'url'  => 'sontractor/view',
+                    'text' => 'Contractors',
+                    'url'  => 'contractor/view',
                     'icon' => 'fas fa-fw fa-user-astronaut',
                 ],
                 [
@@ -271,13 +271,45 @@ return [
 
         [
             'text' => 'Transactions',
-            'icon' => 'fas fa-fw fa-circle',
+            'icon' => 'fas fa-fw fa-exchange-alt',
             'submenu' => [
                 [
-                    'text' => 'Purchase Order',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-circle',
+                    'text' => 'Purchase Orders',
+                    'url'  => 'purchaseorder/view',
+                    'icon' => 'fas fa-fw fa-credit-card',
                 ],
+                [
+                    'text' => 'Delivery Receipts',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-truck',
+                ],
+                [
+                    'text' => 'Release Requests',
+                    'url'  => '#',
+                    'icon' => 'fas fa-fw fa-drumstick-bite',
+                ],
+            ]
+        ],
+
+        [
+            'text' => 'Reports',
+            'icon' => 'fas fa-fw fa-file-alt',
+            'submenu' => [
+                // [
+                //     'text' => 'Stocks',
+                //     'url'  => 'purchaseorder/view',
+                //     'icon' => 'fas fa-fw fa-credit-card',
+                // ],
+                // [
+                //     'text' => 'Delivery Receipts',
+                //     'url'  => '#',
+                //     'icon' => 'fas fa-fw fa-credit-card',
+                // ],
+                // [
+                //     'text' => 'Release Requests',
+                //     'url'  => '#',
+                //     'icon' => 'fas fa-fw fa-credit-card',
+                // ],
             ]
         ],
         
