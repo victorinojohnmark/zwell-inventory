@@ -12,36 +12,44 @@
                 <a href="{{ route('purchaseordercreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Purchase Order</a>
             </div>
 
-            <table id="" class="table table-bordered table-hover datatables mt-3">
-                <thead>
-                    <tr>
-                        <th scope="col">Purchase Order No.</th>
-                        <th scope="col">Requisition Slip No.</th>
-                        <th scope="col">Contractor</th>
-                        <th scope="col">Supplier</th>
-                        <th scope="col">Purchase Date</th>
-                        <th scope="col">Purchase Cost</th>
-                        <th scope="col">Options</th>
-                    </tr>
-                </thead>
-                <tbody> 
-                    @forelse ($purchaseOrders as $purchaseOrder)
-                    <tr>
-                        <td>{{ $purchaseOrder->po_no }}</td>
-                        <td>{{ $purchaseOrder->requisition_slip_no }}</td>
-                        <td>{{ $purchaseOrder->contractor->contractor_name }}</td>
-                        <td>{{ $purchaseOrder->supplier_id }}</td>
-                        <td>{{ $purchaseOrder->purchase_date }}</td>
-                        <td>{{ $purchaseOrder->purchase_cost }}</td>
-                        <td>
-                            <a href="{{ route('purchaseorderupdate', ['id' => $purchaseOrder->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">View</a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr><td colspan="7">No Purchase Order record/s available.</td></tr>
-                    @endforelse                 
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table id="" class="table table-bordered table-hover datatables mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Purchase Order No.</th>
+                            <th scope="col">Requisition Slip No.</th>
+                            <th scope="col">Requested By (Contractor)</th>
+                            <th scope="col">Supplier</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Purchase Date</th>
+                            <th scope="col">Purchase Cost</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        @forelse ($purchaseOrders as $purchaseOrder)
+                        <tr>
+                            <td>{{ $purchaseOrder->po_no }}</td>
+                            <td>{{ $purchaseOrder->requisition_slip_no }}</td>
+                            <td>{{ $purchaseOrder->contractor->contractor_name }}</td>
+                            <td>{{ $purchaseOrder->supplier->supplier_name }}</td>
+                            <td>{{ $purchaseOrder->location->location_name }}</td>
+                            <td>{{ $purchaseOrder->purchase_date }}</td>
+                            <td>@if (!is_null($purchaseOrder->purchase_cost)) {{ 'Php' . $purchaseOrder->purchase_cost }} @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
+                            <td>
+                                @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('purchaseorderupdate', ['id' => $purchaseOrder->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">View</a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr><td colspan="7">No Purchase Order record/s available.</td></tr>
+                        @endforelse                 
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     

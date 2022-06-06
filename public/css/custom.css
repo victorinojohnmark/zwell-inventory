@@ -7,3 +7,7 @@
     background-position: bottom right;
     background-size: 30%;
 }
+
+#fileAttachment {
+    cursor: pointer;
+}
