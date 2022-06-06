@@ -7,6 +7,12 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
+## Observer Class ##
+use App\Observers\PurchaseOrderObserver;
+
+## Models ##
+use App\Transaction\PurchaseOrder;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -27,6 +33,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        PurchaseOrder::observe(PurchaseOrderobserver::class);
     }
 }

@@ -25,6 +25,8 @@ Auth::routes([
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
+Route::get(['middleware' => ['auth']], function() {
+
 ## MASTER RECORD ##
 
 //Company
@@ -65,3 +67,7 @@ Route::get('purchaseorder/view', 'Transaction\PurchaseOrderController@purchaseor
 Route::get('purchaseorder/create', 'Transaction\PurchaseOrderController@purchaseordercreate')->name('purchaseordercreate');
 Route::get('purchaseorder/update', 'Transaction\PurchaseOrderController@purchaseorderupdate')->name('purchaseorderupdate');
 Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
+
+});
+
+

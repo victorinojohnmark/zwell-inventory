@@ -13,19 +13,25 @@ class LogicCRUD
         return new $record_type();
     }
 
-    public static function retrieveRecord($record_type, $namespace, $id = NULL, $limitter = null)
+    public static function retrieveRecord($record_type, $namespace, $id = NULL, $limitter = null, $active = false)
     {
         $record_type = "App"."\\".$namespace."\\".$record_type;
 
         if (!is_null($limitter)) {
             return is_null($id)? $record_type::orderBy('created_at', 'desc')->limit($limitter)->get() : $record_type::find($id);
         } else {
-            return is_null($id)? $record_type::latest()->get() : $record_type::find($id);
+            if($active) {
+                return is_null($id)? $record_type::where('active','1')->latest()->get() : $record_type::find($id);
+                
+            } else {
+                return is_null($id)? $record_type::latest()->get() : $record_type::find($id);
+            }
+            
         }
          
     }
 
-    public static function saveRecord($model, $namespace, $values, $id = null, $event = null, $successview = null) 
+    public static function saveRecord($model, $namespace, $values, $id = null, $event = null) 
     {
         $record_type = "App"."\\".$namespace."\\".$model;
         $record = new $record_type();
@@ -60,11 +66,19 @@ class LogicCRUD
                     $record->validationrules['contractor_code'] = 'nullable|max:50';
                     break;
 
+                case 'PurchaseOrder':
+                    $record->validationrules['po_no'] = 'required|numeric';
+                    unset($values['transaction_code']); //exclude transaction_code upon update request
+                    unset($values['prepared_by_id']);   //exclude prepared_by_id upon update request
+                    break;
+
                 default:
                     # code...
                     break;
             }
         }
+
+        // dd($values);
 
         $validator = Validator::make($values, $record->validationrules, $record->validationmessages);
 

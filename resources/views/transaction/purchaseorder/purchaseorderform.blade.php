@@ -3,7 +3,7 @@
 
 @section('content')
 
-    {{-- @if ($errors->any())
+    @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -11,7 +11,7 @@
             @endforeach
         </ul>
     </div>
-    @endif --}}
+    @endif
     
     <div class="card">
         <div class="card-header">
@@ -29,9 +29,11 @@
                 <div class="form-row">
                     <div class="col-md-2">
                         <input type="hidden" name="id" value="{{ old('id', !is_null($purchaseOrder->id)? $purchaseOrder->id : null) }}">
-                        
-                        <x-adminlte-input name="purchaseorder_code" label="Transaction Code" type="text" placeholder="[Auto-Generate]" readonly  
-                        value="{{ old('purchaseorder_code', !is_null($purchaseOrder->purchaseorder_code)? $purchaseOrder->purchaseorder_code : null) }}"/>
+                        <input type="hidden" name="purchase_cost" value="{{ old('purchase_cost', !is_null($purchaseOrder->purchase_cost)? $purchaseOrder->purchase_cost : null) }}">
+                        <input type="hidden" name="prepared_by_id" value="{{ old('prepared_by_id', !is_null($purchaseOrder->prepared_by_id)? $purchaseOrder->prepared_by_id : null) }}">
+
+                        <x-adminlte-input name="transaction_code" label="Transaction Code" type="text" placeholder="[Auto-Generate]" readonly  
+                        value="{{ old('transaction_code', !is_null($purchaseOrder->transaction_code)? $purchaseOrder->transaction_code : null) }}"/>
                     </div>
 
                     <div class="col-md-2">
@@ -95,23 +97,52 @@
                 <div class="form-row">
 
                     <div class="col-md-6">
-                        <x-adminlte-textarea name="notes" label="Notes" placeholder="Notes here ..." required>
+                        <x-adminlte-textarea name="notes" label="Notes" placeholder="Notes here ...">
                             {{ old('notes', !is_null($purchaseOrder->notes)? $purchaseOrder->notes : null) }}
                         </x-adminlte-textarea>
                     </div>
 
-                    <div class="col-md-3">
-                        
-                        <input type="hidden" name="active" value="{{ old('active', !is_null($purchaseOrder->active) ? $purchaseOrder->active : 1) }}">
-                        
-                        <x-adminlte-input-switch name="activeToggler" id="activeToggler" data-on-color="success" data-off-color="danger" label="Active" />
-                        
-                    </div>
                 </div>
                 <x-adminlte-button class="btn-sm font-weight-bold" type="submit" label="Save" theme="primary" icon="fas fa-save"/>
             </form>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Items</strong>
+                </div>
+                <div class="card-body">     
+                    <div class="options mb-3">
+                        <a href="#" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> Add Item</a>
+                    </div>
+        
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header" id="fileAttachment" data-toggle="collapse" data-target="#collapseFileAttachment" aria-expanded="true" aria-controls="collapseFileAttachment">
+                    <button class="btn btn-link p-0 text-reset" >
+                        <strong>File Attachments</strong>
+                    </button>
+                </div>
+        
+                <div id="collapseFileAttachment" class="collapse show" aria-labelledby="fileAttachment">
+                    <div class="card-body">
+                    ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
     
 @stop
 

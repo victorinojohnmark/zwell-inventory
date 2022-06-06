@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Transaction;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Transaction\PurchaseOrder;
 use App\Master\Contractor;
@@ -19,9 +20,9 @@ class PurchaseOrderController extends Controller
         if(isset($request->id)) {
             return view('transaction.purchaseorder.purchaseorderform', [
                 'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
-                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null),
-                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null),
-                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null)
+                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
+                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
+                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true)
             ]);
         } 
 
@@ -36,21 +37,26 @@ class PurchaseOrderController extends Controller
     {
         return view('transaction.purchaseorder.purchaseorderform', [
             'purchaseOrder' => LogicCRUD::createRecord('PurchaseOrder', 'Transaction'),
-            'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null),
-            'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null),
-            'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null)
+            'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
+            'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
+            'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true)
         ]);
     }
 
     public function purchaseorderupdate(Request $request)
     {
         if(!is_null($request->id)) {
-            return view('transaction.purchaseorder.purchaseorderform', [
-                'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
-                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null),
-                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null),
-                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null)
-            ]);
+            if(PurchaseOrder::findorFail($request->id)){
+                return view('transaction.purchaseorder.purchaseorderform', [
+                    'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
+                    'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
+                    'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
+                    'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true)
+                ]);
+            } else {
+                return response(['error' => true, 'error-msg' => 'Not Found'], 404);
+            }
+            
         } else {
             return redirect()->back();
         }
@@ -59,8 +65,9 @@ class PurchaseOrderController extends Controller
 
     public function purchaseordersave(Request $request)
     {
-        // adjust active value
-        $request['active'] = $request['active'] ? 1 : 0;
+        if(is_null($request->id)) {
+            $request['prepared_by_id'] = Auth::id();
+        }
         
         list($validator, $record, $success) = LogicCRUD::saveRecord('PurchaseOrder', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
