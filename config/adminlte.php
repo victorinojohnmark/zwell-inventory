@@ -279,7 +279,7 @@ return [
                     'icon' => 'fas fa-fw fa-credit-card',
                 ],
                 [
-                    'text' => 'Delivery Receipts',
+                    'text' => 'Deliveries',
                     'url'  => '#',
                     'icon' => 'fas fa-fw fa-truck',
                 ],
