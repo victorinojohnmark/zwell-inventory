@@ -113,7 +113,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4">
+        <div class="col-lg-4 {{ is_null($purchaseOrder->id)? 'd-none' : null }}">
             <div class="card">
                 <div class="card-header" id="PurchaseOrderSummary">
                     <strong>Summary</strong>
@@ -145,7 +145,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8 {{ is_null($purchaseOrder->id)? 'd-none' : null }}">
             <div class="card">
                 <div class="card-header">
                     <strong>Details</strong>
