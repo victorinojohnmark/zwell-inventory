@@ -21,6 +21,7 @@
                     @include('transaction.purchaseorderdetail.purchaseorderdetailmodal')
 
                     <a href="#" data-toggle="modal" data-target="#purchaseOrderDetailDeleteModal{{ isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}" class="btn btn-sm btn-danger font-weight-bold">Delete</a>
+                    
                     <div class="modal fade" id="purchaseOrderDetailDeleteModal{{ isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}" class="purchaseOrderDetailModal" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -30,7 +31,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="{{ route('purchaseorderdetaildelete', ['id' => isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null , 'po_id' => $purchaseOrder->id]) }}" method="post">
+                                <form action="{{ route('purchaseorderdetaildelete', ['po_id' => $purchaseOrder->id]) }}" method="post">
                                 @csrf
                                     <div class="modal-body">
                                         <input type="hidden" name="id" value="{{ isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}">

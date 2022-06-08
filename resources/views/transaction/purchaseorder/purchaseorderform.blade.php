@@ -22,7 +22,7 @@
                 <div class="card-body">     
                     <div class="options mb-3">
                         <a href="{{ route('purchaseorderview') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-angle-left"></i> Purchase Orders</a>
-                        @if (!Request::is('purchaseorder/create')) <a href="{{ route('purchaseordercreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Purchae Order</a> @endif
+                        @if (!Request::is('purchaseorder/create')) <a href="{{ route('purchaseordercreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Purchase Order</a> @endif
                     </div>
         
                     <form action="{{ route('purchaseordersave') }}" method="post">
