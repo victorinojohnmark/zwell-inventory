@@ -22,7 +22,8 @@ class PurchaseOrderController extends Controller
                 'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
                 'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                 'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
-                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true)
+                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
+                'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true)
             ]);
         } 
 
@@ -39,7 +40,8 @@ class PurchaseOrderController extends Controller
             'purchaseOrder' => LogicCRUD::createRecord('PurchaseOrder', 'Transaction'),
             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
             'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
-            'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true)
+            'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
+            'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true)
         ]);
     }
 
@@ -51,7 +53,8 @@ class PurchaseOrderController extends Controller
                     'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
                     'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                     'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
-                    'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true)
+                    'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
+                    'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true)
                 ]);
             } else {
                 return response(['error' => true, 'error-msg' => 'Not Found'], 404);
@@ -72,14 +75,14 @@ class PurchaseOrderController extends Controller
         list($validator, $record, $success) = LogicCRUD::saveRecord('PurchaseOrder', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){
-            return redirect()->route('purchaseorderview');
+            return redirect()->route('purchaseorderupdate', ['id' => $record->id]);
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
 
-    public function purchaseorderdelete()
+    public function purchaseorderdelete(Request $request)
     {
-
-    }
+        
+    }   
 }

@@ -11,6 +11,8 @@ use App\Master\Contractor;
 use App\Master\Supplier;
 use App\Master\Location;
 
+use App\Transaction\PurchaseOrderDetail;
+
 class PurchaseOrder extends Model
 {
     use HasFactory, SoftDeletes;
@@ -20,11 +22,11 @@ class PurchaseOrder extends Model
     protected $fillable = [
         'po_no', 'transaction_code', 'requisition_slip_no',
         'contractor_id', 'supplier_id', 'location_id',
-        'purchase_date', 'purchase_cost', 'prepared_by_id', 'notes'
+        'purchase_date', 'purchase_cost', 'prepared_by_id', 'purpose', 'notes'
     ];
 
     public $validationrules = [
-        'po_no' => 'required|numeric|unique:tbt_purchase_orders', 
+        'po_no' => 'required|max:20|unique:tbt_purchase_orders', 
         'transaction_code' => 'nullable|max:20|unique:tbt_purchase_orders', 
         'requisition_slip_no' => 'required|max:20',
         'contractor_id' => 'required|integer', 
@@ -32,17 +34,16 @@ class PurchaseOrder extends Model
         'location_id' => 'required|integer',
         'purchase_date' => 'required|date', 
         'purchase_cost' => 'nullable|numeric', 
-        'prepared_by_id' => 'nullable|integer', 
+        'prepared_by_id' => 'nullable|integer',
+        'purpose' => 'nullable|max:255', 
         'notes' => 'nullable|max:255'
     ];
 
     public $validationmessages = [
         'po_no.required' => 'PO No is required',
-        'po_no.numeric' => 'PO No must be number',
         'po_no.unique'  => 'PO No is already used',
 
         'requisition_slip_no.required' => 'Requisition No is required',
-        'requisition_slip_no.numeric' => 'Requisition No must be number',
 
         'contractor_id.required' => 'Contractor is required',
         'contractor_id.integer' => 'Contractor is required',
@@ -67,6 +68,7 @@ class PurchaseOrder extends Model
             'purchase_date' => $values['purchase_date'], 
             'purchase_cost' => $values['purchase_cost'], 
             'prepared_by_id' => $values['prepared_by_id'], 
+            'purpose' => $values['purpose'], 
             'notes' => $values['notes']
         ]);
 
@@ -86,4 +88,21 @@ class PurchaseOrder extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function purchaseOrderDetails() 
+    {
+        return $this->hasMany(PurchaseOrderDetail::class);
+    }
+
+    public function getTotalAmountAttribute()
+    {
+        $total = 0;
+        foreach ($this->purchaseOrderDetails as $purchaseOrderDetail) {
+            $total += $purchaseOrderDetail->SubTotal;
+        }
+
+        return $total;
+    }
+
+    
 }

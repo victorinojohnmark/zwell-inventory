@@ -16,12 +16,12 @@
                 <table id="" class="table table-bordered table-hover datatables mt-3">
                     <thead>
                         <tr>
+                            <th scope="col">Purchase Date</th>
                             <th scope="col">Purchase Order No.</th>
                             <th scope="col">Requisition Slip No.</th>
                             <th scope="col">Requested By (Contractor)</th>
                             <th scope="col">Supplier</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Purchase Date</th>
+                            <th scope="col">Purpose</th>
                             <th scope="col">Purchase Cost</th>
                             <th scope="col">Status</th>
                             <th scope="col">Options</th>
@@ -30,13 +30,14 @@
                     <tbody> 
                         @forelse ($purchaseOrders as $purchaseOrder)
                         <tr>
+                            <td>{{ $purchaseOrder->purchase_date }}</td>
                             <td>{{ $purchaseOrder->po_no }}</td>
                             <td>{{ $purchaseOrder->requisition_slip_no }}</td>
                             <td>{{ $purchaseOrder->contractor->contractor_name }}</td>
                             <td>{{ $purchaseOrder->supplier->supplier_name }}</td>
-                            <td>{{ $purchaseOrder->location->location_name }}</td>
-                            <td>{{ $purchaseOrder->purchase_date }}</td>
-                            <td>@if (!is_null($purchaseOrder->purchase_cost)) {{ 'Php' . $purchaseOrder->purchase_cost }} @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
+                            <td>{{ $purchaseOrder->purpose ? $purchaseOrder->purpose : 'n/a' }}</td>
+                            
+                            <td>@if (!is_null($purchaseOrder->TotalAmount)) <span class="badge badge-info">Php {{ number_format($purchaseOrder->TotalAmount, 2)}}</span> @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
                             <td>
                                 @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @endif
                             </td>
@@ -45,7 +46,7 @@
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="7">No Purchase Order record/s available.</td></tr>
+                        <tr><td colspan="10">No Purchase Order record/s available.</td></tr>
                         @endforelse                 
                     </tbody>
                 </table>

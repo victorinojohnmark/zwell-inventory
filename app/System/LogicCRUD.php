@@ -67,7 +67,7 @@ class LogicCRUD
                     break;
 
                 case 'PurchaseOrder':
-                    $record->validationrules['po_no'] = 'required|numeric';
+                    $record->validationrules['po_no'] = 'required|max:20';
                     unset($values['transaction_code']); //exclude transaction_code upon update request
                     unset($values['prepared_by_id']);   //exclude prepared_by_id upon update request
                     break;
@@ -102,9 +102,9 @@ class LogicCRUD
         
     }
 
-    public static function deleteRecord()
+    public static function deleteRecord($model, $namespace, $id = null)
     {
-
+        
     }
 
 
