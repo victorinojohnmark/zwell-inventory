@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\System\LogicCRUD;
 use App\System\LogicCONF;
 
+use App\Master\Item;
+
 class ItemController extends Controller
 {
     public function itemview(Request $request)
@@ -64,5 +66,14 @@ class ItemController extends Controller
     public function itemdelete()
     {
 
+    }
+
+    public function itemgetunit(Request $request)
+    {
+        if(!is_null($request->id)){
+            $item = Item::findOrFail($request->id);
+
+            return $item->unit;
+        }
     }
 }

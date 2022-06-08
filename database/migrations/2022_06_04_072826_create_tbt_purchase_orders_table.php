@@ -16,7 +16,7 @@ class CreateTbtPurchaseOrdersTable extends Migration
         Schema::create('tbt_purchase_orders', function (Blueprint $table) {
             $table->id();
             $table->string('transaction_code', 20)->nullable();
-            $table->unsignedMediumInteger('po_no');
+            $table->string('po_no', 20);
             $table->string('requisition_slip_no', 20);
             $table->unsignedMediumInteger('contractor_id');
             $table->unsignedMediumInteger('supplier_id');
@@ -24,6 +24,7 @@ class CreateTbtPurchaseOrdersTable extends Migration
             $table->date('purchase_date');
             $table->decimal('purchase_cost', $precision = 15, $scale = 2)->nullable();
             $table->unsignedMediumInteger('prepared_by_id')->nullable();
+            $table->string('purpose', 255)->nullable();
             $table->boolean('complete_status')->default(false);
             $table->string('notes', 255)->nullable();
             $table->timestamps();

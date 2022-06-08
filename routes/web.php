@@ -25,7 +25,7 @@ Auth::routes([
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
-Route::get(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
 ## MASTER RECORD ##
 
@@ -59,6 +59,7 @@ Route::get('item/view', 'Master\ItemController@itemview')->name('itemview');
 Route::get('item/create', 'Master\ItemController@itemcreate')->name('itemcreate');
 Route::get('item/update', 'Master\ItemController@itemupdate')->name('itemupdate');
 Route::post('item/save', 'Master\ItemController@itemsave')->name('itemsave');
+Route::post('item/getunit', 'Master\ItemController@itemgetunit')->name('itemgetunit');
 
 ## TRANSACTION RECORD ##
 
@@ -68,6 +69,9 @@ Route::get('purchaseorder/create', 'Transaction\PurchaseOrderController@purchase
 Route::get('purchaseorder/update', 'Transaction\PurchaseOrderController@purchaseorderupdate')->name('purchaseorderupdate');
 Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
 
+//Purchase Order Detail
+Route::post('purchaseorderdetail/save', 'Transaction\PurchaseOrderDetailController@purchaseorderdetailsave')->name('purchaseorderdetailsave');
+Route::post('purchaseorderdetail/delete', 'Transaction\PurchaseOrderDetailController@purchaseorderdetaildelete')->name('purchaseorderdetaildelete');
 });
 
 

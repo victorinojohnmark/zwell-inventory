@@ -20,6 +20,7 @@ class CreateTbmItemsTable extends Migration
             $table->string('description', 255)->nullable();
             $table->string('unit', 30);
             $table->unsignedMediumInteger('minimum_stock_qty');
+            $table->string('group', 250)->nullable();
             $table->string('notes', 255)->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
