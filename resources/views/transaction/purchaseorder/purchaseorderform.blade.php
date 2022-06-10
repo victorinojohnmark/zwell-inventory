@@ -9,7 +9,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <strong>Purchase Order Form</strong> @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @endif
+                    <strong>Purchase Order Form</strong> @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
                 </div>
                 <div class="card-body">     
                     <div class="options mb-3">

@@ -39,10 +39,10 @@
                             
                             <td>@if (!is_null($purchaseOrder->TotalAmount)) <span class="badge badge-info">Php {{ number_format($purchaseOrder->TotalAmount, 2)}}</span> @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
                             <td>
-                                @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @endif
+                                @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
                             </td>
                             <td>
-                                <a href="{{ route('purchaseorderupdate', ['id' => $purchaseOrder->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">View</a>
+                                <a href="{{ route('purchaseorderupdate', ['id' => $purchaseOrder->id]) }}" class="btn btn-sm btn-info font-weight">View</a>
                             </td>
                         </tr>
                         @empty
