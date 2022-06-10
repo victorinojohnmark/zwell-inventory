@@ -4,22 +4,14 @@ namespace App\Http\Controllers\Transaction;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-use App\Transaction\PurchaseOrder;
-use App\Master\Contractor;
-use App\Master\Supplier;
-use App\Master\Location;
-
-use App\System\LogicCRUD;
-
-class PurchaseOrderController extends Controller
+class DeliveryController extends Controller
 {
-    public function purchaseorderview(Request $request)
+    public function deliveryview(Request $request)
     {
         if(isset($request->id)) {
-            return view('transaction.purchaseorder.purchaseorderform', [
-                'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
+            return view('transaction.delivery.deliveryform', [
+                'delivery' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', $request->id),
                 'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                 'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
                 'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -28,16 +20,16 @@ class PurchaseOrderController extends Controller
         } 
 
         else {
-            return view('transaction.purchaseorder.purchaseorderlist', [
-                'purchaseOrders' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', null, 50)
+            return view('transaction.delivery.deliverylist', [
+                'purchaseOrders' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', null, 50)
             ]);
         }
     }
 
-    public function purchaseordercreate()
+    public function deliverycreate()
     {
-        return view('transaction.purchaseorder.purchaseorderform', [
-            'purchaseOrder' => LogicCRUD::createRecord('PurchaseOrder', 'Transaction'),
+        return view('transaction.delivery.deliveryform', [
+            'delivery' => LogicCRUD::createRecord('Delivery', 'Transaction'),
             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
             'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
             'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -45,12 +37,12 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
-    public function purchaseorderupdate(Request $request)
+    public function deliveryupdate(Request $request)
     {
         if(!is_null($request->id)) {
             if(PurchaseOrder::findorFail($request->id)){
-                return view('transaction.purchaseorder.purchaseorderform', [
-                    'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
+                return view('transaction.delivery.deliveryform', [
+                    'delivery' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', $request->id),
                     'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                     'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
                     'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -63,20 +55,17 @@ class PurchaseOrderController extends Controller
         } else {
             return redirect()->back();
         }
+
     }
 
-    public function purchaseordersave(Request $request)
+    public function deliverysave(Request $request)
     {
-        if(!is_null($request->id)) {
-            //check first if PO exist and is already completed
-            $purchaseOrder = PurchaseOrder::findOrFail($request->id);
-            if($purchaseOrder && $purchaseOrder->complete_status) {
-                return redirect()->back()->withErrors(['error' => 'Transaction invalid, Purchase Order already completed.']);
-            }
+        if(is_null($request->id)) {
+            $request['prepared_by_id'] = Auth::id();
         }
+        
+        list($validator, $record, $success) = LogicCRUD::saveRecord('Delivery', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
-        //Transaction
-        list($validator, $record, $success) = LogicCRUD::saveRecord('PurchaseOrder', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
         if ($success){
             return redirect()->route('purchaseorderupdate', ['id' => $record->id]);
         } else {
@@ -84,24 +73,8 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function purchaseorderdelete(Request $request)
+    public function deliverydelete(Request $request)
     {
         
     }   
-
-    public function purchaseorderconfirm(Request $request)
-    {
-        $purchaseOrder = PurchaseOrder::findOrFail($request->id);
-
-        if($purchaseOrder) {
-            if(count($purchaseOrder->purchaseOrderDetails)){
-                $purchaseOrder->complete_status = true;
-                $purchaseOrder->save();
-                return redirect()->route('purchaseorderupdate', ['id' => $request->id]);
-            } else {
-                return redirect()->back()->withErrors(['Please add items before confirming']);
-            }
-        }
-        
-    }
 }

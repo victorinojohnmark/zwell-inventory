@@ -3,15 +3,7 @@
 
 @section('content')
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+    @include('layouts.includes.errors')
     
     <div class="row">
         <div class="col-lg-8">
@@ -106,8 +98,7 @@
                             </div>
         
                         </div>
-                        
-                        <x-adminlte-button class="btn-sm font-weight-bold" type="submit" label="Save" theme="primary"/>
+                        @if (!$purchaseOrder->complete_status)<button class="btn btn-sm btn-primary font-weight-bold" type="submit">Save</button> @endif
                     </form>
                 </div>
             </div>
@@ -124,7 +115,15 @@
                     <span class="badge badge-info p-2"><h3 class="m-0"><strong>Php {{ !is_null($purchaseOrder->id)? number_format($purchaseOrder->TotalAmount, 2) : 'N/A' }}</strong></h3></span>
                 </div>
                 <div class="card-footer">
-                    <button class="btn btn-sm btn-primary">CONFIRM PURCHASE ORDER</button>
+                    @if ($purchaseOrder->complete_status)
+                        <button class="btn btn-sm btn-success">APPROVE PURCHASE ORDER</button>
+                    @else
+                    <form action="{{ route('purchaseorderconfirm', ['id' => $purchaseOrder->id]) }}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmPurchaseOrderModal">CONFIRM PURCHASE ORDER</button>
+                    </form>
+                    @endif
                 </div>
             </div>
 
@@ -150,11 +149,16 @@
                 <div class="card-header">
                     <strong>Details</strong>
                 </div>
-                <div class="card-body">     
-                    <div class="options mb-3">
-                        <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#purchaseOrderDetailModal"><i class="fas fa-fw fa-plus"></i> Add Item</button>
-                        @include('transaction.purchaseorderdetail.purchaseorderdetailmodal')
-                    </div>
+                <div class="card-body p-0">     
+                    
+                        @if (!$purchaseOrder->complete_status)
+                        <div class="options p-3">
+                            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#purchaseOrderDetailModal"><i class="fas fa-fw fa-plus"></i> Add Item</button>
+                            @include('transaction.purchaseorderdetail.purchaseorderdetailmodal')
+                        </div>
+                        @endif
+                        
+                    
 
                     <!-- PURCHASE ORDER DETAILS-->
                     @include('transaction.purchaseorderdetail.purchaseorderdetaillist')
