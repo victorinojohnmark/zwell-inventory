@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,6 +71,7 @@ Route::get('purchaseorder/update', 'Transaction\PurchaseOrderController@purchase
 Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
 Route::post('purchaseorder/confirm', 'Transaction\PurchaseOrderController@purchaseorderconfirm')->name('purchaseorderconfirm');
 
+
 //Purchase Order Detail
 Route::post('purchaseorderdetail/save', 'Transaction\PurchaseOrderDetailController@purchaseorderdetailsave')->name('purchaseorderdetailsave');
 Route::post('purchaseorderdetail/delete', 'Transaction\PurchaseOrderDetailController@purchaseorderdetaildelete')->name('purchaseorderdetaildelete');
@@ -77,3 +79,5 @@ Route::post('purchaseorderdetail/delete', 'Transaction\PurchaseOrderDetailContro
 });
 
 
+## FILE ATTACHMENT ##
+Route::post('UploadPO/{transactionType}/{transactionID}/{userID}', 'UploadController@uploadpo')->name('uploadpo');
