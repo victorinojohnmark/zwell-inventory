@@ -17,8 +17,9 @@ class CreateTbsFileAttachmentsTable extends Migration
             $table->id();
             $table->string('transaction_type', 20);
             $table->unsignedMediumInteger('transaction_id');
-            $table->unsignedMediumInteger('prepared_by_id');
-            $table->string('folder_name');
+            $table->unsignedMediumInteger('uploaded_by_id');
+            $table->string('original_filename', 255);
+            $table->string('filename', 255);
             $table->timestamps();
             $table->softDeletes();
         });

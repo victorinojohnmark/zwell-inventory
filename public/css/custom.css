@@ -16,3 +16,7 @@
 .btn {
     font-weight: 700 !important;
 }
+
+.filepond--credits {
+    display: none !important;
+}

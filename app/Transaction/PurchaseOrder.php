@@ -13,6 +13,8 @@ use App\Master\Location;
 
 use App\Transaction\PurchaseOrderDetail;
 
+use App\System\FileAttachment;
+
 class PurchaseOrder extends Model
 {
     use HasFactory, SoftDeletes;
@@ -94,6 +96,12 @@ class PurchaseOrder extends Model
         return $this->hasMany(PurchaseOrderDetail::class);
     }
 
+    public function fileAttachments()
+    {
+        // return $this->hasMany(FileAttachment::class)->where('transaction_type','purchase_order');
+        return $this->hasMany(FileAttachment::class, 'transaction_id')->where(['transaction_type' => 'purchase_order', 'transaction_id' => $this->id]);
+    }
+
     public function getTotalAmountAttribute()
     {
         $total = 0;
@@ -103,6 +111,8 @@ class PurchaseOrder extends Model
 
         return $total;
     }
+
+
 
     
 }

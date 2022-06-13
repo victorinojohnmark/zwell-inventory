@@ -15,8 +15,8 @@ class PurchaseOrderDetailController extends Controller
     public function purchaseorderdetailsave(Request $request)
     {
         //check first if PO exist and is already completed
-        $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($request->id);
-        if($purchaseOrderDetail && $purchaseOrderDetail->purchaseOrder->complete_status) {
+        $purchaseOrder = PurchaseOrder::findOrFail($request->purchase_order_id);
+        if($purchaseOrder && $purchaseOrder->complete_status) {
             return redirect()->back()->withErrors(['error' => 'Transaction invalid, Purchase Order already completed.']);
         }
 
