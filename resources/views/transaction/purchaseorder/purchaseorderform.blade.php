@@ -133,10 +133,13 @@
                         <strong>File Attachments</strong>
                     </button>
                 </div>
-        
+                {{-- filepond --}}
                 <div id="collapseFileAttachment" class="collapse show" aria-labelledby="fileAttachment">
                     <div class="card-body">
-                    ...
+                        <form action="#" method="post" enctype="multipart/form-data">
+                        <input type="file" name="file" multiple id="file" data-max-files="3" data-userID="{{ Auth::user()->id }}" data-transactionType="PO" data-transactionID="{{ old('id', !is_null($purchaseOrder->id)? $purchaseOrder->id : null) }}">
+                        
+                        </form>
                     </div>
                 </div>
             </div>
@@ -180,10 +183,12 @@
 @section('plugins.TempusDominus', true)
 @section('plugins.BootstrapSwitch', true)
 @section('css')
+    <link rel="stylesheet" href="/vendor/filepond/filepond.min.css">
     <link rel="stylesheet" href="/css/custom.css">
 @stop
 
 @section('js')
+   <script src="/vendor/filepond/filepond.min.js"></script>
    <script src="/js/custom.js"></script>
    <script src="/js/purchaseorder.js"></script>
 @stop

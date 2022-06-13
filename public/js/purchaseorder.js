@@ -44,3 +44,17 @@ Array.from(itemSelectors).forEach(function(element){
         }
     });
 });
+
+//filepond
+const inputElement = document.querySelector('input[id="file"]');
+const pond = FilePond.create( inputElement );
+FilePond.setOptions({
+      server: {
+          url: `/UploadPO/${inputElement.dataset.transactiontype}/${inputElement.dataset.transactionid}/${inputElement.dataset.userid}`,
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          } 
+      }
+  });
+
+  
