@@ -97,7 +97,9 @@ class LogicCRUD
                 $record_type::fireModelEvent($event);
             }
             $success = true;
-        } 
+        } else {
+            $success = false;
+        }
         return array($validator, $record, $success);  
         
     }

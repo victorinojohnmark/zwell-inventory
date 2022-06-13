@@ -102,6 +102,27 @@
                     </form>
                 </div>
             </div>
+
+            <div class="card {{ is_null($purchaseOrder->id)? 'd-none' : null }}">
+                <div class="card-header">
+                    <strong>Details</strong>
+                </div>
+                <div class="card-body p-0">     
+                    
+                        @if (!$purchaseOrder->complete_status)
+                        <div class="options p-3">
+                            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#purchaseOrderDetailModal"><i class="fas fa-fw fa-plus"></i> Add Item</button>
+                            @include('transaction.purchaseorderdetail.purchaseorderdetailmodal')
+                        </div>
+                        @endif
+                        
+                    
+
+                    <!-- PURCHASE ORDER DETAILS-->
+                    @include('transaction.purchaseorderdetail.purchaseorderdetaillist')
+        
+                </div>
+            </div>
         </div>
 
         <div class="col-lg-4 {{ is_null($purchaseOrder->id)? 'd-none' : null }}">
@@ -126,56 +147,10 @@
                     @endif
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-header" id="fileAttachment" data-toggle="collapse" data-target="#collapseFileAttachment" aria-expanded="true" aria-controls="collapseFileAttachment">
-                    <button class="btn btn-link p-0 text-reset" >
-                        <strong>File Attachments</strong>
-                    </button>
-                </div>
-                {{-- filepond --}}
-                <div id="collapseFileAttachment" class="collapse show" aria-labelledby="fileAttachment">
-                    <div class="card-body">
-                        <form action="#" method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" multiple id="file" data-max-files="3" data-userID="{{ Auth::user()->id }}" data-transactionType="PO" data-transactionID="{{ old('id', !is_null($purchaseOrder->id)? $purchaseOrder->id : null) }}">
-                        
-                        </form>
-                    </div>
-                </div>
-            </div>
+            @include('transaction.purchaseorder.purchaseorderfileattachment')
+            
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-8 {{ is_null($purchaseOrder->id)? 'd-none' : null }}">
-            <div class="card">
-                <div class="card-header">
-                    <strong>Details</strong>
-                </div>
-                <div class="card-body p-0">     
-                    
-                        @if (!$purchaseOrder->complete_status)
-                        <div class="options p-3">
-                            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#purchaseOrderDetailModal"><i class="fas fa-fw fa-plus"></i> Add Item</button>
-                            @include('transaction.purchaseorderdetail.purchaseorderdetailmodal')
-                        </div>
-                        @endif
-                        
-                    
-
-                    <!-- PURCHASE ORDER DETAILS-->
-                    @include('transaction.purchaseorderdetail.purchaseorderdetaillist')
-        
-                </div>
-            </div>
-        </div>
-
-        
-    </div>
-
-    
-
-    
     
 @stop
 
@@ -189,6 +164,8 @@
 
 @section('js')
    <script src="/vendor/filepond/filepond.min.js"></script>
-   <script src="/js/custom.js"></script>
    <script src="/js/purchaseorder.js"></script>
+   <script src="/js/fileattachment.js"></script>
+   <script src="/js/custom.js"></script>
+   
 @stop

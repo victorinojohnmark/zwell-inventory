@@ -79,5 +79,6 @@ Route::post('purchaseorderdetail/delete', 'Transaction\PurchaseOrderDetailContro
 });
 
 
-## FILE ATTACHMENT ##
-Route::post('UploadPO/{transactionType}/{transactionID}/{userID}', 'UploadController@uploadpo')->name('uploadpo');
+//File Attachment
+Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');
+Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@fileattachmentdelete')->name('fileattachmentdelete');
