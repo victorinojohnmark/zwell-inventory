@@ -17,14 +17,15 @@ class CreateTbtDeliveriesTable extends Migration
             $table->id();
             $table->string('transaction_code', 20)->nullable();
             $table->unsignedMediumInteger('purchase_order_id');
-            $table->unsignedMediumInteger('supplier_id');
             $table->string('dr_no', 20);
+            $table->unsignedMediumInteger('supplier_id');
             $table->date('delivery_date');
             $table->decimal('total_amount', $precision = 15, $scale = 2)->nullable();
             $table->string('recieved_by', 255);
+            $table->string('notes', 255)->nullable();
             $table->boolean('complete_status')->default(false);
-            $table->string('notes', 255);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

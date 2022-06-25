@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Transaction\PurchaseOrder;
+use App\Transaction\Delivery;
 use App\Master\Item;
 
 
@@ -60,6 +61,16 @@ class PurchaseOrderDetail extends Model
     public function getSubTotalAttribute()
     {
         return $subtotal = $this->unit_cost * $this->quantity;
+    }
+
+    public function deliveries()
+    {
+        return $this->HasManyThrough(Delivery::class, PurchaseOrder::class);
+    }
+
+    public function getTotalDeliveredItemsAttribute($itemID)
+    {
+        return $deliveries = $this->purchaseOrder->deliveries;
     }
 
 

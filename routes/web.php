@@ -76,9 +76,24 @@ Route::post('purchaseorder/confirm', 'Transaction\PurchaseOrderController@purcha
 Route::post('purchaseorderdetail/save', 'Transaction\PurchaseOrderDetailController@purchaseorderdetailsave')->name('purchaseorderdetailsave');
 Route::post('purchaseorderdetail/delete', 'Transaction\PurchaseOrderDetailController@purchaseorderdetaildelete')->name('purchaseorderdetaildelete');
 
+//Delivery
+Route::get('delivery/view', 'Transaction\DeliveryController@deliveryview')->name('deliveryview');
+Route::get('delivery/create', 'Transaction\DeliveryController@deliverycreate')->name('deliverycreate');
+Route::get('delivery/update', 'Transaction\DeliveryController@deliveryupdate')->name('deliveryupdate');
+Route::post('delivery/save', 'Transaction\DeliveryController@deliverysave')->name('deliverysave');
+Route::post('delivery/confirm', 'Transaction\DeliveryController@deliveryconfirm')->name('deliveryconfirm');
+
+//Delivery Detail
+
+Route::post('deliverydetail/update', 'Transaction\DeliveryDetailController@deliverydetailupdate')->name('deliverydetailupdate');
+Route::post('deliverydetail/save', 'Transaction\DeliveryDetailController@deliverydetailsave')->name('deliverydetailsave');
+Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliverydetaildelete')->name('deliverydetaildelete');
+
 });
 
 
 //File Attachment
 Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');
 Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@fileattachmentdelete')->name('fileattachmentdelete');
+
+
