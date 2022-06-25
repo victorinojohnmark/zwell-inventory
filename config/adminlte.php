@@ -280,7 +280,7 @@ return [
                 ],
                 [
                     'text' => 'Deliveries',
-                    'url'  => '#',
+                    'url'  => 'delivery/view',
                     'icon' => 'fas fa-fw fa-truck',
                 ],
                 [

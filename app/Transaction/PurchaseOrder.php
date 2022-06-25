@@ -12,6 +12,7 @@ use App\Master\Supplier;
 use App\Master\Location;
 
 use App\Transaction\PurchaseOrderDetail;
+use App\Transaction\Delivery;
 
 use App\System\FileAttachment;
 
@@ -96,6 +97,11 @@ class PurchaseOrder extends Model
         return $this->hasMany(PurchaseOrderDetail::class);
     }
 
+    public function deliveries()
+    {
+        return $this->hasMany(Delivery::class);
+    }
+
     public function fileAttachments()
     {
         // return $this->hasMany(FileAttachment::class)->where('transaction_type','purchase_order');
@@ -112,7 +118,15 @@ class PurchaseOrder extends Model
         return $total;
     }
 
+    public function getTotalDeliveriesAttribute($itemID)
+    {
+        return $this->hasManyThrough(DeliveryDetail::class, Delivery::class);
+    }
 
+    public function getTotalDeliveredItemsAttribute($itemID)
+    {
+        return $this->TotalDeliveries->where('item_id', $itemID)->sum('quantity');
+    } 
 
     
 }
