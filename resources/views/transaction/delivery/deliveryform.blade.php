@@ -16,6 +16,8 @@
                         <a href="{{ route('deliveryview') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-angle-left"></i> Deliveries</a>
                         @if (!Request::is('delivery/create')) <a href="{{ route('deliverycreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Delivery</a> @endif
                     </div>
+
+                    {{-- {{ dd($purchaseOrders) }} --}}
         
                     <form action="{{ route('deliverysave') }}" method="post">
                         @csrf
@@ -30,14 +32,19 @@
                             </div>
         
                              <div class="col-md-4">
-                                <x-adminlte-select name="purchase_order_id" label="Purchase Order ID:" required>
-                                    <option>Select here...</option>
-                                    @foreach ($purchaseOrders as $purchaseOrder)
-                                    <option value="{{ $purchaseOrder->id }}" {{!is_null($purchaseOrder->id) && ($delivery->purchase_order_id == $purchaseOrder->id)? 'selected' : '' }}>
-                                        {{ $purchaseOrder->id }}
-                                    </option>
-                                    @endforeach
-                                </x-adminlte-select>
+                                <input type="hidden" name="purchase_order_id" value="{{ !is_null($delivery)? $delivery->purchase_order_id : null  }}" data-po_no="{{ !is_null($delivery)? $delivery->purchaseOrder->po_no : null  }}">
+                                <label for="po_no_search">PO No.</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    </div>
+                                    <input type="text" name="po_no_search" type="text" class="form-control" placeholder="..." required data-toggle="dropdown" 
+                                    value="{{ old('dr_no', !is_null($delivery->purchaseOrder)? $delivery->purchaseOrder->po_no : null) }}">
+                                    <ul id="poSearchResult" class="rounded-0 dropdown-menu border-0 p-0">
+                                        {{-- <li class="list-group-item list-group-item-action border-0"></li> --}}
+                                    </ul>
+                                  </div>
+                                
                             </div>                          
         
                             <div class="col-md-3">
@@ -92,14 +99,6 @@
                         <strong>Delivery Details</strong>
                     </div>
                     <div class="card-body p-0">     
-                            
-                        {{-- Add Item --}}
-                        {{-- @if (!$purchaseOrder->complete_status)
-                        <div class="options p-3">
-                            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#deliveryDetailModal"><i class="fas fa-fw fa-plus"></i> Add Item</button>
-                            @include('transaction.deliverydetail.deliverydetailmodal')
-                        </div>
-                        @endif --}}
 
                         <!-- DELIVERY DETAILS-->
                         @include('transaction.deliverydetail.deliverydetaillist')
@@ -121,12 +120,12 @@
                 </div>
                 <div class="card-footer">
                     @if ($delivery->complete_status)
-                        <button class="btn btn-sm btn-success">APPROVE DELIVERY ORDER "ONGOING"</button>
+                        <button class="btn btn-sm btn-success">APPROVE DELIVERY RECEIPT"</button>
                     @else
                     <form action="{{ route('deliveryconfirm', ['id' => $delivery->id]) }}" method="post">
                         @csrf
                         <input type="hidden" name="id" value="{{ $delivery->id }}">
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmdeliveryModal">CONFIRM DELIVERY ORDER "ONGOING"</button>
+                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmdeliveryModal">CONFIRM DELIVERY RECEIPT</button>
                     </form>
                     @endif
                 </div>
@@ -136,7 +135,7 @@
 
             <div class="card {{ is_null($delivery->id)? 'd-none' : null }}">
                 <div class="card-header">
-                    <strong>Purchase Order Details</strong>
+                    <strong>PO Item Reference</strong>
                 </div>
                 <div class="card-body p-0">     
 
@@ -164,8 +163,8 @@
 @stop
 
 @section('js')
+    <script src="/js/app.js"></script>
    <script src="/vendor/filepond/filepond.min.js"></script>
-   <script src="/js/purchaseorder.js"></script>
    <script src="/js/fileattachment.js"></script>
    <script src="/js/custom.js"></script>
    <script src="/js/delivery.js"></script>

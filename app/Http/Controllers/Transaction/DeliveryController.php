@@ -17,7 +17,7 @@ class DeliveryController extends Controller
         if(isset($request->id)) {
             return view('transaction.delivery.deliveryform', [
                 'delivery' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', $request->id),
-                'purchaseOrders' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $id = null, $limitter = null, $complete_status = false),
+                'purchaseOrders' => PurchaseOrder::doesnthave('deliveries')->where('approved_by_id','!=', 0)->get(),
                 'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                 'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
                 'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -36,7 +36,7 @@ class DeliveryController extends Controller
     {
         return view('transaction.delivery.deliveryform', [
             'delivery' => LogicCRUD::createRecord('Delivery', 'Transaction'),
-            'purchaseOrders' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $id = null, $limitter = null, $complete_status = false),
+            'purchaseOrders' => PurchaseOrder::doesnthave('deliveries')->where('approved_by_id','!=', 0)->get(),
             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
             'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
             'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -50,7 +50,7 @@ class DeliveryController extends Controller
             if(Delivery::findorFail($request->id)){
                 return view('transaction.delivery.deliveryform', [
                     'delivery' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', $request->id),
-                    'purchaseOrders' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $id = null, $limitter = null, $complete_status = false),
+                    'purchaseOrders' => PurchaseOrder::doesnthave('deliveries')->where('approved_by_id','!=', 0)->get(),
                     'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                     'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
                     'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -69,25 +69,19 @@ class DeliveryController extends Controller
     public function deliverysave(Request $request)
     {   
         
-        $delivery = Delivery::findOrFail($request->id);
-        //dd($delivery->purchase_order_id, $request->purchase_order_id);
-
-        if(($delivery->purchase_order_id) <> ($request->purchase_order_id))
-        {
-            $deliveryDetail = DeliveryDetail::where('delivery_id',$delivery->id);
-            $deliveryDetail->delete();
-            //dd($deliveryDetail);
-        }   
-
-        
-        if(is_null($request->id)) {
-            $request['prepared_by_id'] = Auth::id();
-        }
+        //delete delivery details of PO id changed
+        if(!is_null($request->id)) {
+            $delivery = Delivery::findOrFail($request->id);
+            if(($delivery->purchase_order_id) <> ($request->purchase_order_id)) {
+                $deliveryDetail = DeliveryDetail::where('delivery_id', $delivery->id);
+                $deliveryDetail->delete();
+            }
+        } 
         
         list($validator, $record, $success) = LogicCRUD::saveRecord('Delivery', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){
-            return redirect()->route('deliveryupdate', ['id' => $record->id]);
+            return redirect()->route('deliveryview', ['id' => $record->id]);
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }

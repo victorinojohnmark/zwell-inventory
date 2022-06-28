@@ -9,7 +9,8 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <strong>Purchase Order Form</strong> @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
+                    <strong>Purchase Order Form</strong> <span class="badge badge-{{ $purchaseOrder->status['state'] }}">{{ $purchaseOrder->status['title'] }}</span>
+                    {{-- @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif --}}
                 </div>
                 <div class="card-body">     
                     <div class="options mb-3">
@@ -136,14 +137,28 @@
                     <span class="badge badge-info p-2"><h3 class="m-0"><strong>Php {{ !is_null($purchaseOrder->id)? number_format($purchaseOrder->TotalAmount, 2) : 'N/A' }}</strong></h3></span>
                 </div>
                 <div class="card-footer">
-                    @if ($purchaseOrder->complete_status)
-                        <button class="btn btn-sm btn-success">APPROVE PURCHASE ORDER</button>
-                    @else
-                    <form action="{{ route('purchaseorderconfirm', ['id' => $purchaseOrder->id]) }}" method="post">
-                        @csrf
-                        <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
-                        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmPurchaseOrderModal">CONFIRM PURCHASE ORDER</button>
-                    </form>
+                    @if ($purchaseOrder->complete_status && $purchaseOrder->approved_by_id == 0)
+                        <form action="{{ route('purchaseorderapprove', ['id' => $purchaseOrder->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
+                            <button class="btn btn-sm btn-success mb-1" type="submit">APPROVE PURCHASE ORDER</button>
+                        </form>
+                    @endif
+
+                    @if ($purchaseOrder->complete_status == 0)
+                        <form action="{{ route('purchaseorderconfirm', ['id' => $purchaseOrder->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
+                            <button class="btn btn-sm btn-primary mb-1" type="submit">CONFIRM PURCHASE ORDER</button>
+                        </form>
+                    @endif
+
+                    @if ($purchaseOrder->status['title'] != 'Draft')
+                        <form action="{{ route('purchaseorderdraft', ['id' => $purchaseOrder->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
+                            <button class="btn btn-sm btn-warning mb-1" type="submit">REVERT BACK TO DRAFT</button>
+                        </form>
                     @endif
                 </div>
             </div>

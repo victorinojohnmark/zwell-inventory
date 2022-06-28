@@ -18,10 +18,10 @@
                         <tr>
                             
                             <th scope="col">Delivery Receipt No.</th>
-                            <th scope="col">Purchase Order ID</th>
+                            <th scope="col">Purchase Order No</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Supplier</th>
-                            <th scope="col">Purchase Cost</th>
+                            <th scope="col">Total Amount</th>
                             <th scope="col">Status</th>
                             <th scope="col">Options</th>
                         </tr>
@@ -30,8 +30,8 @@
                         @forelse ($deliveries as $delivery)
                         <tr>
                             
-                            <td>{{ $delivery->dr_no }}</td>
-                            <td>{{ $delivery->purchase_order_id }}</td>
+                            <td><strong>{{ $delivery->dr_no }}</strong></td>
+                            <td>{{ $delivery->purchaseOrder->po_no }}</td>
                             <td>{{ $delivery->delivery_date }}</td>
                             <td>{{ $delivery->supplier->supplier_name }}</td>
 
@@ -40,7 +40,7 @@
                                 @if (!$delivery->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
                             </td>
                             <td>
-                                <a href="{{ route('deliveryupdate', ['id' => $delivery->id]) }}" class="btn btn-sm btn-info font-weight">View {{ $delivery->id }}</a>
+                                <a href="{{ route('deliveryupdate', ['id' => $delivery->id]) }}" class="btn btn-sm btn-info font-weight">View</a>
                             </td>
                         </tr>
                         @empty

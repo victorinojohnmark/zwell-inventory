@@ -26,6 +26,7 @@ class CreateTbtPurchaseOrdersTable extends Migration
             $table->unsignedMediumInteger('prepared_by_id')->nullable();
             $table->string('purpose', 255)->nullable();
             $table->boolean('complete_status')->default(false);
+            $table->boolean('approved_by_id')->default(false);
             $table->string('notes', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();

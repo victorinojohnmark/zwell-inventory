@@ -78,10 +78,15 @@ class PurchaseOrderController extends Controller
         //Transaction
         list($validator, $record, $success) = LogicCRUD::saveRecord('PurchaseOrder', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
         if ($success){
-            return redirect()->route('purchaseorderupdate', ['id' => $record->id]);
+            return redirect()->route('purchaseorderview', ['id' => $record->id]);
         } else {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+    }
+
+    public function purchaseordersearch(Request $request, $searchKey)
+    {
+        return $po = PurchaseOrder::where([['po_no', 'like', $searchKey.'%'],['approved_by_id', '!=', 0]])->get();
     }
 
     public function purchaseorderdelete(Request $request)
@@ -97,9 +102,36 @@ class PurchaseOrderController extends Controller
             if(count($purchaseOrder->purchaseOrderDetails)){
                 $purchaseOrder->complete_status = true;
                 $purchaseOrder->save();
-                return redirect()->route('purchaseorderupdate', ['id' => $request->id]);
+                return redirect()->route('purchaseorderview', ['id' => $request->id]);
             } else {
                 return redirect()->back()->withErrors(['Please add items before confirming']);
+            }
+        }
+        
+    }
+
+    public function purchaseorderapprove(Request $request)
+    {
+        $purchaseOrder = PurchaseOrder::findOrFail($request->id);
+        if($purchaseOrder) {
+            if(count($purchaseOrder->purchaseOrderDetails) && $purchaseOrder->complete_status){
+                $purchaseOrder->approved_by_id = Auth::id();
+                $purchaseOrder->save();
+                return redirect()->route('purchaseorderview', ['id' => $request->id]);
+            }
+        }
+        
+    }
+
+    public function purchaseorderdraft(Request $request)
+    {
+        $purchaseOrder = PurchaseOrder::findOrFail($request->id);
+        if($purchaseOrder) {
+            if($purchaseOrder->complete_status || $purchaseOrder->approved_by_id){
+                $purchaseOrder->complete_status = false;
+                $purchaseOrder->approved_by_id = 0;
+                $purchaseOrder->save();
+                return redirect()->route('purchaseorderview', ['id' => $request->id]);
             }
         }
         

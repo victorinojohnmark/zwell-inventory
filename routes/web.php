@@ -69,7 +69,10 @@ Route::get('purchaseorder/view', 'Transaction\PurchaseOrderController@purchaseor
 Route::get('purchaseorder/create', 'Transaction\PurchaseOrderController@purchaseordercreate')->name('purchaseordercreate');
 Route::get('purchaseorder/update', 'Transaction\PurchaseOrderController@purchaseorderupdate')->name('purchaseorderupdate');
 Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
+Route::get('purchaseorder/search/{searchKey}', 'Transaction\PurchaseOrderController@purchaseordersearch')->name('purchaseordersearch');
 Route::post('purchaseorder/confirm', 'Transaction\PurchaseOrderController@purchaseorderconfirm')->name('purchaseorderconfirm');
+Route::post('purchaseorder/approve', 'Transaction\PurchaseOrderController@purchaseorderapprove')->name('purchaseorderapprove');
+Route::post('purchaseorder/draft', 'Transaction\PurchaseOrderController@purchaseorderdraft')->name('purchaseorderdraft');
 
 
 //Purchase Order Detail

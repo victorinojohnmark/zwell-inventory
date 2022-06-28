@@ -118,15 +118,36 @@ class PurchaseOrder extends Model
         return $total;
     }
 
-    public function getTotalDeliveriesAttribute($itemID)
+    public function deliveryDetails()
     {
         return $this->hasManyThrough(DeliveryDetail::class, Delivery::class);
     }
 
-    public function getTotalDeliveredItemsAttribute($itemID)
+    public function total_delivery_per_item($itemID)
     {
-        return $this->TotalDeliveries->where('item_id', $itemID)->sum('quantity');
+        return $this->deliveryDetails->where('item_id', $itemID)->sum('quantity');
     } 
+
+    public function getCompletedDeliveryAttribute()
+    {
+        return $this->deliveryDetails->where('complete_status', 1)->get();
+    }
+
+    public function getStatusAttribute()
+    {
+        $status = array();
+        if($this->complete_status && $this->approved_by_id == 0) {
+            $status = ['state' => 'danger', 'title' => 'Pending for approval'];
+        } else {
+            $status = ['state' => 'primary', 'title' => 'Approved'];
+        }
+        if($this->complete_status == 0 && $this->approved_by_id == 0) {
+            $status = ['state' => 'warning', 'title' => 'Draft'];
+        }
+
+        return $status;
+
+    }
 
     
 }

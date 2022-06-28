@@ -2,7 +2,6 @@
 const fileInput = document.querySelector('input[id="fileAttachment"]');
 const fileAttachmentList = document.querySelector('#fileAttachmentList');
 
-console.log(fileInput);
 if(fileInput && fileAttachmentList) {
     const pond = FilePond.create( fileInput, {
         server: {

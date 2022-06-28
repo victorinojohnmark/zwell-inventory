@@ -4,18 +4,6 @@
     <input type="hidden" name="delivery_id" value="{{isset($delivery) ? $delivery->id : null }}">
     <input type="hidden" name="item_id" value="{{ isset($deliveryDetail) ? $deliveryDetail->item_id : null }}">
     <div class="col-md-12">
-        {{-- DROP DOWN --}}
-        {{-- <x-adminlte-select name="item_id" label="Item" required disabled
-        id="deliveryDetailItem{{isset($deliveryDetail) ? $deliveryDetail->id : null }}"
-        data-detailid="{{isset($deliveryDetail) ? $deliveryDetail->id : null }}">
-            <option>Select here...</option>
-            @foreach ($items as $item)
-            <option value="{{ $item->id }}" {{isset($deliveryDetail) ? !is_null($deliveryDetail->id) && ($deliveryDetail->item_id == $item->id)? 'selected' : '' : null }}>
-                {{ $item->item_code }}
-            </option>
-            @endforeach
-        </x-adminlte-select> --}}
-        
         <x-adminlte-input name="Item" label="Item" type="text" value="{{ isset($deliveryDetail) ? $deliveryDetail->item->item_name : null }}" disabled> 
         </x-adminlte-input>
 

@@ -68,9 +68,19 @@ class PurchaseOrderDetail extends Model
         return $this->HasManyThrough(Delivery::class, PurchaseOrder::class);
     }
 
-    public function getTotalDeliveredItemsAttribute($itemID)
+    public function getItemNameAttribute() 
     {
-        return $deliveries = $this->purchaseOrder->deliveries;
+        return $total = $this->item->item_name;
+    }
+
+    // public function total_delivery_per_item()
+    // {
+    //     return $this->purchaseOrder->total_delivery_per_item($this->item_id);
+    // }
+
+    public function getTotalDeliveryPerItemAttribute()
+    {
+        return $this->purchaseOrder->total_delivery_per_item($this->item_id);
     }
 
 

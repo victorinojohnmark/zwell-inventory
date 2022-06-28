@@ -13,24 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class DeliveryDetailController extends Controller
 {
+    
     public function deliverydetailsave(Request $request)
     {
-        // $delivery = DB::table('tbt_delivery_details')
-        //             ->where('delivery_id','=',$request->delivery_id)
-        //             ->where('item_id','=',$request->item_id)
-        //             ->where('deleted_at','<>',null)
-        //             ->get();
-
-         
-        //dd($request);
-        // $delivery = Delivery::findOrFail($request->delivery_id);
-        // dd($delivery->id);
-        //dd($delivery->deliveryDetails->where('delivery_id', $request->delivery_id)->sum('quantity'));
-        //dd($delivery->TotalDeliveredItems($request->item_id)->sum('quantity'));
-        //dd($delivery);
-        // dd($delivery->TotalDeliveredItems($request->delivery_id)->sum('quantity'));
-        //dd($delivery->purchase_order_id);
-        
+       
         //CHECK IF DR DETAIL (TOTAL QTY in Multiple DR)
         $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($request->purchase_order_detail_id);
         
