@@ -18,8 +18,13 @@ class DeliveryDetailController extends Controller
     {
        
         //Check total delivered item
-        $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($request->purchase_order_detail_id);
-        $totalDeliveredItem = $purchaseOrderDetail->purchaseOrder->total_completed_delivery_per_item($request->item_id);
+        $purchaseOrderDetail = PurchaseOrderDetail::find($request->purchase_order_detail_id);
+        if(is_null($purchaseOrderDetail)) {
+            return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Please select item']);
+        }
+
+
+        $totalDeliveredItem = $purchaseOrderDetail->purchaseOrder->total_delivery_per_item($request->item_id);
 
         // dd($totalDeliveryPerItem);
 
@@ -39,7 +44,7 @@ class DeliveryDetailController extends Controller
                 }
 
             } else{
-                return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Quantity input exceeded based from Purchase Order!']);
+                return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Quantity input exceeded based from total delivery entries for the selected Purchase Order']);
             }
         }
     }

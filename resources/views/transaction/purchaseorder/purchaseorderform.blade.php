@@ -143,6 +143,12 @@
                             <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
                             <button class="btn btn-sm btn-success mb-1" type="submit">APPROVE PURCHASE ORDER</button>
                         </form>
+
+                        <form action="{{ route('purchaseorderdraft', ['id' => $purchaseOrder->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
+                            <button class="btn btn-sm btn-warning mb-1" type="submit">REVERT BACK TO DRAFT</button>
+                        </form>
                     @endif
 
                     @if ($purchaseOrder->complete_status == 0)
@@ -153,13 +159,13 @@
                         </form>
                     @endif
 
-                    @if ($purchaseOrder->status['title'] != 'Draft')
-                        <form action="{{ route('purchaseorderdraft', ['id' => $purchaseOrder->id]) }}" method="post" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $purchaseOrder->id }}">
-                            <button class="btn btn-sm btn-warning mb-1" type="submit">REVERT BACK TO DRAFT</button>
-                        </form>
+                    @if ($purchaseOrder->complete_status && $purchaseOrder->approved_by_id != 0)
+                        <button class="btn btn-sm btn-primary mb-1" type="submit">PRINT PREVIEW</button>
                     @endif
+
+                    {{-- @if ($purchaseOrder->status['title'] != 'Draft')
+                        
+                    @endif --}}
                 </div>
             </div>
             @include('transaction.purchaseorder.purchaseorderfileattachment')
