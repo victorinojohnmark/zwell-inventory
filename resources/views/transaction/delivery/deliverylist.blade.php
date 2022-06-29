@@ -7,13 +7,13 @@
         <div class="card-header">
             <strong>Deliveries</strong>
         </div>
-        <div class="card-body">
-            <div class="options mb-3">
+        <div class="card-body p-0">
+            <div class="options p-3">
                 <a href="{{ route('deliverycreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Delivery</a>
             </div>
 
             <div class="table-responsive">
-                <table id="" class="table table-bordered table-hover datatables mt-3">
+                <table id="" class="table table-bordered table-hover datatables">
                     <thead>
                         <tr>
                             

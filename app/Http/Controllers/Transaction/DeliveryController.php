@@ -36,7 +36,6 @@ class DeliveryController extends Controller
     {
         return view('transaction.delivery.deliveryform', [
             'delivery' => LogicCRUD::createRecord('Delivery', 'Transaction'),
-            'purchaseOrders' => PurchaseOrder::doesnthave('deliveries')->where('approved_by_id','!=', 0)->get(),
             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
             'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
             'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -50,7 +49,6 @@ class DeliveryController extends Controller
             if(Delivery::findorFail($request->id)){
                 return view('transaction.delivery.deliveryform', [
                     'delivery' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', $request->id),
-                    'purchaseOrders' => PurchaseOrder::doesnthave('deliveries')->where('approved_by_id','!=', 0)->get(),
                     'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                     'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
                     'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -91,4 +89,52 @@ class DeliveryController extends Controller
     {
         
     }   
+
+    public function deliveryconfirm(Request $request)
+    {
+        $delivery = Delivery::findOrFail($request->id);
+
+        if($delivery) {
+            if(count($delivery->deliveryDetails)){
+                $delivery->complete_status = true;
+                $delivery->save();
+                return redirect()->route('deliveryview', ['id' => $request->id]);
+            } else {
+                return redirect()->back()->withErrors(['Please add items before confirming']);
+            }
+        }
+    } 
+
+    public function deliveryapprove(Request $request)
+    {
+        $delivery = Delivery::findOrFail($request->id);
+        if($delivery) {
+            if(count($delivery->deliveryDetails) && $delivery->complete_status){
+                $delivery->approved_by_id = Auth::id();
+                $delivery->save();
+                return redirect()->route('deliveryview', ['id' => $request->id]);
+            }
+        }
+        
+    }
+
+    // public function deliverydraft(Request $request)
+    // {
+    //     $delivery = Delivery::findOrFail($request->id);
+    //     if($delivery) {
+    //         // check if delivery entry exist for this PO
+    //         if($delivery->deliveries->count() == 0) {
+    //             if($delivery->complete_status || $delivery->approved_by_id){
+    //                 $delivery->complete_status = false;
+    //                 $delivery->approved_by_id = 0;
+    //                 $delivery->save();
+    //                 return redirect()->route('deliveryview', ['id' => $request->id]);
+    //             }
+    //         } else {
+    //             return redirect()->back()->withErrors(['Revert to draft failed, Purchase Order already had delivery entrie/s']);
+    //         }
+            
+    //     }
+        
+    // }
 }

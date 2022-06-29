@@ -17,31 +17,19 @@ class DeliveryDetailController extends Controller
     public function deliverydetailsave(Request $request)
     {
        
-        //CHECK IF DR DETAIL (TOTAL QTY in Multiple DR)
+        //Check total delivered item
         $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($request->purchase_order_detail_id);
-        
-        //Overall Total DR Qty (in every DR)
-        $total_DR_QTY = $purchaseOrderDetail->purchaseOrder->TotalDeliveries->where('item_id', $request->item_id)->sum('quantity');
+        $totalDeliveredItem = $purchaseOrderDetail->purchaseOrder->total_completed_delivery_per_item($request->item_id);
 
-        //Original PO Detail QTY
-        $total_PO_QTY = $purchaseOrderDetail->quantity;
+        // dd($totalDeliveryPerItem);
 
-        //Input PO QTY
-        $Input_PO_QTY = $request->quantity;
-
-        //Add the current DR QTY to Input PO QTY
-        $total_QTY_DR_PO = $total_DR_QTY + $Input_PO_QTY;
-
-        //CHECK IF "PO DETAIL ITEM" ALREADY EXIST IN "DR DETAIL ITEM" 
-        $deliveryDetail = DeliveryDetail::where('delivery_id','=', $request->delivery_id)
-        ->where('item_id','=', $request->item_id)
-        ->get();
-
-        if($deliveryDetail->isEmpty()) 
-        {
-
-            if ($total_QTY_DR_PO <= $total_PO_QTY) 
-            {
+        //Check item if already existed in DR, duplicate entry validation 
+        $isItemExist = DeliveryDetail::where([['delivery_id', $request->delivery_id],['item_id', $request->item_id]])->count();
+        // dd($isItemExist);
+        if($isItemExist) {
+            return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Duplicate item on delivery - update the item instead']);
+        } else {
+            if (($totalDeliveredItem + $request->quantity) <= $purchaseOrderDetail->quantity) { 
 
                 list($validator, $record, $success) = LogicCRUD::saveRecord('DeliveryDetail', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
                 if ($success) {
@@ -51,49 +39,45 @@ class DeliveryDetailController extends Controller
                 }
 
             } else{
-                return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Quantity is over Purchase Request!']);
+                return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Quantity input exceeded based from Purchase Order!']);
             }
-
-
-        } else {
-            return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Duplicate item on delivery']);
         }
     }
 
     public function deliverydetailupdate(Request $request)
     {
         
-        $deliveryDetail = DeliveryDetail::findOrFail($request->id);
-        //Current DR QTY
-        $Current_DR_QTY = $deliveryDetail->quantity;
+        // $deliveryDetail = DeliveryDetail::findOrFail($request->id);
+        // //Current DR QTY
+        // $Current_DR_QTY = $deliveryDetail->quantity;
 
-        //CHECK IF DR DETAIL (TOTAL QTY in Multiple DR)
-        $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($request->purchase_order_detail_id);
+        // //CHECK IF DR DETAIL (TOTAL QTY in Multiple DR)
+        // $purchaseOrderDetail = PurchaseOrderDetail::findOrFail($request->purchase_order_detail_id);
 
-        //Overall DR Qty (Multiple DR)
-        $Overall_DR_QTY = $purchaseOrderDetail->purchaseOrder->TotalDeliveries->where('item_id', $request->item_id)->sum('quantity');
+        // //Overall DR Qty (Multiple DR)
+        // $Overall_DR_QTY = $purchaseOrderDetail->purchaseOrder->TotalDeliveries->where('item_id', $request->item_id)->sum('quantity');
 
-        //Original PO Detail QTY
-        $Original_PO_QTY = $purchaseOrderDetail->quantity;
+        // //Original PO Detail QTY
+        // $Original_PO_QTY = $purchaseOrderDetail->quantity;
 
-        //Input PO QTY
-        $Input_DR_QTY = $request->quantity;    
-        //Input DR QTY - Current DR QTY
-        $total_DR_QTY = $Input_DR_QTY - $Current_DR_QTY;
-        //Total DR QTY + Overall DR QTY
-        $Final_DR_QTY = $total_DR_QTY + $Overall_DR_QTY;
+        // //Input PO QTY
+        // $Input_DR_QTY = $request->quantity;    
+        // //Input DR QTY - Current DR QTY
+        // $total_DR_QTY = $Input_DR_QTY - $Current_DR_QTY;
+        // //Total DR QTY + Overall DR QTY
+        // $Final_DR_QTY = $total_DR_QTY + $Overall_DR_QTY;
 
-        if ($Original_PO_QTY >= $Final_DR_QTY) 
-        {
-            list($validator, $record, $success) = LogicCRUD::saveRecord('DeliveryDetail', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
-            if ($success){
-                return redirect()->route('deliveryview', ['id' => $request->delivery_id]);
-            } else {
-                return redirect()->back()->withErrors($validator)->withInput();
-            }
-        } else{
-            return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Quantity is over Purchase Request!']);
-        }
+        // if ($Original_PO_QTY >= $Final_DR_QTY) 
+        // {
+        //     list($validator, $record, $success) = LogicCRUD::saveRecord('DeliveryDetail', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');
+        //     if ($success){
+        //         return redirect()->route('deliveryview', ['id' => $request->delivery_id]);
+        //     } else {
+        //         return redirect()->back()->withErrors($validator)->withInput();
+        //     }
+        // } else{
+        //     return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Quantity is over Purchase Request!']);
+        // }
     }
 
     public function deliverydetaildelete(Request $request)

@@ -11,7 +11,9 @@ Array.from(itemSelectors).forEach(function(element){
                 data: { id: element.value },
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function (data) {
-                   document.querySelector(`#purchaseOrderDetailUnitIndicator${element.dataset.detailid}`).innerHTML = data;
+                   document.querySelector(`#deliveryDetailUnitIndicator${element.dataset.detailid}`).innerHTML = data;
+                   document.querySelector(`#purchaseOrderDetail${element.dataset.detailid}`).value = element.options[element.selectedIndex].dataset.po_detail_id;
+                //    console.log(element.options[element.selectedIndex], element.options[element.selectedIndex].dataset.po_detail_id);
                 },
                 error: function (data, textStatus, errorThrown) {
                     console.log(data);
@@ -22,11 +24,33 @@ Array.from(itemSelectors).forEach(function(element){
     });
 });
 
+let quantityItems = document.querySelectorAll('input[name="quantity"]');
+let unitCostItems = document.querySelectorAll('input[name="unit_price"]');
+if(quantityItems && unitCostItems) {
+    Array.from([quantityItems, unitCostItems]).forEach(function (elements){
+        Array.from(elements).forEach(function (el){
+            el.addEventListener('input', function(e){
+                let quantity = document.querySelector(`#deliveryDetailQuantity${el.dataset.detailid}`).value;
+                let unitCost = document.querySelector(`#deliveryDetailUnitCost${el.dataset.detailid}`).value;
+                let subTotalAmount = document.querySelector(`#deliveryDetailSubTotalAmount${el.dataset.detailid}`);
+                console.log('quantity is: ' + quantity, 'unitcost is: ' + unitCost);
+                //clean values
+                quantity = parseFloat(quantity.replace(/,/g,''));
+                unitCost = parseFloat(unitCost.replace(/,/g,''));
+    
+                //compute
+                if (!isNaN(quantity) && !isNaN(unitCost)) {
+                    subTotalAmount.value = (quantity * unitCost).toLocaleString("en-US", { minimumFractionDigits: 2 });
+                }
+            });
+        });
+    });
+}
+
+
 let searchPO = document.querySelector('input[name="po_no_search"]');
 let searchPOResult = document.querySelector('#poSearchResult');
 let inputPO = document.querySelector('input[name="purchase_order_id"]');
-
-
 if(searchPO && searchPOResult && inputPO) {
     searchPO.addEventListener('input', (e) => {
         inputPO.value = '';
@@ -93,14 +117,7 @@ if(searchPO && searchPOResult && inputPO) {
 
     searchPO.addEventListener('blur', (e) => {
         searchPO.value = inputPO.value != undefined ? inputPO.dataset.po_no : '';
-        while(searchPOResult.children.length > 0) {
-            searchPOResult.children[0].remove();
-        }
-        searchPOResult.classList.remove('show');
-        // console.log(selected, inputPO.value, searchPOResult.children.length, searchPO.value);
-        // if(selected == false && inputPO.value == '' && searchPOResult.children.length == 0 && searchPO.value != ''){
-        //     resetSearchPOResult();
-        // }
+        
     });
 
     function resetSearchPOResult() {

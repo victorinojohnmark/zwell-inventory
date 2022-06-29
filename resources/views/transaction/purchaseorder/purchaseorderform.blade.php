@@ -43,7 +43,7 @@
         
                             <div class="col-md-3">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
-                                <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..." label="Purchase Date" required 
+                                <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..." label="Purchasing Date" required 
                                     value="{{ old('purchase_date', !is_null($purchaseOrder->purchase_date)? $purchaseOrder->purchase_date : null) }}">
                                     <x-slot name="appendSlot">
                                         <x-adminlte-button theme="default" icon="fas fa-calendar-alt"
@@ -55,7 +55,7 @@
         
                         <div class="form-row">
                             <div class="col-md-4">
-                                <x-adminlte-select name="contractor_id" label="Contractor" required>
+                                <x-adminlte-select name="contractor_id" label="Requestee/Contractor" required>
                                     <option>Select here...</option>
                                     @foreach ($contractors as $contractor)
                                     <option value="{{ $contractor->id }}" {{!is_null($contractor->id) && ($purchaseOrder->contractor_id == $contractor->id)? 'selected' : '' }}>

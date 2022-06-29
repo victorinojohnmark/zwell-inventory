@@ -44,7 +44,7 @@ class FileAttachmentController extends Controller
                 }
                 return response()->json(['Error' => 'Invalid file sumitted'], 400);
             } else {
-                return response()->json(['Error' => 'Transaction invalid, Purchase Order already completed.'], 400);
+                return response()->json(['Error' => 'Transaction invalid, '. $transactionType .' already completed.'], 400);
             }
 
             
@@ -65,6 +65,12 @@ class FileAttachmentController extends Controller
             switch ($transaction) {
                 case 'purchase_order':
                     $record_type = "App\\Transaction\\PurchaseOrder";
+                    $model = new $record_type();
+                    return $model;
+                    break;
+
+                case 'delivery':
+                    $record_type = "App\\Transaction\\Delivery";
                     $model = new $record_type();
                     return $model;
                     break;

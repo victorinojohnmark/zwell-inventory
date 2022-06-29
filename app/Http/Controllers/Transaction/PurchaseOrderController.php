@@ -127,12 +127,18 @@ class PurchaseOrderController extends Controller
     {
         $purchaseOrder = PurchaseOrder::findOrFail($request->id);
         if($purchaseOrder) {
-            if($purchaseOrder->complete_status || $purchaseOrder->approved_by_id){
-                $purchaseOrder->complete_status = false;
-                $purchaseOrder->approved_by_id = 0;
-                $purchaseOrder->save();
-                return redirect()->route('purchaseorderview', ['id' => $request->id]);
+            // check if delivery entry exist for this PO
+            if($purchaseOrder->deliveries->count() == 0) {
+                if($purchaseOrder->complete_status || $purchaseOrder->approved_by_id){
+                    $purchaseOrder->complete_status = false;
+                    $purchaseOrder->approved_by_id = 0;
+                    $purchaseOrder->save();
+                    return redirect()->route('purchaseorderview', ['id' => $request->id]);
+                }
+            } else {
+                return redirect()->back()->withErrors(['Revert to draft failed, Purchase Order already had delivery entrie/s']);
             }
+            
         }
         
     }

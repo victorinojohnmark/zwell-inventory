@@ -24,6 +24,7 @@ class CreateTbtDeliveriesTable extends Migration
             $table->string('recieved_by', 255);
             $table->string('notes', 255)->nullable();
             $table->boolean('complete_status')->default(false);
+            $table->unsignedSmallInteger('approved_by_id')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

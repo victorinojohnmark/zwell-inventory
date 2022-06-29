@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header" id="fileAttachment" data-toggle="collapse" data-target="#collapseFileAttachment" aria-expanded="true" aria-controls="collapseFileAttachment">
         <button class="btn btn-link p-0 text-reset" >
-            <strong>File Attachments "ONGOING"</strong>
+            <strong>File Attachments</strong>
         </button>
     </div>
     {{-- filepond --}}
@@ -45,7 +45,7 @@
             </ul>
             @if (!$delivery->complete_status)
               <form action="#" method="post" enctype="multipart/form-data">
-              <input type="file" name="fileAttachment" multiple id="fileAttachment" allow-remove="false" data-userid="{{ Auth::user()->id }}" data-transactiontype="purchase_order" data-transactionid="{{ old('id', !is_null($delivery->id)? $delivery->id : null) }}">
+              <input type="file" name="fileAttachment" multiple id="fileAttachment" allow-remove="false" data-userid="{{ Auth::user()->id }}" data-transactiontype="delivery" data-transactionid="{{ old('id', !is_null($delivery->id)? $delivery->id : null) }}">
             @endif
             
             

@@ -85,6 +85,8 @@ Route::get('delivery/create', 'Transaction\DeliveryController@deliverycreate')->
 Route::get('delivery/update', 'Transaction\DeliveryController@deliveryupdate')->name('deliveryupdate');
 Route::post('delivery/save', 'Transaction\DeliveryController@deliverysave')->name('deliverysave');
 Route::post('delivery/confirm', 'Transaction\DeliveryController@deliveryconfirm')->name('deliveryconfirm');
+Route::post('delivery/approve', 'Transaction\DeliveryController@deliveryapprove')->name('deliveryapprove');
+Route::post('delivery/draft', 'Transaction\DeliveryController@deliverydraft')->name('deliverydraft');
 
 //Delivery Detail
 

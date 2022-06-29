@@ -45,4 +45,12 @@ class FileAttachment extends Model
 
     }
 
+    public function purchaseOrder() {
+        
+    }
+
+    public function delivery() {
+
+    }
+
 }

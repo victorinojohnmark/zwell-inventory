@@ -9,7 +9,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <strong>Delivery Form</strong> @if (!$delivery->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
+                    <strong>Delivery Form</strong> <span class="badge badge-{{ $delivery->status['state'] }}">{{ $delivery->status['title'] }}</span>
                 </div>
                 <div class="card-body">     
                     <div class="options mb-3">
@@ -32,14 +32,14 @@
                             </div>
         
                              <div class="col-md-4">
-                                <input type="hidden" name="purchase_order_id" value="{{ !is_null($delivery)? $delivery->purchase_order_id : null  }}" data-po_no="{{ !is_null($delivery)? $delivery->purchaseOrder->po_no : null  }}">
+                                <input type="hidden" name="purchase_order_id" value="{{ !is_null($delivery)? $delivery->purchase_order_id : null  }}" data-po_no="{{ !is_null($delivery->purchaseOrder)? $delivery->purchaseOrder->po_no : null  }}">
                                 <label for="po_no_search">PO No.</label>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="fas fa-search"></i></span>
                                     </div>
                                     <input type="text" name="po_no_search" type="text" class="form-control" placeholder="..." required data-toggle="dropdown" 
-                                    value="{{ old('dr_no', !is_null($delivery->purchaseOrder)? $delivery->purchaseOrder->po_no : null) }}">
+                                    value="{{ !is_null($delivery->purchaseOrder)? $delivery->purchaseOrder->po_no : null }}">
                                     <ul id="poSearchResult" class="rounded-0 dropdown-menu border-0 p-0">
                                         {{-- <li class="list-group-item list-group-item-action border-0"></li> --}}
                                     </ul>
@@ -94,19 +94,8 @@
 
             </div>
             
-                <div class="card {{ is_null($delivery->id)? 'd-none' : null }}">
-                    <div class="card-header">
-                        <strong>Delivery Details</strong>
-                    </div>
-                    <div class="card-body p-0">     
-
-                        <!-- DELIVERY DETAILS-->
-                        @include('transaction.deliverydetail.deliverydetaillist')
-                    </div>
-                </div>
-           
-
-
+                <!-- DEVIVERY DETAIL -->
+                @include('transaction.deliverydetail.deliverydetaillist')
         </div>
 
         <div class="col-lg-4 {{ is_null($delivery->id)? 'd-none' : null }}">
@@ -119,7 +108,7 @@
                     <span class="badge badge-info p-2"><h3 class="m-0"><strong>Php {{ !is_null($delivery->id)? number_format($delivery->TotalAmount, 2) : 'N/A' }}</strong></h3></span>
                 </div>
                 <div class="card-footer">
-                    @if ($delivery->complete_status)
+                    {{-- @if ($delivery->complete_status)
                         <button class="btn btn-sm btn-success">APPROVE DELIVERY RECEIPT"</button>
                     @else
                     <form action="{{ route('deliveryconfirm', ['id' => $delivery->id]) }}" method="post">
@@ -127,26 +116,36 @@
                         <input type="hidden" name="id" value="{{ $delivery->id }}">
                         <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#confirmdeliveryModal">CONFIRM DELIVERY RECEIPT</button>
                     </form>
+                    @endif --}}
+
+                    @if ($delivery->complete_status && $delivery->approved_by_id == 0)
+                        <form action="{{ route('deliveryapprove', ['id' => $delivery->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $delivery->id }}">
+                            <button class="btn btn-sm btn-success mb-1" type="submit">APPROVE PURCHASE ORDER</button>
+                        </form>
                     @endif
+
+                    @if ($delivery->complete_status == 0)
+                        <form action="{{ route('deliveryconfirm', ['id' => $delivery->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $delivery->id }}">
+                            <button class="btn btn-sm btn-primary mb-1" type="submit">CONFIRM PURCHASE ORDER</button>
+                        </form>
+                    @endif
+
+                    {{-- @if ($delivery->status['title'] != 'Draft')
+                        <form action="{{ route('deliverydraft', ['id' => $delivery->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $delivery->id }}">
+                            <button class="btn btn-sm btn-warning mb-1" type="submit">REVERT BACK TO DRAFT</button>
+                        </form>
+                    @endif --}}
                 </div>
             </div>
             {{-- FILE ATTACHMENT ONGOING--}}
             @include('transaction.delivery.deliveryfileattachment') 
-
-            <div class="card {{ is_null($delivery->id)? 'd-none' : null }}">
-                <div class="card-header">
-                    <strong>PO Item Reference</strong>
-                </div>
-                <div class="card-body p-0">     
-
-                    <!-- PURCHASE ORDER DETAILS-->
-                    @if ($delivery->purchaseOrder)
-                    @include('transaction.deliverydetail.purchaseorderdetailreference.Refpurchaseorderdetaillist')
-                    @endif
-                    
-                    
-                </div>
-            </div>
+            @include('transaction.deliverydetail.purchaseorderdetaillist')
         </div>
    
    

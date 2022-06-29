@@ -91,6 +91,22 @@ class Delivery extends Model
         return $this->deliveryDetails->where('delivery_id', $delivery_id);
     }
 
+    public function getStatusAttribute()
+    {
+        $status = array();
+        if($this->complete_status && $this->approved_by_id == 0) {
+            $status = ['state' => 'danger', 'title' => 'Pending for approval'];
+        } else {
+            $status = ['state' => 'primary', 'title' => 'Approved'];
+        }
+        if($this->complete_status == 0 && $this->approved_by_id == 0) {
+            $status = ['state' => 'warning', 'title' => 'Draft'];
+        }
+
+        return $status;
+
+    }
+
     
 
 }

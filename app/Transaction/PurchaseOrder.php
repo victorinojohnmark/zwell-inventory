@@ -10,9 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Master\Contractor;
 use App\Master\Supplier;
 use App\Master\Location;
+use App\Master\Item;
 
 use App\Transaction\PurchaseOrderDetail;
 use App\Transaction\Delivery;
+
 
 use App\System\FileAttachment;
 
@@ -97,6 +99,11 @@ class PurchaseOrder extends Model
         return $this->hasMany(PurchaseOrderDetail::class);
     }
 
+    public function items() 
+    {
+        return $this->hasManyThrough(Item::class, PurchaseOrderDetail::class);
+    }
+
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);
@@ -123,9 +130,19 @@ class PurchaseOrder extends Model
         return $this->hasManyThrough(DeliveryDetail::class, Delivery::class);
     }
 
+    public function completedDeliveryDetails()
+    {
+        return $this->hasManyThrough(DeliveryDetail::class, Delivery::class)->where('tbt_deliveries.approved_by_id', '!=', '0');
+    }
+
     public function total_delivery_per_item($itemID)
     {
         return $this->deliveryDetails->where('item_id', $itemID)->sum('quantity');
+    }
+
+    public function total_completed_delivery_per_item($itemID)
+    {
+        return $this->completedDeliveryDetails->where('item_id', $itemID)->sum('quantity');
     } 
 
     public function getCompletedDeliveryAttribute()

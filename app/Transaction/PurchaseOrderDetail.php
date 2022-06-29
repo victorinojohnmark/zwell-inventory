@@ -73,14 +73,11 @@ class PurchaseOrderDetail extends Model
         return $total = $this->item->item_name;
     }
 
-    // public function total_delivery_per_item()
-    // {
-    //     return $this->purchaseOrder->total_delivery_per_item($this->item_id);
-    // }
-
-    public function getTotalDeliveryPerItemAttribute()
+    public function totalDeliveryPerItem($itemID)
     {
-        return $this->purchaseOrder->total_delivery_per_item($this->item_id);
+        // return $this->purchaseOrder->total_delivery_per_item($this->item_id);
+
+
     }
 
 
