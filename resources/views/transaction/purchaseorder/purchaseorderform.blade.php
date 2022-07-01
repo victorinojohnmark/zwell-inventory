@@ -87,9 +87,14 @@
                                 </x-adminlte-select>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <x-adminlte-input name="purpose" label="Purpose" type="text" placeholder="e.g. For barracks construction" required
                                 value="{{ old('purpose', !is_null($purchaseOrder->purpose)? $purchaseOrder->purpose : null) }}"/>
+                            </div>
+
+                            <div class="col-md-4">
+                                <x-adminlte-input name="terms" label="Terms" type="text" placeholder="e.g. 15 days"
+                                value="{{ old('terms', !is_null($purchaseOrder->terms)? $purchaseOrder->terms : null) }}"/>
                             </div>
 
                             <div class="col-md-12">
@@ -160,7 +165,7 @@
                     @endif
 
                     @if ($purchaseOrder->complete_status && $purchaseOrder->approved_by_id != 0)
-                        <button class="btn btn-sm btn-primary mb-1" type="submit">PRINT PREVIEW</button>
+                        <a href="{{ route('purchaseorderprint', ['id' => $purchaseOrder->id ]) }}" target="_blank" class="btn btn-sm btn-primary mb-1" type="submit">PRINT PREVIEW</a>
                     @endif
 
                     {{-- @if ($purchaseOrder->status['title'] != 'Draft')

@@ -73,6 +73,7 @@ Route::get('purchaseorder/search/{searchKey}', 'Transaction\PurchaseOrderControl
 Route::post('purchaseorder/confirm', 'Transaction\PurchaseOrderController@purchaseorderconfirm')->name('purchaseorderconfirm');
 Route::post('purchaseorder/approve', 'Transaction\PurchaseOrderController@purchaseorderapprove')->name('purchaseorderapprove');
 Route::post('purchaseorder/draft', 'Transaction\PurchaseOrderController@purchaseorderdraft')->name('purchaseorderdraft');
+Route::get('purchaseorder/print', 'Transaction\PurchaseOrderController@purchaseorderprint')->name('purchaseorderprint');
 
 
 //Purchase Order Detail
@@ -100,5 +101,7 @@ Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliv
 //File Attachment
 Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');
 Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@fileattachmentdelete')->name('fileattachmentdelete');
+
+
 
 

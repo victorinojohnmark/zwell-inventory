@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Title</title>
+  <link rel="stylesheet" href="vendor/normalize/normalize.css">
+  <link rel="stylesheet" href="css/print.css">
+
+  <style>
+    .p-bottom {
+      padding-top:10px;
+      border-top:2px solid black;
+    }
+
+    .mt-50 {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <table style="margin-bottom: 20px;">
+    <tr>
+      <td rowspan="4" style="width:100px; padding-right:10px;">
+        <img src="/img/logo.png" alt="HRM Logo" style="width:100%;">
+      </td>
+    </tr>
+    <tr>
+      <td><h2 style="margin-bottom: 0px;">Zwell Philippine Realty Development Corporation</h2></td>
+    </tr>
+    <tr>
+      <td>Arnaldo Highway, Brgy. Santiago Gen. Trias Cavite</td>
+    </tr>
+    <tr>
+        <td>Contact No.: (046)513-5935; (0917)169-5935; (0943)708-8592 &nbsp;Website: https://website.com</td>
+    </tr> 
+  </table>
+  <center><h2>PURCHASE ORDER</h2></center>
+  <table class="tbl header" id="table" style="margin-top: 20px;" cellspacing="0">
+    <tbody>
+        <tr><td class="bg-dark">Transaction Code:</td><td>202206-PO0000001</td><td class="bg-dark">Purchasing Date:</td><td>2022-06-30</td></tr>
+        <tr><td class="bg-dark">Supplier:</td><td colspan="3">JCL Hardware Incorporated</td></tr>
+    </tbody>
+  </table>
+  <table class="tbl header" id="table" style="margin-top: 20px;" cellspacing="0">
+    <tbody>
+        <tr><td class="bg-dark">ITEM</td><td class="bg-dark">QUANTITY</td><td class="bg-dark">UNIT PRICE</td><td class="bg-dark">SUBTOTAL PRICE</td></tr>
+        <tr><td>Cement</td><td>100 pc/s</td><td>Php 265.00</td><td>Php 26,500.00</td></tr>
+        <tr><td>Cement</td><td>100 pc/s</td><td>Php 265.00</td><td>Php 26,500.00</td></tr>
+        <tr><td>Cement</td><td>100 pc/s</td><td>Php 265.00</td><td>Php 26,500.00</td></tr>
+        <tr><td>Cement</td><td>100 pc/s</td><td>Php 265.00</td><td>Php 26,500.00</td></tr>
+        <tr><td colspan="3" class="bg-dark"><strong class="text-right">TOTAL AMOUNT</strong></td><td>Php 26,500.00</td></tr>
+
+    </tbody>
+  </table>
+
+  <strong>Terms and Conditions</strong>
+  <ul>
+    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ex quas, ipsam, itaque quia ullam tenetur nam minima veniam mollitia vel delectus molestias tempore nulla reiciendis totam alias officiis deleniti.</li>
+    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio velit natus aut praesentium beatae labore.</li>
+    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos iste expedita accusamus in explicabo totam, rerum ullam earum, cum sunt rem, molestias sequi?</li>
+  </ul>
+
+  <footer>
+    <table cellspacing="0">
+        <tbody>
+            <tr>
+                <td>
+                    <img src="/img/signature-1.png" alt="signature">
+                    <center style="margin-top: -20px;">John Mark Victorino</center>
+                    <center><strong>Position Here</strong></center>
+                </td>
+                <td>
+                    <img src="/img/signature-2.png" alt="signature">
+                    <center style="margin-top: -20px;">Sarah Lee</center>
+                    <center><strong>Position Here</strong></center>
+                </td>
+            </tr>
+    
+        </tbody>
+    </table>
+  </footer>
+  
+
+
+
+<script>
+  function selectElementContents(el) {
+    var body = document.body,
+      range, sel;
+    if (document.createRange && window.getSelection) {
+      range = document.createRange();
+      sel = window.getSelection();
+      sel.removeAllRanges();
+      range.selectNodeContents(el);
+      sel.addRange(range);
+    }
+    document.execCommand("Copy");
+    document.getSelection().removeAllRanges();
+  }
+</script>
+
+
+
+</body>
+</html>

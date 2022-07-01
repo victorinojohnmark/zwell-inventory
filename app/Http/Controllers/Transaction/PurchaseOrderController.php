@@ -136,9 +136,21 @@ class PurchaseOrderController extends Controller
                     return redirect()->route('purchaseorderview', ['id' => $request->id]);
                 }
             } else {
-                return redirect()->back()->withErrors(['Revert to draft failed, Purchase Order already had delivery entrie/s']);
+                return redirect()->back()->withErrors(['Revert to draft failed, Purchase Order already had delivery entries']);
             }
             
+        }
+        
+    }
+
+    public function purchaseorderprint(Request $request)
+    {
+        if (isset($request->id)) {
+            $purchaseOrder = PurchaseOrder::find($request->id);
+            if($purchaseOrder) {
+                return view('transaction.purchaseorder.purchaseorderprint',['purchaseOrder' => $purchaseOrder]);
+                
+            }
         }
         
     }

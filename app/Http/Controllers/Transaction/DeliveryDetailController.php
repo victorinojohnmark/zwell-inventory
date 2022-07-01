@@ -23,7 +23,6 @@ class DeliveryDetailController extends Controller
             return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Please select item']);
         }
 
-
         $totalDeliveredItem = $purchaseOrderDetail->purchaseOrder->total_delivery_per_item($request->item_id);
 
         // dd($totalDeliveryPerItem);

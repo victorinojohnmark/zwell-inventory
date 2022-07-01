@@ -87,9 +87,11 @@
                                 </x-adminlte-textarea>
                             </div>
 
+                            @if ($delivery->id)
                             <small class="bg-secondary text-italic rounded p-1 mx-1 mb-2">
                                 <i class="fas fa-fw fa-info-circle"></i> Updating Delivery with new PO No. will reset delivery details below.
                             </small>
+                            @endif
                         </div>
                         @if (!$delivery->complete_status)<button class="btn btn-sm btn-primary font-weight-bold" type="submit">Save</button> @endif
                     </form>

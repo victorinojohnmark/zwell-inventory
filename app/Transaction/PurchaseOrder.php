@@ -40,7 +40,8 @@ class PurchaseOrder extends Model
         'purchase_date' => 'required|date', 
         'purchase_cost' => 'nullable|numeric', 
         'prepared_by_id' => 'nullable|integer',
-        'purpose' => 'nullable|max:255', 
+        'purpose' => 'nullable|max:255',
+        'terms' => 'nullable|max:50', 
         'notes' => 'nullable|max:255'
     ];
 
@@ -74,6 +75,7 @@ class PurchaseOrder extends Model
             'purchase_cost' => $values['purchase_cost'], 
             'prepared_by_id' => $values['prepared_by_id'], 
             'purpose' => $values['purpose'], 
+            'terms' => $values['terms'],
             'notes' => $values['notes']
         ]);
 
