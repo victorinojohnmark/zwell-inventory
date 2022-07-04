@@ -23,7 +23,7 @@
   @yield('button-options')
   <table style="margin-bottom: 20px;">
     <tr>
-      <td rowspan="4" style="width:100px; padding-right:10px;">
+      <td rowspan="5" style="width:100px; padding-right:10px;">
         <img src="/img/logo.png" alt="HRM Logo" style="width:100%;">
       </td>
     </tr>
@@ -31,32 +31,19 @@
       <td><h2 style="margin-bottom: 0px;">Zwell Philippine Realty Development Corporation</h2></td>
     </tr>
     <tr>
-      <td>Arnaldo Highway, Brgy. Santiago Gen. Trias Cavite</td>
+      <td>Address: Arnaldo Highway, Brgy. Santiago Gen. Trias Cavite</td>
     </tr>
     <tr>
-        <td>Contact No.: (046)513-5935; (0917)169-5935; (0943)708-8592 &nbsp;Website: https://website.com</td>
+        <td>Contact No.: (046)513-5935; (0917)169-5935; (0943)708-8592</td>
+    </tr> 
+    <tr>
+      <td>Website: https://www.website.com</td>
     </tr> 
   </table>
   <center>@yield('document-type')</center>
-@yield('content')
+  @yield('content')
 
-{{-- <script>
-  function selectElementContents(el) {
-    var body = document.body,
-      range, sel;
-    if (document.createRange && window.getSelection) {
-      range = document.createRange();
-      sel = window.getSelection();
-      sel.removeAllRanges();
-      range.selectNodeContents(el);
-      sel.addRange(range);
-    }
-    document.execCommand("Copy");
-    document.getSelection().removeAllRanges();
-  }
-</script> --}}
-
-@yield('scripts')
+  @yield('scripts')
 
 
 

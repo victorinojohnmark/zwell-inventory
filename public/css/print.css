@@ -85,7 +85,7 @@ button#dataToggler {
 }
 
 #tableData tbody{
-  height: 480px;
+  height: 450px;
 }
 
 #tableData tbody tr td{
@@ -139,7 +139,7 @@ button#dataToggler {
     }
 
     #tableData {
-      height: 480px;
+      height: 450px;
     }
     
     #tableData tbody tr td{

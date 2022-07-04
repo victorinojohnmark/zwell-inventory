@@ -7,8 +7,8 @@
         <div class="card-header">
             <strong>Deliveries</strong>
         </div>
-        <div class="card-body">
-            <div class="options mb-3">
+        <div class="card-body p-0">
+            <div class="options mb-3 px-3">
                 <a href="{{ route('deliverycreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Delivery</a>
             </div>
 
@@ -36,9 +36,7 @@
                             <td>{{ $delivery->supplier->supplier_name }}</td>
 
                             <td>@if (!is_null($delivery->TotalAmount)) <span class="badge badge-info">Php {{ number_format($delivery->TotalAmount, 2)}}</span> @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
-                            <td>
-                                @if (!$delivery->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
-                            </td>
+                            <td><span class="badge badge-{{ $delivery->status['state'] }}">{{ $delivery->status['title'] }}</td>
                             <td>
                                 <a href="{{ route('deliveryview', ['id' => $delivery->id]) }}" class="btn btn-sm btn-info font-weight">View</a>
                             </td>

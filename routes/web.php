@@ -95,12 +95,14 @@ Route::post('deliverydetail/update', 'Transaction\DeliveryDetailController@deliv
 Route::post('deliverydetail/save', 'Transaction\DeliveryDetailController@deliverydetailsave')->name('deliverydetailsave');
 Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliverydetaildelete')->name('deliverydetaildelete');
 
-});
-
-
 //File Attachment
 Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');
 Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@fileattachmentdelete')->name('fileattachmentdelete');
+
+});
+
+
+
 
 
 

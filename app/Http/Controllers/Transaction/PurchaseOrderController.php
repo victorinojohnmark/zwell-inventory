@@ -148,8 +148,7 @@ class PurchaseOrderController extends Controller
         if (isset($request->id)) {
             $purchaseOrder = PurchaseOrder::find($request->id);
             if($purchaseOrder) {
-                return view('transaction.purchaseorder.purchaseorderprint',['purchaseOrder' => $purchaseOrder]);
-                
+                return view('transaction.purchaseorder.purchaseorderprint',['purchaseOrder' => $purchaseOrder]);   
             }
         }
         

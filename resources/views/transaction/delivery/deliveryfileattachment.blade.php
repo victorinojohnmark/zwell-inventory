@@ -8,7 +8,6 @@
     <div id="collapseFileAttachment" class="collapse show" aria-labelledby="fileAttachment">
         <div class="card-body">
             <ul class="list-group mb-3" id="fileAttachmentList">
-                {{-- <li class="list-group-item">An item</li> --}}
                 @forelse ($delivery->fileAttachments as $fileAttachment)
                 <li class="list-group-item">
                     <a href="/storage/fileattachments/{{ $fileAttachment->transaction_type }}/{{ $fileAttachment->filename }}" target="_blank">{{ $fileAttachment->original_filename }}</a>
@@ -40,7 +39,7 @@
                     
                 </li>
                 @empty
-                    
+                <p class="bg-secondary rounded-lg p-2 mb-0 text-left">No file attachment</p>
                 @endforelse
             </ul>
             @if (!$delivery->complete_status)
