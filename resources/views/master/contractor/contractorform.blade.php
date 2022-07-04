@@ -84,9 +84,9 @@
 
 @section('plugins.BootstrapSwitch', true)
 @section('css')
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @stop
 
 @section('js')
-   <script src="/js/custom.js"></script>
+   <script src="{{ asset('js/custom.js') }}"></script>
 @stop

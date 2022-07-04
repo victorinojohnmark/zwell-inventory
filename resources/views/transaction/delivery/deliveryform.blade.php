@@ -162,14 +162,14 @@
 @section('plugins.TempusDominus', true)
 @section('plugins.BootstrapSwitch', true)
 @section('css')
-    <link rel="stylesheet" href="/vendor/filepond/filepond.min.css">
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('vendor/filepond/filepond.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @stop
 
 @section('js')
-    <script src="/js/app.js"></script>
-   <script src="/vendor/filepond/filepond.min.js"></script>
-   <script src="/js/fileattachment.js"></script>
-   <script src="/js/custom.js"></script>
-   <script src="/js/delivery.js"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+   <script src="{{ asset('vendor/filepond/filepond.min.js') }}"></script>
+   <script src="{{ asset('js/fileattachment.js') }}"></script>
+   <script src="{{ asset('js/custom.js') }}"></script>
+   <script src="{{ asset('js/delivery.js') }}"></script>
 @stop

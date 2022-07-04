@@ -7,8 +7,8 @@
         <div class="card-header">
             <strong>Deliveries</strong>
         </div>
-        <div class="card-body p-0">
-            <div class="options p-3">
+        <div class="card-body">
+            <div class="options mb-3">
                 <a href="{{ route('deliverycreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Delivery</a>
             </div>
 
@@ -55,10 +55,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/vendor/datatable/datatables.min.css">
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @stop
 
 @section('js')
-    {{-- <script src="/vendor/datatable/datatables.min.js"></script> --}}
+   <script src="{{ asset('js/custom.js') }}"></script>
 @stop

@@ -56,7 +56,7 @@ Purchase Order - 0000001
       <tbody>
           <tr>
             <td colspan="2">
-              <strong>Terms</strong>
+              <strong style="padding-left: 25px;">Terms</strong>
               <ul>
                 <li>Goods delivered to our warehouse are subjected to final inspection and if found not in accordance within specification will be returned to the supplier.</li>
                 <li>Replacement should not be made without instructions from us.</li>

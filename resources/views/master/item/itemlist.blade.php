@@ -45,11 +45,11 @@
     
 @stop
 
+@section('plugins.BootstrapSwitch', true)
 @section('css')
-    <link rel="stylesheet" href="/vendor/datatable/datatables.min.css">
-    <link rel="stylesheet" href="/css/custom.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 @stop
 
 @section('js')
-    {{-- <script src="/vendor/datatable/datatables.min.js"></script> --}}
+   <script src="{{ asset('js/custom.js') }}"></script>
 @stop

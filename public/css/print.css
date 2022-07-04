@@ -138,7 +138,7 @@ button#dataToggler {
       max-height: 530px !important;
     }
 
-    #tableData tbody{
+    #tableData {
       height: 480px;
     }
     
