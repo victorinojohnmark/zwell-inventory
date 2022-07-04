@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Event;
 
 ## Observer Class ##
 use App\Observers\PurchaseOrderObserver;
+use App\Observers\DeliveryObserver;
 
 ## Models ##
 use App\Transaction\PurchaseOrder;
+use App\Transaction\Delivery;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -33,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        PurchaseOrder::observe(PurchaseOrderobserver::class);
+        PurchaseOrder::observe(PurchaseOrderObserver::class);
+        Delivery::observe(DeliveryObserver::class);
     }
 }
