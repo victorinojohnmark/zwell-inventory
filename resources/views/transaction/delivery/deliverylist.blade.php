@@ -40,7 +40,7 @@
                                 @if (!$delivery->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif
                             </td>
                             <td>
-                                <a href="{{ route('deliveryupdate', ['id' => $delivery->id]) }}" class="btn btn-sm btn-info font-weight">View</a>
+                                <a href="{{ route('deliveryview', ['id' => $delivery->id]) }}" class="btn btn-sm btn-info font-weight">View</a>
                             </td>
                         </tr>
                         @empty

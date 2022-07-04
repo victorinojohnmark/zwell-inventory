@@ -24,7 +24,7 @@ class Delivery extends Model
     ];
 
     public $validationrules = [
-        'transaction_code' => 'nullable|max:20|unique:tbt_deliveries',
+        'transaction_code' => 'nullable|max:20',
         'purchase_order_id' => 'required|numeric', 
         'dr_no' => 'required|max:20', 
         'supplier_id' => 'required|numeric',

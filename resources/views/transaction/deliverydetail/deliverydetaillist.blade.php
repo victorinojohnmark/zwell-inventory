@@ -27,9 +27,9 @@
                         <td><span class="badge badge-success">{{ 'Php ' . number_format($deliveryDetail->SubTotal, 2) }}</span></td>
                         <td>
                             @if (!$delivery->complete_status)
-                                <button data-toggle="modal" data-target="#modalDeliveryDetail{{ isset($deliveryDetail) ? $deliveryDetail->id : '' }}" class="btn btn-sm btn-info font-weight-bold">Update testing</button>
+                                <button data-toggle="modal" data-target="#modalDeliveryDetail{{ isset($deliveryDetail) ? $deliveryDetail->id : '' }}" class="btn btn-sm btn-info font-weight-bold">Update</button>
                                 @include('transaction.deliverydetail.deliverydetailmodal')
-                                <button data-toggle="modal" data-target="#deliveryDetailDeleteModal{{ isset($deliveryDetail) ? $deliveryDetail->id : null }}" class="btn btn-sm btn-danger font-weight-bold">Delete testing</button>
+                                <button data-toggle="modal" data-target="#deliveryDetailDeleteModal{{ isset($deliveryDetail) ? $deliveryDetail->id : null }}" class="btn btn-sm btn-danger font-weight-bold">Delete</button>
                                 @include('transaction.deliverydetail.deliverydetailmodaldelete')
                             @else
                                 <button class="btn btn-sm btn-secondary" disabled>N/A</button>
