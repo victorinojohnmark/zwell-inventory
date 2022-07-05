@@ -67,7 +67,6 @@ Route::post('item/getunit', 'Master\ItemController@itemgetunit')->name('itemgetu
 //Purchase Order
 Route::get('purchaseorder/view', 'Transaction\PurchaseOrderController@purchaseorderview')->name('purchaseorderview');
 Route::get('purchaseorder/create', 'Transaction\PurchaseOrderController@purchaseordercreate')->name('purchaseordercreate');
-Route::get('purchaseorder/update', 'Transaction\PurchaseOrderController@purchaseorderupdate')->name('purchaseorderupdate');
 Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
 Route::get('purchaseorder/search/{searchKey}', 'Transaction\PurchaseOrderController@purchaseordersearch')->name('purchaseordersearch');
 Route::post('purchaseorder/confirm', 'Transaction\PurchaseOrderController@purchaseorderconfirm')->name('purchaseorderconfirm');
@@ -83,14 +82,16 @@ Route::post('purchaseorderdetail/delete', 'Transaction\PurchaseOrderDetailContro
 //Delivery
 Route::get('delivery/view', 'Transaction\DeliveryController@deliveryview')->name('deliveryview');
 Route::get('delivery/create', 'Transaction\DeliveryController@deliverycreate')->name('deliverycreate');
-Route::get('delivery/update', 'Transaction\DeliveryController@deliveryupdate')->name('deliveryupdate');
 Route::post('delivery/save', 'Transaction\DeliveryController@deliverysave')->name('deliverysave');
 Route::post('delivery/confirm', 'Transaction\DeliveryController@deliveryconfirm')->name('deliveryconfirm');
 Route::post('delivery/approve', 'Transaction\DeliveryController@deliveryapprove')->name('deliveryapprove');
 Route::post('delivery/draft', 'Transaction\DeliveryController@deliverydraft')->name('deliverydraft');
 
 //Delivery Detail
+Route::post('deliverydetail/save', 'Transaction\DeliveryDetailController@deliverydetailsave')->name('deliverydetailsave');
+Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliverydetaildelete')->name('deliverydetaildelete');
 
+//Delivery Detail
 Route::post('deliverydetail/update', 'Transaction\DeliveryDetailController@deliverydetailupdate')->name('deliverydetailupdate');
 Route::post('deliverydetail/save', 'Transaction\DeliveryDetailController@deliverydetailsave')->name('deliverydetailsave');
 Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliverydetaildelete')->name('deliverydetaildelete');

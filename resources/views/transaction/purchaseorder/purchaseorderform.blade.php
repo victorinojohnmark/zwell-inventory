@@ -1,5 +1,6 @@
 @extends('adminlte::page')
-@section('title', "Zwell | Purchase Order Form")
+
+@section('title', config('app.name') . " - Purchase Order Form")
 
 @section('content')
 

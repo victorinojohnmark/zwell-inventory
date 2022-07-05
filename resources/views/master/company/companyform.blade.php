@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', "Zwell | Company Form")
+@section('title', config('app.name') . " - Company Form")
 
 @section('content')
 

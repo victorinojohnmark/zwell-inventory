@@ -118,23 +118,15 @@ class DeliveryController extends Controller
         
     }
 
-    // public function deliverydraft(Request $request)
-    // {
-    //     $delivery = Delivery::findOrFail($request->id);
-    //     if($delivery) {
-    //         // check if delivery entry exist for this PO
-    //         if($delivery->deliveries->count() == 0) {
-    //             if($delivery->complete_status || $delivery->approved_by_id){
-    //                 $delivery->complete_status = false;
-    //                 $delivery->approved_by_id = 0;
-    //                 $delivery->save();
-    //                 return redirect()->route('deliveryview', ['id' => $request->id]);
-    //             }
-    //         } else {
-    //             return redirect()->back()->withErrors(['Revert to draft failed, Purchase Order already had delivery entrie/s']);
-    //         }
-            
-    //     }
+    public function deliverydraft(Request $request)
+    {
+        $delivery = Delivery::findOrFail($request->id);
+        if($delivery) {
+            $delivery->complete_status = false;
+            $delivery->approved_by_id = 0;
+            $delivery->save();
+            return redirect()->route('deliveryview', ['id' => $request->id]);
+        }
         
-    // }
+    }
 }

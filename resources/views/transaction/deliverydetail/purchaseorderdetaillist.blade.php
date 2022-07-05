@@ -19,7 +19,6 @@
                     </thead>
                     <tbody> 
                         @forelse ($delivery->purchaseOrder->purchaseOrderDetails as $purchaseOrderDetail)
-                        {{-- {{ dd($purchaseOrderDetail->purchaseOrder->deliveryDetails) }} --}}
                         <tr>
                             <td>{{ $purchaseOrderDetail->item->item_name }}</td>
                             <td><span class="badge badge-secondary">{{ 'Php ' . number_format($purchaseOrderDetail->unit_cost, 2) }}</span></td>

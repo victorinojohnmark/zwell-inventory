@@ -1,5 +1,6 @@
 @extends('adminlte::page')
-@section('title', "Zwell | Location Form")
+
+@section('title', config('app.name') . " - Location Form")
 
 @section('content')
     

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Zwell | Item List')
+@section('title', config('app.name') . " - Item List")
 
 @section('content')
     <div class="card">

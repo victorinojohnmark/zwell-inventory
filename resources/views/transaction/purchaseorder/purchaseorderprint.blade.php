@@ -29,7 +29,7 @@
         <th class="bg-dark" style="width:50px;">QTY</th>
         <th class="bg-dark" style="width:40px;">UNIT</th>
         <th class="bg-dark" style="width:100px;">UNIT PRICE</th>
-        <th class="bg-dark" style="width:150px;">SUBTOTAL AMOUNT</th>
+        <th class="bg-dark" style="width:150px;">TOTAL</th>
       </tr>
     </thead>
     <tbody style="vertical-align: center;">

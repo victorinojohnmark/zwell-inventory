@@ -47,22 +47,22 @@ class PurchaseOrderController extends Controller
 
     public function purchaseorderupdate(Request $request)
     {
-        if(!is_null($request->id)) {
-            if(PurchaseOrder::findorFail($request->id)){
-                return view('transaction.purchaseorder.purchaseorderform', [
-                    'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
-                    'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
-                    'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
-                    'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
-                    'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true)
-                ]);
-            } else {
-                return response(['error' => true, 'error-msg' => 'Not Found'], 404);
-            }
+        // if(!is_null($request->id)) {
+        //     if(PurchaseOrder::findorFail($request->id)){
+        //         return view('transaction.purchaseorder.purchaseorderform', [
+        //             'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
+        //             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
+        //             'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
+        //             'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
+        //             'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true)
+        //         ]);
+        //     } else {
+        //         return response(['error' => true, 'error-msg' => 'Not Found'], 404);
+        //     }
             
-        } else {
-            return redirect()->back();
-        }
+        // } else {
+        //     return redirect()->back();
+        // }
     }
 
     public function purchaseordersave(Request $request)

@@ -1,5 +1,6 @@
 @extends('adminlte::page')
-@section('title', "Zwell | Delivery Form")
+
+@section('title', config('app.name') . " - Delivery Form")
 
 @section('content')
 
@@ -115,6 +116,12 @@
                             <input type="hidden" name="id" value="{{ $delivery->id }}">
                             <button class="btn btn-sm btn-success mb-1" type="submit">APPROVE DELIVERY</button>
                         </form>
+                        
+                        <form action="{{ route('deliverydraft', ['id' => $delivery->id]) }}" method="post" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $delivery->id }}">
+                            <button class="btn btn-sm btn-warning mb-1" type="submit">REVERT BACK TO DRAFT</button>
+                        </form>
                     @endif
 
                     @if ($delivery->complete_status == 0)
@@ -124,6 +131,8 @@
                             <button class="btn btn-sm btn-primary mb-1" type="submit">CONFIRM DELIVERY</button>
                         </form>
                     @endif
+
+                    
 
                 </div>
             </div>

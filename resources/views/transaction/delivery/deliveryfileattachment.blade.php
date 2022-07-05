@@ -39,7 +39,7 @@
                     
                 </li>
                 @empty
-                <p class="bg-secondary rounded-lg p-2 mb-0 text-left">No file attachment</p>
+                {{-- <p>No file attachment</p> --}}
                 @endforelse
             </ul>
             @if (!$delivery->complete_status)
