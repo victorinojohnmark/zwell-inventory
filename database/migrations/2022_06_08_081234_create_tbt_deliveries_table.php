@@ -18,7 +18,7 @@ class CreateTbtDeliveriesTable extends Migration
             $table->string('transaction_code', 20)->nullable();
             $table->unsignedMediumInteger('purchase_order_id');
             $table->string('dr_no', 20);
-            $table->unsignedMediumInteger('supplier_id');
+            $table->unsignedMediumInteger('supplier_id')->nullable();
             $table->date('delivery_date');
             $table->decimal('total_amount', $precision = 15, $scale = 2)->nullable();
             $table->string('recieved_by', 255);

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Master\Company;
 use App\Master\Contractor;
 use App\Master\Supplier;
 use App\Master\Location;
@@ -26,14 +27,15 @@ class PurchaseOrder extends Model
 
     protected $fillable = [
         'po_no', 'transaction_code', 'requisition_slip_no',
-        'contractor_id', 'supplier_id', 'location_id',
-        'purchase_date', 'purchase_cost', 'prepared_by_id', 'purpose', 'notes'
+        'company_id', 'contractor_id', 'supplier_id', 'location_id',
+        'purchase_date', 'purchase_cost', 'prepared_by_id', 'purpose', 'terms', 'notes'
     ];
 
     public $validationrules = [
         'po_no' => 'required|max:20|unique:tbt_purchase_orders', 
         'transaction_code' => 'nullable|max:20|unique:tbt_purchase_orders', 
         'requisition_slip_no' => 'required|max:20',
+        'company_id' => 'required|integer', 
         'contractor_id' => 'required|integer', 
         'supplier_id' => 'required|integer', 
         'location_id' => 'required|integer',
@@ -50,6 +52,9 @@ class PurchaseOrder extends Model
         'po_no.unique'  => 'PO No is already used',
 
         'requisition_slip_no.required' => 'Requisition No is required',
+
+        'company_id.required' => 'Company is required',
+        'company_id.integer' => 'Company is required',
 
         'contractor_id.required' => 'Contractor is required',
         'contractor_id.integer' => 'Contractor is required',
@@ -68,6 +73,7 @@ class PurchaseOrder extends Model
             'po_no' => $values['po_no'], 
             'transaction_code' => $values['transaction_code'], 
             'requisition_slip_no' => $values['requisition_slip_no'],
+            'company_id' => $values['company_id'], 
             'contractor_id' => $values['contractor_id'], 
             'supplier_id' => $values['supplier_id'], 
             'location_id' => $values['location_id'],
@@ -79,6 +85,11 @@ class PurchaseOrder extends Model
             'notes' => $values['notes']
         ]);
 
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 
     public function contractor()

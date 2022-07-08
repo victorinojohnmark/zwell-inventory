@@ -2,13 +2,13 @@
 
 namespace App\Transaction;
 
-use App\Master\Supplier;
-use App\System\FileAttachment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Master\Supplier;
+use App\System\FileAttachment;
 use App\Transaction\DeliveryDetail;
 use App\Transaction\PurchaseOrder;
 
@@ -19,7 +19,7 @@ class Delivery extends Model
     protected $table = "tbt_deliveries";
 
     protected $fillable = [
-        'transaction_code', 'purchase_order_id', 'dr_no','supplier_id' , 
+        'transaction_code', 'purchase_order_id', 'dr_no', 
         'delivery_date', 'total_amount','recieved_by', 'notes'
     ];
 

@@ -38,7 +38,7 @@
         <tr>
           <td><span class="data">{{ $ctr }}</span></td>
           <td><span class="data">{{ $purchaseOrderDetail->item->item_name }} {{ is_null($purchaseOrderDetail->item->description) ? '' :  '</br>' . $purchaseOrderDetail->item->description }}</span></td>
-          <td><span class="data">{{ $purchaseOrderDetail->quantity }}</span></td>
+          <td><span class="data">{{ $purchaseOrderDetail->quantity + 0 }}</span></td>
           <td><span class="data">{{ $purchaseOrderDetail->item->unit }}</span></td>
           <td><span class="data">PHP {{ number_format($purchaseOrderDetail->unit_cost, 2) }}</span></td>
           <td><span class="data">PHP {{ number_format($purchaseOrderDetail->SubTotal, 2) }}</span></td>

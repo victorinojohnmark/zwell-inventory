@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="col-md-12">
-                        <x-adminlte-input name="description" label="Description" type="text" placeholder="e.g. Description here ...." required
+                        <x-adminlte-input name="description" label="Description" type="text" placeholder="e.g. Description here ...."
                         value="{{ old('description', !is_null($item->description)? $item->description : null) }}"/>
                     </div>
 

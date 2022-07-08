@@ -91,10 +91,14 @@ Route::post('delivery/draft', 'Transaction\DeliveryController@deliverydraft')->n
 Route::post('deliverydetail/save', 'Transaction\DeliveryDetailController@deliverydetailsave')->name('deliverydetailsave');
 Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliverydetaildelete')->name('deliverydetaildelete');
 
-//Delivery Detail
-Route::post('deliverydetail/update', 'Transaction\DeliveryDetailController@deliverydetailupdate')->name('deliverydetailupdate');
-Route::post('deliverydetail/save', 'Transaction\DeliveryDetailController@deliverydetailsave')->name('deliverydetailsave');
-Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliverydetaildelete')->name('deliverydetaildelete');
+//Release
+Route::get('release/view', 'Transaction\ReleaseController@releaseview')->name('releaseview');
+Route::get('release/create', 'Transaction\ReleaseController@releasecreate')->name('releasecreate');
+Route::post('release/save', 'Transaction\ReleaseController@releasesave')->name('releasesave');
+
+//Release Details
+Route::post('releasedetail/save', 'Transaction\ReleaseDetailController@releasedetailsave')->name('releasedetailsave');
+Route::post('releasedetail/delete', 'Transaction\ReleaseDetailController@releasedetaildelete')->name('releasedetaildelete');
 
 //File Attachment
 Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');

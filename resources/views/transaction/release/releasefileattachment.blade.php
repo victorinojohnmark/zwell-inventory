@@ -8,11 +8,10 @@
     <div id="collapseFileAttachment" class="collapse show" aria-labelledby="fileAttachment">
         <div class="card-body">
             <ul class="list-group mb-3" id="fileAttachmentList">
-                {{-- <li class="list-group-item">An item</li> --}}
-                @forelse ($purchaseOrder->fileAttachments as $fileAttachment)
+                @forelse ($release->fileAttachments as $fileAttachment)
                 <li class="list-group-item">
                     <a href="/storage/fileattachments/{{ $fileAttachment->transaction_type }}/{{ $fileAttachment->filename }}" target="_blank">{{ $fileAttachment->original_filename }}</a>
-                    @if (!$purchaseOrder->complete_status)
+                    @if (!$release->complete_status)
                       <button data-toggle="modal" data-target="#modalDeleteFileAttachment{{ $fileAttachment->id }}" class="btn btn-sm btn-danger float-right"><i class="fas fa-trash"></i></button>
                       <div class="modal fade" id="modalDeleteFileAttachment{{ $fileAttachment->id }}" tabindex="-1">
                         <div class="modal-dialog">
@@ -43,10 +42,12 @@
                 {{-- <p>No file attachment</p> --}}
                 @endforelse
             </ul>
-            @if (!$purchaseOrder->complete_status)
+            @if (!$release->complete_status)
               <form action="#" method="post" enctype="multipart/form-data">
-              <input type="file" name="fileAttachment" multiple id="fileAttachment" allow-remove="false" data-userid="{{ Auth::user()->id }}" data-transactiontype="purchase_order" data-transactionid="{{ old('id', !is_null($purchaseOrder->id)? $purchaseOrder->id : null) }}">
+              <input type="file" name="fileAttachment" multiple id="fileAttachment" allow-remove="false" data-userid="{{ Auth::user()->id }}" data-transactiontype="release" data-transactionid="{{ !is_null($release->id)? $release->id : null }}">
             @endif
+            
+            
             </form>
         </div>
     </div>

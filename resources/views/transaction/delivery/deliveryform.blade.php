@@ -48,6 +48,13 @@
                                 <x-adminlte-input name="dr_no" label="Delivery No." type="text" placeholder="e.g. 6151" required
                                 value="{{ old('dr_no', !is_null($delivery->dr_no)? $delivery->dr_no : null) }}"/>
                             </div>
+
+                            @if (isset($delivery->id))
+                                <div class="col-md-3">
+                                    <x-adminlte-input name="supplier" label="Supplier" type="text" readonly  
+                                    value="{{ old('supplier', !is_null($delivery->supplier_id)? $delivery->supplier->supplier_name : null) }}"/>
+                                </div>
+                            @endif
         
                             <div class="col-md-3">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
@@ -70,9 +77,11 @@
                                 </x-adminlte-select>
                             </div>
 
+                            
+
                             <div class="col-md-3">
                                 <x-adminlte-input name="recieved_by" label="Recieved by: " type="text" placeholder="e.g. Juan Dela Cruz" required
-                                value="{{ old('dr_no', !is_null($delivery->recieved_by)? $delivery->recieved_by : null) }}"/>
+                                value="{{ old('recieved_by', !is_null($delivery->recieved_by)? $delivery->recieved_by : null) }}"/>
                             </div>
                         </div>
         

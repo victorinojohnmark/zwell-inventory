@@ -8,7 +8,7 @@
             <strong>Deliveries</strong>
         </div>
         <div class="card-body p-0">
-            <div class="options mb-3 px-3">
+            <div class="options mb-3 px-3 pt-3">
                 <a href="{{ route('deliverycreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Delivery</a>
             </div>
 
@@ -29,7 +29,6 @@
                     <tbody> 
                         @forelse ($deliveries as $delivery)
                         <tr>
-                            
                             <td><strong>{{ $delivery->dr_no }}</strong></td>
                             <td>{{ $delivery->purchaseOrder->po_no }}</td>
                             <td>{{ $delivery->delivery_date }}</td>

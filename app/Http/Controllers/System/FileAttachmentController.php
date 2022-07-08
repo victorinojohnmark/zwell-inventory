@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 use App\System\LogicCRUD;
 
 use App\Transaction\PurchaseOrder;
+use App\Transaction\Release;
 
 class FileAttachmentController extends Controller
 {
@@ -71,6 +72,12 @@ class FileAttachmentController extends Controller
 
                 case 'delivery':
                     $record_type = "App\\Transaction\\Delivery";
+                    $model = new $record_type();
+                    return $model;
+                    break;
+
+                case 'release':
+                    $record_type = "App\\Transaction\\Release";
                     $model = new $record_type();
                     return $model;
                     break;

@@ -284,8 +284,8 @@ return [
                     'icon' => 'fas fa-fw fa-truck',
                 ],
                 [
-                    'text' => 'Release Requests',
-                    'url'  => '#',
+                    'text' => 'Release',
+                    'url'  => 'release/view',
                     'icon' => 'fas fa-fw fa-drumstick-bite',
                 ],
             ]

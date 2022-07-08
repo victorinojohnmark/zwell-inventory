@@ -4,6 +4,7 @@ namespace App\Master;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -45,4 +46,40 @@ class Item extends Model
         ]);
 
     }
+
+    public function getTotalDeliveryCompletedAttribute()
+    {
+        return $count = DB::table('tbm_items')
+                ->join('tbt_delivery_details', 'tbm_items.id', '=', 'tbt_delivery_details.item_id')
+                ->leftJoin('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
+                ->where([['tbm_items.id', '=', $this->id],['tbt_deliveries.complete_status', '=', 1],['tbt_deliveries.approved_by_id', '!=', 0]])
+                ->whereNull('tbt_delivery_details.deleted_at')
+                // ->select('tbm_items.*', 'tbt_delivery_details.id as dr_detail_id', 'tbt_delivery_details.quantity')
+                // ->get();
+                ->sum('tbt_delivery_details.quantity');
+    }
+
+    public function getTotalDeliveryEntriesAttribute()
+    {
+        return $count = DB::table('tbm_items')
+                ->join('tbt_delivery_details', 'tbm_items.id', '=', 'tbt_delivery_details.item_id')
+                ->leftJoin('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
+                ->where('tbm_items.id', '=', $this->id)
+                ->whereNull('tbt_delivery_details.deleted_at')
+                // ->select('tbm_items.*', 'tbt_delivery_details.id as dr_detail_id', 'tbt_delivery_details.quantity')
+                // ->get();
+                ->sum('tbt_delivery_details.quantity');
+    }
+
+    public function getTotalReleasesAttribute()
+    {
+        return $count = DB::table('tbm_items')
+                ->join('tbt_release_details', 'tbm_items.id', '=', 'tbt_release_details.item_id')
+                ->leftJoin('tbt_releases', 'tbt_release_details.release_id', '=', 'tbt_releases.id')
+                ->where([['tbm_items.id', '=', $this->id],['tbt_deliveries.complete_status', '=', 1],['tbt_deliveries.approved_by_id', '!=', 0]])
+                ->whereNull('tbt_delivery_details.deleted_at')
+                ->sum('tbt_delivery_details.quantity');
+    }
+
+
 }

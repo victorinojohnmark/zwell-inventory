@@ -29,7 +29,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'Cement',
             'item_name' => 'Cement',
             'description' => null,
-            'unit' => 'Pc/s',
+            'unit' => 'PC/S',
             'minimum_stock_qty' => 200,
             'group' => null,
             'notes' => null
@@ -39,7 +39,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'DRB 12mm',
             'item_name' => 'Deformed Steel Bar 12mm',
             'description' => null,
-            'unit' => 'pc/s',
+            'unit' => 'PC/S',
             'minimum_stock_qty' => 100,
             'group' => null,
             'notes' => null
@@ -49,7 +49,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'DRB 10mm',
             'item_name' => 'Deformed Steel Bar 10mm',
             'description' => null,
-            'unit' => 'pc/s',
+            'unit' => 'PC/S',
             'minimum_stock_qty' => 100,
             'group' => null,
             'notes' => null
@@ -59,7 +59,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'DRB 9mm',
             'item_name' => 'Deformed Steel Bar 9mm',
             'description' => null,
-            'unit' => 'pc/s',
+            'unit' => 'PC/S',
             'minimum_stock_qty' => 100,
             'group' => null,
             'notes' => null
@@ -69,7 +69,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'CHB #5',
             'item_name' => 'Concrete Hollow Blocks #5',
             'description' => null,
-            'unit' => 'pc/s',
+            'unit' => 'PC/S',
             'minimum_stock_qty' => 300,
             'group' => null,
             'notes' => null
@@ -79,7 +79,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'CHB #4',
             'item_name' => 'Concrete Hollow Blocks #4',
             'description' => null,
-            'unit' => 'pc/s',
+            'unit' => 'PC/S',
             'minimum_stock_qty' => 300,
             'group' => null,
             'notes' => null
@@ -89,7 +89,7 @@ class ItemSeeder extends Seeder
             'item_code' => 'GI Wire #16',
             'item_name' => 'Galvanized Iron Wire #16',
             'description' => null,
-            'unit' => 'kg/s',
+            'unit' => 'KG/S',
             'minimum_stock_qty' => 100,
             'group' => null,
             'notes' => null

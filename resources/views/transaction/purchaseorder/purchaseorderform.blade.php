@@ -31,18 +31,28 @@
                                 <x-adminlte-input name="transaction_code" label="Transaction Code" type="text" placeholder="[Auto-Generate]" readonly  
                                 value="{{ old('transaction_code', !is_null($purchaseOrder->transaction_code)? $purchaseOrder->transaction_code : null) }}"/>
                             </div>
+
+                            <div class="col-md-8">
+                                <x-adminlte-select name="company_id" label="Company" required>
+                                    @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}" {{!is_null($company->id) && ($purchaseOrder->company_id == $company->id)? 'selected' : '' }}>
+                                        {{ $company->company_name }}
+                                    </option>
+                                    @endforeach
+                                </x-adminlte-select>
+                            </div>
         
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <x-adminlte-input name="po_no" label="PO No." type="text" placeholder="e.g. 001467" required
                                 value="{{ old('po_no', !is_null($purchaseOrder->po_no)? $purchaseOrder->po_no : null) }}"/>
                             </div>
         
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <x-adminlte-input name="requisition_slip_no" label="Requisition Slip No." type="text" placeholder="e.g. 6151" required
                                 value="{{ old('requisition_slip_no', !is_null($purchaseOrder->requisition_slip_no)? $purchaseOrder->requisition_slip_no : null) }}"/>
                             </div>
         
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
                                 <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..." label="Purchasing Date" required 
                                     value="{{ old('purchase_date', !is_null($purchaseOrder->purchase_date)? $purchaseOrder->purchase_date : null) }}">
@@ -94,7 +104,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <x-adminlte-input name="terms" label="Terms" type="text" placeholder="e.g. 15 days"
+                                <x-adminlte-input name="terms" label="Terms" type="text" placeholder="e.g. 15 days" required 
                                 value="{{ old('terms', !is_null($purchaseOrder->terms)? $purchaseOrder->terms : null) }}"/>
                             </div>
 
@@ -123,8 +133,6 @@
                         </div>
                         @endif
                         
-                    
-
                     <!-- PURCHASE ORDER DETAILS-->
                     @include('transaction.purchaseorderdetail.purchaseorderdetaillist')
         

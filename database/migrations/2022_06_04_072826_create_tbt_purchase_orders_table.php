@@ -18,6 +18,7 @@ class CreateTbtPurchaseOrdersTable extends Migration
             $table->string('transaction_code', 20)->nullable();
             $table->string('po_no', 20);
             $table->string('requisition_slip_no', 20);
+            $table->unsignedMediumInteger('company_id');
             $table->unsignedMediumInteger('contractor_id');
             $table->unsignedMediumInteger('supplier_id');
             $table->unsignedMediumInteger('location_id');

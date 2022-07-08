@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Event;
 ## Observer Class ##
 use App\Observers\PurchaseOrderObserver;
 use App\Observers\DeliveryObserver;
+use App\Observers\ReleaseObserver;
 
 ## Models ##
 use App\Transaction\PurchaseOrder;
 use App\Transaction\Delivery;
+use App\Transaction\Release;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -37,5 +39,6 @@ class EventServiceProvider extends ServiceProvider
     {
         PurchaseOrder::observe(PurchaseOrderObserver::class);
         Delivery::observe(DeliveryObserver::class);
+        Release::observe(ReleaseObserver::class);
     }
 }

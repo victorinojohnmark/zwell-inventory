@@ -16,10 +16,11 @@
                 <table id="" class="table table-bordered table-hover datatables mt-3">
                     <thead>
                         <tr>
+                            <th scope="col">Transaction Code</th>
                             <th scope="col">Purchase Date</th>
                             <th scope="col">Purchase Order No.</th>
                             <th scope="col">Requisition Slip No.</th>
-                            <th scope="col">Requested By (Contractor)</th>
+                            <th scope="col">Requested By / Contractor</th>
                             <th scope="col">Supplier</th>
                             <th scope="col">Purpose</th>
                             <th scope="col">Purchase Cost</th>
@@ -30,6 +31,7 @@
                     <tbody> 
                         @forelse ($purchaseOrders as $purchaseOrder)
                         <tr>
+                            <td>{{ $purchaseOrder->transaction_code }}</td>
                             <td>{{ $purchaseOrder->purchase_date }}</td>
                             <td>{{ $purchaseOrder->po_no }}</td>
                             <td>{{ $purchaseOrder->requisition_slip_no }}</td>
