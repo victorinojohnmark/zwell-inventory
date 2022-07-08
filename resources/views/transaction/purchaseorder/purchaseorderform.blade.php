@@ -67,7 +67,6 @@
                         <div class="form-row">
                             <div class="col-md-4">
                                 <x-adminlte-select name="contractor_id" label="Requestee/Contractor" required>
-                                    <option>Select here...</option>
                                     @foreach ($contractors as $contractor)
                                     <option value="{{ $contractor->id }}" {{!is_null($contractor->id) && ($purchaseOrder->contractor_id == $contractor->id)? 'selected' : '' }}>
                                         {{ $contractor->contractor_name }}
@@ -78,7 +77,6 @@
         
                             <div class="col-md-4">
                                 <x-adminlte-select name="supplier_id" label="Supplier" required>
-                                    <option>Select here...</option>
                                     @foreach ($suppliers as $supplier)
                                     <option value="{{ $supplier->id }}" {{!is_null($supplier->id) && ($purchaseOrder->supplier_id == $supplier->id)? 'selected' : '' }}>
                                         {{ $supplier->supplier_name }}
@@ -89,7 +87,6 @@
         
                             <div class="col-md-4">
                                 <x-adminlte-select name="location_id" label="Location" required>
-                                    <option>Select here...</option>
                                     @foreach ($locations as $location)
                                     <option value="{{ $location->id }}" {{!is_null($location->id) && ($purchaseOrder->location_id == $location->id)? 'selected' : '' }}>
                                         {{ $location->location_name }}

@@ -17,7 +17,7 @@ class CreateTbtReleasesTable extends Migration
             $table->id();
             $table->string('transaction_code', 20)->nullable();
             $table->unsignedMediumInteger('location_id');
-            $table->unsignedMediumInteger('company_id');
+            // $table->unsignedMediumInteger('company_id');
             $table->unsignedMediumInteger('contractor_id');
             $table->date('release_date');
             $table->unsignedMediumInteger('prepared_by_id')->nullable();
