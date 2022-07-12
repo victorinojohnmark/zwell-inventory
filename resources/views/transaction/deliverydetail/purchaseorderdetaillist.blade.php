@@ -23,7 +23,7 @@
                             <td>{{ $purchaseOrderDetail->item->item_name }}</td>
                             <td><span class="badge badge-secondary">{{ 'Php ' . number_format($purchaseOrderDetail->unit_cost, 2) }}</span></td>
                             {{-- <td><span class="badge badge-secondary">{{ $purchaseOrderDetail->purchaseOrder->total_completed_delivery_per_item($purchaseOrderDetail->item_id) . '/'. ($purchaseOrderDetail->quantity + 0) }} {{ $purchaseOrderDetail->item->unit }}</span></td> --}}
-                            <td><span class="badge badge-secondary">{{ $purchaseOrderDetail->item->total_delivery_completed . '/'. ($purchaseOrderDetail->quantity + 0) }} {{ $purchaseOrderDetail->item->unit }}</span></td>
+                            <td><span class="badge badge-secondary">{{ ($purchaseOrderDetail->item->total_delivery_completed + 0) . '/'. ($purchaseOrderDetail->quantity + 0) }} {{ $purchaseOrderDetail->item->unit }}</span></td>
                         </tr>
                         @empty
                         <tr><td colspan="5">No PO Item record/s available.</td></tr>

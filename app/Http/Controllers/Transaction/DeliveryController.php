@@ -105,18 +105,18 @@ class DeliveryController extends Controller
         }
     } 
 
-    public function deliveryapprove(Request $request)
-    {
-        $delivery = Delivery::findOrFail($request->id);
-        if($delivery) {
-            if(count($delivery->deliveryDetails) && $delivery->complete_status){
-                $delivery->approved_by_id = Auth::id();
-                $delivery->save();
-                return redirect()->route('deliveryview', ['id' => $request->id]);
-            }
-        }
+    // public function deliveryapprove(Request $request)
+    // {
+    //     $delivery = Delivery::findOrFail($request->id);
+    //     if($delivery) {
+    //         if(count($delivery->deliveryDetails) && $delivery->complete_status){
+    //             $delivery->approved_by_id = Auth::id();
+    //             $delivery->save();
+    //             return redirect()->route('deliveryview', ['id' => $request->id]);
+    //         }
+    //     }
         
-    }
+    // }
 
     public function deliverydraft(Request $request)
     {

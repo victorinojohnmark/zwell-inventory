@@ -68,11 +68,12 @@ Route::post('item/getunit', 'Master\ItemController@itemgetunit')->name('itemgetu
 Route::get('purchaseorder/view', 'Transaction\PurchaseOrderController@purchaseorderview')->name('purchaseorderview');
 Route::get('purchaseorder/create', 'Transaction\PurchaseOrderController@purchaseordercreate')->name('purchaseordercreate');
 Route::post('purchaseorder/save', 'Transaction\PurchaseOrderController@purchaseordersave')->name('purchaseordersave');
-Route::get('purchaseorder/search/{searchKey}', 'Transaction\PurchaseOrderController@purchaseordersearch')->name('purchaseordersearch');
+Route::get('purchaseorder/approvedsearch/{searchKey}', 'Transaction\PurchaseOrderController@purchaseorderapprovedsearch')->name('purchaseorderapprovedsearch');
 Route::post('purchaseorder/confirm', 'Transaction\PurchaseOrderController@purchaseorderconfirm')->name('purchaseorderconfirm');
 Route::post('purchaseorder/approve', 'Transaction\PurchaseOrderController@purchaseorderapprove')->name('purchaseorderapprove');
 Route::post('purchaseorder/draft', 'Transaction\PurchaseOrderController@purchaseorderdraft')->name('purchaseorderdraft');
 Route::get('purchaseorder/print', 'Transaction\PurchaseOrderController@purchaseorderprint')->name('purchaseorderprint');
+Route::get('purchaseorder/{purchaseOrder}', 'Transaction\PurchaseOrderController@getpuchaseorder');
 
 
 //Purchase Order Detail
@@ -84,7 +85,6 @@ Route::get('delivery/view', 'Transaction\DeliveryController@deliveryview')->name
 Route::get('delivery/create', 'Transaction\DeliveryController@deliverycreate')->name('deliverycreate');
 Route::post('delivery/save', 'Transaction\DeliveryController@deliverysave')->name('deliverysave');
 Route::post('delivery/confirm', 'Transaction\DeliveryController@deliveryconfirm')->name('deliveryconfirm');
-Route::post('delivery/approve', 'Transaction\DeliveryController@deliveryapprove')->name('deliveryapprove');
 Route::post('delivery/draft', 'Transaction\DeliveryController@deliverydraft')->name('deliverydraft');
 
 //Delivery Detail

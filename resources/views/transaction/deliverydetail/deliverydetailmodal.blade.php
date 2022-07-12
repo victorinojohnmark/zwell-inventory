@@ -29,7 +29,7 @@
                                     data-detailid="{{isset($deliveryDetail) ? $deliveryDetail->id : null }}">
                                         <option>Select here...</option>
                                         @foreach ($delivery->purchaseOrder->purchaseOrderDetails as $purchaseOrderDetail)
-                                        <option value="{{ $purchaseOrderDetail->item->id }}" data-po_detail_id="{{ $purchaseOrderDetail->id }}" {{!is_null($purchaseOrderDetail->item->id) && isset($deliveryDetail) ? ($deliveryDetail->item_id == $purchaseOrderDetail->item->id) ? 'selected' : '' : null }}>
+                                        <option value="{{ $purchaseOrderDetail->item->id }}" data-unitcost="{{ $purchaseOrderDetail->unit_cost }}" data-po_detail_id="{{ $purchaseOrderDetail->id }}" {{!is_null($purchaseOrderDetail->item->id) && isset($deliveryDetail) ? ($deliveryDetail->item_id == $purchaseOrderDetail->item->id) ? 'selected' : '' : null }}>
                                             {{ $purchaseOrderDetail->item->item_name }}
                                         </option>
                                         @endforeach
@@ -39,12 +39,11 @@
                             @endif
                         @endif
                         
-                        {{-- {{ dd(isset($deliveryDetail)) }} --}}
                         <div class="col-md-6">
                             <x-adminlte-input name="quantity" label="Quantity" type="number" 
                             id="deliveryDetailQuantity{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}"
                             data-detailid="{{ isset($deliveryDetail) ? $deliveryDetail->id : null }}" 
-                            placeholder="e.n. 150" min="0" step="0.01" required
+                            placeholder="..." min="0" step="0.01" required
                             value="{{ isset($deliveryDetail) ? $deliveryDetail->quantity : null }}">
                                 <x-slot name="appendSlot">
                                     <div class="input-group-text">
@@ -58,7 +57,7 @@
                             <x-adminlte-input name="unit_price" label="Unit Price" type="number" 
                             id="deliveryDetailUnitCost{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}"
                             data-detailid="{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}" 
-                            placeholder="e.n. 12000" min="0" step="0.01" required
+                            placeholder="0.00" min="0" step="0.01" required readonly 
                             value="{{isset($deliveryDetail) ? $deliveryDetail->unit_price : null }}">
                                 <x-slot name="prependSlot">
                                     <div class="input-group-text">
@@ -69,7 +68,7 @@
                         </div>
                     
                         <div class="col-md-12">
-                            <x-adminlte-input name="total_amount" label="Total Amount Ongoing" type="text" 
+                            <x-adminlte-input name="total_amount" label="Total Amount" type="text" 
                             id="deliveryDetailSubTotalAmount{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}"
                             data-detailid="{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}" 
                             placeholder="..." readonly

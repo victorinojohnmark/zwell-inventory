@@ -14,12 +14,13 @@ class Location extends Model
     protected $table = 'tbm_locations';
 
     protected $fillable = [
-        'location_name', 'location_code', 'contact_person', 'contact_no', 'email', 'address', 'notes', 'active'
+        'location_name', 'location_code', 'company_id', 'contact_person', 'contact_no', 'email', 'address', 'notes', 'active'
     ];
 
     public $validationrules = [
         'location_name' => 'required|max:255|unique:tbm_locations', 
         'location_code' => 'nullable|max:50|unique:tbm_locations', 
+        'company_id' => 'required|numeric',
         'contact_person' => 'required|max:50', 
         'contact_no' => 'required|max:50', 
         'email' => 'nullable|email|max:50', 
@@ -36,7 +37,8 @@ class Location extends Model
     {
         return self::create([
             'location_name' => $values['location_name'], 
-            'location_code' => $values['location_name'], 
+            'location_code' => $values['location_code'], 
+            'company_id' => $values['company_id'],
             'contact_person' => $values['contact_person'], 
             'contact_no' => $values['contact_no'], 
             'email' => $values['email'], 
@@ -45,5 +47,10 @@ class Location extends Model
             'active' => $values['active'],
         ]);
 
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

@@ -18,6 +18,7 @@ class LocationSeeder extends Seeder
         Location::create([
             'location_name' => 'Warehouse 1',
             'location_code' => 'Warehouse 1',
+            'company_id' => 1,
             'contact_person' => 'John Doe',
             'contact_no' => '09178945612',
             'email' => 'email1@website.com',
@@ -28,6 +29,7 @@ class LocationSeeder extends Seeder
         Location::create([
             'location_name' => 'Warehouse 2',
             'location_code' => 'Warehouse 2',
+            'company_id' => 1,
             'contact_person' => 'John Doe',
             'contact_no' => '09178945612',
             'email' => 'email2@website.com',

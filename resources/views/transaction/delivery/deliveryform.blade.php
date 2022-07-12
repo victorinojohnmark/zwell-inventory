@@ -10,7 +10,10 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <strong>Delivery Form</strong> <span class="badge badge-{{ $delivery->status['state'] }}">{{ $delivery->status['title'] }}</span>
+                    <strong>Delivery Form</strong>
+                    <div class="float-right">
+                        <span class="badge badge-{{ $delivery->status['state'] }}">{{ $delivery->status['title'] }}</span>
+                    </div>
                 </div>
                 <div class="card-body">     
                     <div class="options mb-3">
@@ -24,7 +27,8 @@
                             <div class="col-md-3">
                                 <input type="hidden" name="id" value="{{ old('id', !is_null($delivery->id)? $delivery->id : null) }}">
                                 <input type="hidden" name="total_amount" value="{{ old('total_amount', !is_null($delivery->total_amount)? $delivery->total_amount : null) }}">
-        
+                                <input type="hidden" name="supplier_id" value="{{ old('supplier_id', !is_null($delivery->supplier_id)? $delivery->supplier_id : null) }}">
+
                                 <x-adminlte-input name="transaction_code" label="Transaction Code" type="text" placeholder="[Auto-Generate]" readonly  
                                 value="{{ old('transaction_code', !is_null($delivery->transaction_code)? $delivery->transaction_code : null) }}"/>
                             </div>
@@ -49,12 +53,10 @@
                                 value="{{ old('dr_no', !is_null($delivery->dr_no)? $delivery->dr_no : null) }}"/>
                             </div>
 
-                            @if (isset($delivery->id))
-                                <div class="col-md-3">
-                                    <x-adminlte-input name="supplier" label="Supplier" type="text" readonly  
-                                    value="{{ old('supplier', !is_null($delivery->supplier_id)? $delivery->supplier->supplier_name : null) }}"/>
-                                </div>
-                            @endif
+                            <div class="col-md-3"> 
+                                <x-adminlte-input name="supplier" label="Supplier" type="text" readonly  
+                                value="{{ old('supplier', !is_null($delivery->supplier_id)? $delivery->supplier->supplier_name : '...') }}"/>
+                            </div>
         
                             <div class="col-md-3">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
@@ -66,18 +68,15 @@
                                     </x-slot>
                                 </x-adminlte-input-date>
                             </div>
-                            <div class="col-md-3">
+                            {{-- <div class="col-md-3">
                                 <x-adminlte-select name="supplier_id" label="Supplier" required>
-                                    <option>Select here...</option>
                                     @foreach ($suppliers as $supplier)
                                     <option value="{{ $supplier->id }}" {{!is_null($supplier->id) && ($delivery->supplier_id == $supplier->id)? 'selected' : '' }}>
                                         {{ $supplier->supplier_name }}
                                     </option>
                                     @endforeach
                                 </x-adminlte-select>
-                            </div>
-
-                            
+                            </div> --}}
 
                             <div class="col-md-3">
                                 <x-adminlte-input name="recieved_by" label="Recieved by: " type="text" placeholder="e.g. Juan Dela Cruz" required
@@ -119,13 +118,7 @@
                     <span class="badge badge-info p-2"><h3 class="m-0"><strong>Php {{ !is_null($delivery->id)? number_format($delivery->TotalAmount, 2) : 'N/A' }}</strong></h3></span>
                 </div>
                 <div class="card-footer">
-                    @if ($delivery->complete_status && $delivery->approved_by_id == 0)
-                        <form action="{{ route('deliveryapprove', ['id' => $delivery->id]) }}" method="post" class="d-inline">
-                            @csrf
-                            <input type="hidden" name="id" value="{{ $delivery->id }}">
-                            <button class="btn btn-sm btn-success mb-1" type="submit">APPROVE DELIVERY</button>
-                        </form>
-                        
+                    @if ($delivery->complete_status)
                         <form action="{{ route('deliverydraft', ['id' => $delivery->id]) }}" method="post" class="d-inline">
                             @csrf
                             <input type="hidden" name="id" value="{{ $delivery->id }}">

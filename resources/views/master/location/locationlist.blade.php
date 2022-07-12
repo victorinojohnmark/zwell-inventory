@@ -17,6 +17,7 @@
                     <tr>
                         <th scope="col">Location Code</th>
                         <th scope="col">Location Name</th>
+                        <th scope="col">Company</th>
                         <th scope="col">Contact Person</th>
                         <th scope="col">Contact No.</th>
                         <th scope="col">Email</th>
@@ -29,6 +30,7 @@
                     <tr>
                         <td>{{ $location->location_code }}</td>
                         <td>{{ $location->location_name }}</td>
+                        <td>{{ $location->company->company_name }}</td>
                         <td>{{ $location->contact_person }}</td>
                         <td>{{ $location->contact_no }}</td>
                         <td>{{ $location->email }}</td>

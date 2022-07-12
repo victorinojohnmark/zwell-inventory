@@ -10,7 +10,13 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <strong>Purchase Order Form</strong> <span class="badge badge-{{ $purchaseOrder->status['state'] }}">{{ $purchaseOrder->status['title'] }}</span>
+                    <strong>Purchase Order Form</strong> 
+                    <div class="float-right">
+                        <span class="badge badge-{{ $purchaseOrder->status['state'] }}">{{ $purchaseOrder->status['title'] }}</span>
+                        @if ($purchaseOrder->complete_status && $purchaseOrder->approved_by_id != 0)
+                        <span class="badge badge-{{ $purchaseOrder->delivery_status['state'] }}">{{ $purchaseOrder->delivery_status['title'] }}</span>
+                        @endif
+                    </div>
                     {{-- @if (!$purchaseOrder->complete_status) {!! '<span class="badge badge-warning">Draft</span>' !!} @else {!! '<span class="badge badge-danger">Pending for approval</span>' !!} @endif --}}
                 </div>
                 <div class="card-body">     
@@ -32,27 +38,19 @@
                                 value="{{ old('transaction_code', !is_null($purchaseOrder->transaction_code)? $purchaseOrder->transaction_code : null) }}"/>
                             </div>
 
-                            <div class="col-md-8">
-                                <x-adminlte-select name="company_id" label="Company" required>
-                                    @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}" {{!is_null($company->id) && ($purchaseOrder->company_id == $company->id)? 'selected' : '' }}>
-                                        {{ $company->company_name }}
-                                    </option>
-                                    @endforeach
-                                </x-adminlte-select>
-                            </div>
+                            
         
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <x-adminlte-input name="po_no" label="PO No." type="text" placeholder="e.g. 001467" required
                                 value="{{ old('po_no', !is_null($purchaseOrder->po_no)? $purchaseOrder->po_no : null) }}"/>
                             </div>
         
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <x-adminlte-input name="requisition_slip_no" label="Requisition Slip No." type="text" placeholder="e.g. 6151" required
                                 value="{{ old('requisition_slip_no', !is_null($purchaseOrder->requisition_slip_no)? $purchaseOrder->requisition_slip_no : null) }}"/>
                             </div>
         
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
                                 <x-adminlte-input-date name="purchase_date" :config="$config" placeholder="Choose a date..." label="Purchasing Date" required 
                                     value="{{ old('purchase_date', !is_null($purchaseOrder->purchase_date)? $purchaseOrder->purchase_date : null) }}">
@@ -172,6 +170,11 @@
 
                     @if ($purchaseOrder->complete_status && $purchaseOrder->approved_by_id != 0)
                         <a href="{{ route('purchaseorderprint', ['id' => $purchaseOrder->id ]) }}" target="_blank" class="btn btn-sm btn-primary mb-1" type="submit">PRINT PREVIEW</a>
+                    @endif
+
+                    @if ($purchaseOrder->completeDeliveries->count())
+                        <button class="btn btn-sm btn-info mb-1" data-toggle="modal" data-target="#deliveriesModal">DELIVERY DETAILS</button>
+                        @include('transaction.purchaseorder.purchaseorderdeliveriesmodal')
                     @endif
 
                     {{-- @if ($purchaseOrder->status['title'] != 'Draft')

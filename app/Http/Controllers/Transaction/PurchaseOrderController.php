@@ -20,7 +20,6 @@ class PurchaseOrderController extends Controller
         if(isset($request->id)) {
             return view('transaction.purchaseorder.purchaseorderform', [
                 'purchaseOrder' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', $request->id),
-                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
                 'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                 'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
                 'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -39,7 +38,6 @@ class PurchaseOrderController extends Controller
     {
         return view('transaction.purchaseorder.purchaseorderform', [
             'purchaseOrder' => LogicCRUD::createRecord('PurchaseOrder', 'Transaction'),
-            'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
             'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', $id = null, $limitter = null, $active = true),
             'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
@@ -66,7 +64,7 @@ class PurchaseOrderController extends Controller
         }
     }
 
-    public function purchaseordersearch(Request $request, $searchKey)
+    public function purchaseorderapprovedsearch(Request $request, $searchKey)
     {
         return $po = PurchaseOrder::where([['po_no', 'like', $searchKey.'%'],['approved_by_id', '!=', 0]])->get();
     }
@@ -134,5 +132,10 @@ class PurchaseOrderController extends Controller
             }
         }
         
+    }
+
+    public function getpuchaseorder(PurchaseOrder $purchaseOrder)
+    {
+        return $purchaseOrder;
     }
 }

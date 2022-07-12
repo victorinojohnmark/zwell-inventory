@@ -13,7 +13,8 @@ class LocationController extends Controller
     {
         if(isset($request->id)) {
             return view('master.location.locationform', [
-                'location' => LogicCRUD::retrieveRecord('Location', 'Master', $request->id)
+                'location' => LogicCRUD::retrieveRecord('Location', 'Master', $request->id),
+                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
             ]);
         } 
 
@@ -28,6 +29,7 @@ class LocationController extends Controller
     {
         return view('master.location.locationform', [
             'location' => LogicCRUD::createRecord('Location', 'Master'),
+            'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
         ]);
     }
 
@@ -36,6 +38,7 @@ class LocationController extends Controller
         if(!is_null($request->id)) {
             return view('master.location.locationform', [
                 'location' => LogicCRUD::retrieveRecord('Location', 'Master', $request->id),
+                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
             ]);
         } else {
             return redirect()->back();

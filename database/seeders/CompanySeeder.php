@@ -18,7 +18,7 @@ class CompanySeeder extends Seeder
         Company::Create([
             'company_name' => 'Zwell Philippines Realty Development Corp.',
             'company_code' => 'ZWELL',
-            'contact_person' => 'John Doe',
+            'website' => 'https://www.website.com',
             'contact_no' => '09061234567',
             'email' => 'email@website.com',
             'address' => 'Pag-asa Village, Cavite City'
@@ -27,7 +27,7 @@ class CompanySeeder extends Seeder
         Company::Create([
             'company_name' => 'LyfHomes Development Corp.',
             'company_code' => 'LYFHOMES',
-            'contact_person' => 'Sarah Lee',
+            'website' => 'https://www.website.com',
             'contact_no' => '09061234567',
             'email' => 'email@website.com',
             'address' => 'Pag-Ibig Village, Navotas City'

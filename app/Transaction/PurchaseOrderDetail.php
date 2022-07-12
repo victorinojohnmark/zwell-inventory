@@ -4,6 +4,7 @@ namespace App\Transaction;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -72,13 +73,5 @@ class PurchaseOrderDetail extends Model
     {
         return $total = $this->item->item_name;
     }
-
-    public function totalDeliveryPerItem($itemID)
-    {
-        // return $this->purchaseOrder->total_delivery_per_item($this->item_id);
-
-
-    }
-
 
 }

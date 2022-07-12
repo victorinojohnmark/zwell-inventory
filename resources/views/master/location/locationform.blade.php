@@ -25,9 +25,19 @@
                         value="{{ old('location_code', !is_null($location->location_code)? $location->location_code : null) }}"/>
                     </div>
 
-                    <div class="col-md-9">
+                    <div class="col-md-5">
                         <x-adminlte-input name="location_name" label="Location Name" type="text" placeholder="e.g. Warehouse/Project Site" required
                         value="{{ old('location_name', !is_null($location->location_name)? $location->location_name : null) }}"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <x-adminlte-select name="company_id" label="Company" required>
+                            @foreach ($companies as $company)
+                            <option value="{{ $company->id }}" {{!is_null($company->id) && ($location->company_id == $company->id)? 'selected' : '' }}>
+                                {{ $company->company_name }}
+                            </option>
+                            @endforeach
+                        </x-adminlte-select>
                     </div>
 
                     <div class="col-md-4">

@@ -17,7 +17,7 @@
                     <tr>
                         <th scope="col">Company Code</th>
                         <th scope="col">Company Name</th>
-                        <th scope="col">Contact Person</th>
+                        <th scope="col">Website</th>
                         <th scope="col">Contact No.</th>
                         <th scope="col">Email</th>
                         <th scope="col">Status</th>
@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ $company->company_code }}</td>
                         <td>{{ $company->company_name }}</td>
-                        <td>{{ $company->contact_person }}</td>
+                        <td>{{ $company->website }}</td>
                         <td>{{ $company->contact_no }}</td>
                         <td>{{ $company->email }}</td>
                         <td><span class="badge badge-{{ $company->active ? 'success' : 'danger' }}">{{ $company->active ? 'Active' : 'Inactive' }}</span></td>

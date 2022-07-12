@@ -35,7 +35,6 @@ class PurchaseOrder extends Model
         'po_no' => 'required|max:20|unique:tbt_purchase_orders', 
         'transaction_code' => 'nullable|max:20|unique:tbt_purchase_orders', 
         'requisition_slip_no' => 'required|max:20',
-        'company_id' => 'required|integer', 
         'contractor_id' => 'required|integer', 
         'supplier_id' => 'required|integer', 
         'location_id' => 'required|integer',
@@ -52,9 +51,6 @@ class PurchaseOrder extends Model
         'po_no.unique'  => 'PO No is already used',
 
         'requisition_slip_no.required' => 'Requisition No is required',
-
-        'company_id.required' => 'Company is required',
-        'company_id.integer' => 'Company is required',
 
         'contractor_id.required' => 'Contractor is required',
         'contractor_id.integer' => 'Contractor is required',
@@ -73,7 +69,6 @@ class PurchaseOrder extends Model
             'po_no' => $values['po_no'], 
             'transaction_code' => $values['transaction_code'], 
             'requisition_slip_no' => $values['requisition_slip_no'],
-            'company_id' => $values['company_id'], 
             'contractor_id' => $values['contractor_id'], 
             'supplier_id' => $values['supplier_id'], 
             'location_id' => $values['location_id'],
@@ -120,6 +115,11 @@ class PurchaseOrder extends Model
     public function deliveries()
     {
         return $this->hasMany(Delivery::class);
+    }
+
+    public function completeDeliveries()
+    {
+        return $this->hasMany(Delivery::class)->where(['complete_status' => true]);
     }
 
     public function fileAttachments()
@@ -177,6 +177,25 @@ class PurchaseOrder extends Model
 
         return $status;
 
+    }
+
+    public function getDeliveryStatusAttribute()
+    {
+        
+        if($this->completeDeliveries->count() == 0) {
+            return ['state' => 'danger', 'title' => 'No delivery record'];
+        } 
+
+        foreach ($this->purchaseOrderDetails as $purchaseOrderDetail) {
+            if($purchaseOrderDetail->quantity != $purchaseOrderDetail->item->total_delivery_completed) {
+                return ['state' => 'warning', 'title' => 'Incomplete Delivery'];
+                break;
+            } else {
+                continue;
+            }
+        }
+
+        return ['state' => 'success', 'title' => 'Complete Delivery'];
     }
 
     

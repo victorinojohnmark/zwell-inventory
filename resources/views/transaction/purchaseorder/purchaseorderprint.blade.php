@@ -4,6 +4,28 @@
 {{ $purchaseOrder->transaction_code }}
 @endsection
 
+@section('document-header')
+<table style="margin-bottom: 20px;">
+  <tr>
+    <td rowspan="5" style="width:100px; padding-right:10px;">
+      <img src="/img/logo.png" alt="HRM Logo" style="width:100%;">
+    </td>
+  </tr>
+  <tr>
+    <td><h2 style="margin-bottom: 0px;">Zwell Philippine Realty Development Corporation</h2></td>
+  </tr>
+  <tr>
+    <td>Address: Arnaldo Highway, Brgy. Santiago Gen. Trias Cavite</td>
+  </tr>
+  <tr>
+      <td>Contact No.: (046)513-5935; (0917)169-5935; (0943)708-8592</td>
+  </tr> 
+  <tr>
+    <td>Website: https://www.website.com</td>
+  </tr> 
+</table>
+@endsection
+
 @section('document-type')
 <h2>PURCHASE ORDER</h2>
 @endsection
@@ -16,8 +38,18 @@
 
 <table class="tbl header" id="table" style="margin-top: 20px;" cellspacing="0">
   <tbody>
-      <tr><td class="bg-dark">Transaction Code:</td><td>{{ $purchaseOrder->transaction_code }}</td><td class="bg-dark">Purchasing Date:</td><td>{{ $purchaseOrder->purchase_date }}</td></tr>
-      <tr><td class="bg-dark">Supplier:</td><td>{{ $purchaseOrder->supplier->supplier_name }}</td><td class="bg-dark">Terms:</td><td>{{ $purchaseOrder->terms }}</td></tr>
+      <tr>
+        <td class="bg-dark">Transaction Code:</td>
+        <td><span class="data">{{ $purchaseOrder->transaction_code }}</span></td>
+        <td class="bg-dark">Purchasing Date:</td>
+        <td><span class="data">{{ $purchaseOrder->purchase_date }}</span></td>
+      </tr>
+      <tr>
+        <td class="bg-dark">Supplier:</td>
+        <td><span class="data">{{ $purchaseOrder->supplier->supplier_name }}</span></td>
+        <td class="bg-dark">Terms:</td>
+        <td><span class="data">{{ $purchaseOrder->terms }}</span></td>
+      </tr>
   </tbody>
 </table>
 <div id="tableDataWrapper">
@@ -59,7 +91,7 @@
           <tr height="35">
             <td style="border-right: 0px;" class="bg-dark"></td>
             <td style="border-right: 0px; border-left: 0px;" class="bg-dark"></td>
-            <td width="25%" colspan="" class="bg-dark" style="text-align:right; border-left: 0px;"><strong><span class="data">TOTAL AMOUNT</span></strong></td>
+            <td width="25%" colspan="" class="bg-dark" style="text-align:right; border-left: 0px;"><strong><span class="">TOTAL AMOUNT</span></strong></td>
             <td width="25%"><strong><span class="data">PHP 29,750.00</span></strong></td>
           </tr>
           <tr>

@@ -17,6 +17,7 @@ class CreateTbmLocationsTable extends Migration
             $table->id();
             $table->string('location_name', 255)->unique();
             $table->string('location_code', 50)->nullable()->unique();
+            $table->unsignedMediumInteger('company_id');
             $table->string('contact_person', 50);
             $table->string('contact_no', 50);
             $table->string('email', 50)->nullable();

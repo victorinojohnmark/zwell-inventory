@@ -40,7 +40,12 @@
                             <td>{{ $purchaseOrder->purpose ? $purchaseOrder->purpose : 'n/a' }}</td>
                             
                             <td>@if (!is_null($purchaseOrder->TotalAmount)) <span class="badge badge-info">Php {{ number_format($purchaseOrder->TotalAmount, 2)}}</span> @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
-                            <td><span class="badge badge-{{ $purchaseOrder->status['state'] }}">{{ $purchaseOrder->status['title'] }}</span></td>
+                            <td>
+                                <span class="badge badge-{{ $purchaseOrder->status['state'] }}">{{ $purchaseOrder->status['title'] }}</span>
+                                @if ($purchaseOrder->complete_status && $purchaseOrder->approved_by_id != 0)
+                                <span class="badge badge-{{ $purchaseOrder->delivery_status['state'] }}">{{ $purchaseOrder->delivery_status['title'] }}</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('purchaseorderview', ['id' => $purchaseOrder->id]) }}" class="btn btn-sm btn-info font-weight">View</a>
                             </td>
@@ -57,7 +62,6 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/vendor/datatable/datatables.min.css">
     <link rel="stylesheet" href="/css/custom.css">
 @stop
 

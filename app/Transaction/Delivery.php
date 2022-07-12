@@ -19,7 +19,7 @@ class Delivery extends Model
     protected $table = "tbt_deliveries";
 
     protected $fillable = [
-        'transaction_code', 'purchase_order_id', 'dr_no', 
+        'transaction_code', 'purchase_order_id', 'dr_no', 'supplier_id', 
         'delivery_date', 'total_amount','recieved_by', 'notes'
     ];
 
@@ -93,18 +93,7 @@ class Delivery extends Model
 
     public function getStatusAttribute()
     {
-        $status = array();
-        if($this->complete_status && $this->approved_by_id == 0) {
-            $status = ['state' => 'danger', 'title' => 'Pending for approval'];
-        } else {
-            $status = ['state' => 'primary', 'title' => 'Approved'];
-        }
-        if($this->complete_status == 0 && $this->approved_by_id == 0) {
-            $status = ['state' => 'warning', 'title' => 'Draft'];
-        }
-
-        return $status;
-
+        return $status = $this->complete_status ? ['state' => 'primary', 'title' => 'Complete'] : ['state' => 'warning', 'title' => 'Draft'];
     }
 
     

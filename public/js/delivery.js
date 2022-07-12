@@ -13,6 +13,7 @@ Array.from(itemSelectors).forEach(function(element){
                 success: function (data) {
                    document.querySelector(`#deliveryDetailUnitIndicator${element.dataset.detailid}`).innerHTML = data;
                    document.querySelector(`#purchaseOrderDetail${element.dataset.detailid}`).value = element.options[element.selectedIndex].dataset.po_detail_id;
+                   document.querySelector(`#deliveryDetailUnitCost${element.dataset.detailid}`).value = element.options[element.selectedIndex].dataset.unitcost
                 //    console.log(element.options[element.selectedIndex], element.options[element.selectedIndex].dataset.po_detail_id);
                 },
                 error: function (data, textStatus, errorThrown) {
@@ -20,6 +21,9 @@ Array.from(itemSelectors).forEach(function(element){
             
                 },
             });
+            // console.log(element.options[element.selectedIndex].dataset.unitcost);
+            // document.querySelectorAll('input[name="unit_price"]').value = element.options[element.selectedIndex].dataset.unitcost
+
         }
     });
 });
@@ -33,7 +37,7 @@ if(quantityItems && unitCostItems) {
                 let quantity = document.querySelector(`#deliveryDetailQuantity${el.dataset.detailid}`).value;
                 let unitCost = document.querySelector(`#deliveryDetailUnitCost${el.dataset.detailid}`).value;
                 let subTotalAmount = document.querySelector(`#deliveryDetailSubTotalAmount${el.dataset.detailid}`);
-                console.log('quantity is: ' + quantity, 'unitcost is: ' + unitCost);
+                // console.log('quantity is: ' + quantity, 'unitcost is: ' + unitCost);
                 //clean values
                 quantity = parseFloat(quantity.replace(/,/g,''));
                 unitCost = parseFloat(unitCost.replace(/,/g,''));
@@ -58,7 +62,7 @@ if(searchPO && searchPOResult && inputPO) {
 
         if(e.target.value.length > 3) {
             searchPOResult.classList.add('show');
-            axios.get(`/purchaseorder/search/${e.target.value}`)
+            axios.get(`/purchaseorder/approvedsearch/${e.target.value}`)
             .then(response => {
                 const data = response.data;
                 if(data.length === 0) {
@@ -84,9 +88,21 @@ if(searchPO && searchPOResult && inputPO) {
                             inputPO.value = null;
                             inputPO.dataset.po_no = null;
 
+                            //assign input po values
                             inputPO.value = e.target.dataset.poid;
                             inputPO.dataset.po_no = e.target.dataset.po_no;
                             searchPO.value = e.target.innerHTML;
+
+                            //assign supplier id
+                            axios.get(`/purchaseorder/${e.target.dataset.poid}`)
+                            .then(response => {
+                                const data = response.data;
+                                document.querySelector('input[name="supplier_id"]').value = data.supplier_id;
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            });
+
 
                             //clear first all result list
                             while(searchPOResult.children.length > 0) {

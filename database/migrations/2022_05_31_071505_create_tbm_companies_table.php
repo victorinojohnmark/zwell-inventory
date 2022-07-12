@@ -17,7 +17,7 @@ class CreateTbmCompaniesTable extends Migration
             $table->id();
             $table->string('company_name', 255)->unique();
             $table->string('company_code', 50)->nullable()->unique();
-            $table->string('contact_person', 50);
+            $table->string('website', 100);
             $table->string('contact_no', 50);
             $table->string('email', 50)->nullable();
             $table->string('address', 255)->nullable();
