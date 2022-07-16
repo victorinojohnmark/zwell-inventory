@@ -23,12 +23,15 @@
                 @if (!Request::is('company/create')) <a href="{{ route('companycreate') }}" class="btn btn-success font-weight-bold btn-sm"><i class="fas fa-fw fa-plus"></i> New Company</a> @endif
             </div>
 
-            <form action="{{ route('companysave') }}" method="post">
+            <form action="{{ route('companysave') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
                     <div class="col-md-2">
-
+                        <img src="{{ $company->id ? '/storage/company/' . $company->logo_filename : '/img/company-logo-placeholder.png' }}" id="companyLogo" class="img-fluid border mb-3">
+                        <span class="btn btn-primary btn-sm btn-file d-block">
+                            Upload <input type="file" name="logo" accept=".gif,.jpg,.jpeg,.png">
+                        </span>
                     </div>
 
                     <div class="col-md-10">
@@ -44,11 +47,6 @@
                                 <x-adminlte-input name="company_name" label="Company Name" type="text" placeholder="e.g. Company Name Corp." required
                                 value="{{ old('company_name', !is_null($company->company_name)? $company->company_name : null) }}"/>
                             </div>
-        
-                            {{-- <div class="col-md-4">
-                                <x-adminlte-input name="contact_person" label="Contact Person" type="text" placeholder="e.g. John Doe" required
-                                value="{{ old('contact_person', !is_null($company->contact_person)? $company->contact_person : null) }}"/>
-                            </div> --}}
         
                             <div class="col-md-4">
                                 <x-adminlte-input name="contact_no" label="Contact No." type="text" placeholder="e.g. 09171239876" required
@@ -100,4 +98,5 @@
 
 @section('js')
    <script src="{{ asset('js/custom.js') }}"></script>
+   <script src="{{ asset('js/company.js') }}"></script>
 @stop

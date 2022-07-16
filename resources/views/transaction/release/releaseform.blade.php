@@ -30,16 +30,6 @@
                             </div>
 
                             <div class="col-md-8">
-                                <x-adminlte-select name="company_id" label="Company" required>
-                                    @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}" {{!is_null($company->id) && ($release->company_id == $company->id)? 'selected' : '' }}>
-                                        {{ $company->company_name }}
-                                    </option>
-                                    @endforeach
-                                </x-adminlte-select>
-                            </div>
-
-                            <div class="col-md-6">
                                 <x-adminlte-select name="location_id" label="Location" required>
                                     @foreach ($locations as $location)
                                     <option value="{{ $location->id }}" {{!is_null($location->id) && ($release->location_id == $location->id)? 'selected' : '' }}>
@@ -59,7 +49,7 @@
                                 </x-adminlte-select>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
                                 <x-adminlte-input-date name="release_date" :config="$config" placeholder="Choose a date..." label="Release Date" required 
                                     value="{{ old('release_date', !is_null($release->release_date)? $release->release_date : null) }}">
@@ -80,6 +70,12 @@
                                     {{ old('notes', !is_null($release->notes)? $release->notes : null) }}
                                 </x-adminlte-textarea>
                             </div>
+
+                            @if ($release->id)
+                            <small class="bg-secondary text-italic rounded p-1 mx-1 mb-2">
+                                <i class="fas fa-fw fa-info-circle"></i> Updating Release with new location will reset release details below.
+                            </small>
+                            @endif
                         </div>
         
                         @if (!$release->complete_status)<button class="btn btn-sm btn-primary font-weight-bold" type="submit">Save</button> @endif
@@ -88,7 +84,10 @@
                 </div>
             </div>
 
-            @include('transaction.releasedetail.releasedetaillist')
+            @if($release->id)
+                @include('transaction.releasedetail.releasedetaillist')
+            @endif
+            
 
         </div>
 

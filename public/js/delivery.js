@@ -60,60 +60,59 @@ if(searchPO && searchPOResult && inputPO) {
         inputPO.value = '';
         inputPO.dataset.po_no = '';
 
-        if(e.target.value.length > 3) {
+        if(e.target.value.length > 2) {
             searchPOResult.classList.add('show');
+
+            async function clearPOResult() {
+                while(searchPOResult.children.length > 0) {
+                    searchPOResult.children[0].remove();
+                }
+            }
             axios.get(`/purchaseorder/approvedsearch/${e.target.value}`)
             .then(response => {
                 const data = response.data;
                 if(data.length === 0) {
                     //clear first all result list
-                    while(searchPOResult.children.length > 0) {
-                        searchPOResult.children[0].remove();
-                    }
+                    clearPOResult()
                 } else {
                     data.forEach((d) => {
-                        //clear first all result list
-                        while(searchPOResult.children.length > 0) {
-                            searchPOResult.children[0].remove();
-                        }
+                        clearPOResult().then(function() {
+                            let li = document.createElement('li');
+                            li.classList.add('list-group-item', 'list-group-item-action', 'border-0');
+                            li.innerHTML = d.po_no;
+                            li.dataset.poid = d.id;
+                            li.dataset.po_no = d.po_no;
+                    
+                            li.addEventListener('click', function(e) {
+                                //clear PO id input value
+                                inputPO.value = null;
+                                inputPO.dataset.po_no = null;
 
-                        let li = document.createElement('li');
-                        li.classList.add('list-group-item', 'list-group-item-action', 'border-0');
-                        li.innerHTML = d.po_no;
-                        li.dataset.poid = d.id;
-                        li.dataset.po_no = d.po_no;
-                
-                        li.addEventListener('click', function(e) {
-                            //clear PO id input value
-                            inputPO.value = null;
-                            inputPO.dataset.po_no = null;
+                                //assign input po values
+                                inputPO.value = e.target.dataset.poid;
+                                inputPO.dataset.po_no = e.target.dataset.po_no;
+                                searchPO.value = e.target.innerHTML;
 
-                            //assign input po values
-                            inputPO.value = e.target.dataset.poid;
-                            inputPO.dataset.po_no = e.target.dataset.po_no;
-                            searchPO.value = e.target.innerHTML;
+                                //assign supplier id
+                                axios.get(`/purchaseorder/${e.target.dataset.poid}`)
+                                .then(response => {
+                                    const data = response.data;
+                                    document.querySelector('input[name="supplier_id"]').value = data.supplier_id;
+                                    document.querySelector('input[name="location_id"]').value = data.location_id;
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                });
 
-                            //assign supplier id
-                            axios.get(`/purchaseorder/${e.target.dataset.poid}`)
-                            .then(response => {
-                                const data = response.data;
-                                document.querySelector('input[name="supplier_id"]').value = data.supplier_id;
-                            })
-                            .catch(error => {
-                                console.log(error);
+                                clearPOResult()
+
+                                // hide po search result list
+                                searchPOResult.classList.remove('show');
                             });
 
-
-                            //clear first all result list
-                            while(searchPOResult.children.length > 0) {
-                                searchPOResult.children[0].remove();
-                            }
-
-                            // hide po search result list
-                            searchPOResult.classList.remove('show');
+                            searchPOResult.appendChild(li);
                         });
-
-                        searchPOResult.appendChild(li);
+                        
                     });
 
                 }

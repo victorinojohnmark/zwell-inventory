@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Transaction\PurchaseOrder;
-use App\Transaction\Delivery;
+use App\Transaction\DeliveryDetail;
 use App\Master\Item;
 
 
@@ -59,15 +59,45 @@ class PurchaseOrderDetail extends Model
         return $this->belongsTo(Item::class);
     }
 
+    public function deliveryDetails()
+    { 
+        return $this->hasMany(DeliveryDetail::class);
+    }
+
+    public function delivery_detail_entries_completed()
+    {
+        return DB::table('tbt_delivery_details')
+               ->join('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
+               ->join('tbt_purchase_order_details', 'tbt_purchase_order_details.id', '=', 'tbt_delivery_details.purchase_order_detail_id')
+               ->where([
+                ['tbt_deliveries.complete_status', '=', 1],
+                ['tbt_purchase_order_details.id', '=', $this->id]
+               ])
+               ->whereNull('tbt_delivery_details.deleted_at')
+               ->select('tbt_delivery_details.*')
+               ->get();
+    }
+
     public function getSubTotalAttribute()
     {
         return $subtotal = $this->unit_cost * $this->quantity;
     }
 
-    public function deliveries()
-    {
-        return $this->HasManyThrough(Delivery::class, PurchaseOrder::class);
-    }
+    // public function deliveries()
+    // {
+    //     return $this->HasManyThrough(Delivery::class, PurchaseOrder::class);
+    // }
+
+    // public function 
+
+    // public function deliveryDetails()
+    // {
+    //     return DB::table('tbt_delivery_details')
+    //            ->join('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
+    //            ->where([
+    //             ['tbt_deliveries.complete_status', '=', 1]
+    //             ])
+    // }
 
     public function getItemNameAttribute() 
     {

@@ -44,6 +44,10 @@ class LogicCRUD
                 case 'Company':
                     $record->validationrules['company_name'] = 'required|max:255';
                     $record->validationrules['company_code'] = 'nullable|max:50';
+
+                    if(!isset($values['logo_filename'])) {
+                        unset($record->validationrules['logo_filename']);
+                    }
                     break;
                 
                 case 'Supplier':

@@ -17,6 +17,7 @@ class CreateTbmCompaniesTable extends Migration
             $table->id();
             $table->string('company_name', 255)->unique();
             $table->string('company_code', 50)->nullable()->unique();
+            $table->string('logo_filename', 255)->default('company-logo-placeholder.png');
             $table->string('website', 100);
             $table->string('contact_no', 50);
             $table->string('email', 50)->nullable();

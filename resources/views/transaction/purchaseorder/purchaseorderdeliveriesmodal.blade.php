@@ -15,9 +15,6 @@
                                 <a class="nav-link{{$deliveryTabCtr == 0 ? ' active' : ''}}" data-toggle="tab" href="#delivery{{ $delivery->id }}" role="tab" aria-selected="true">{{ $delivery->transaction_code }}</a>
                                 @php $deliveryTabCtr++; @endphp
                             @endforeach
-                            {{-- <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                            <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                            <a class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a> --}}
                         </div>
                     </nav>
                         
@@ -25,13 +22,33 @@
                         @php $deliveryPanelCtr = 0; @endphp
                         @foreach ($purchaseOrder->completeDeliveries as $delivery)
                             {{-- <a class="nav-link {{$deliveryCtr == 0 ? 'active' : ''}}" data-toggle="tab" href="#delivery{{ $delivery->id }}" role="tab" aria-selected="true">{{ $delivery->transaction_code }}</a> --}}
-                            <div class="tab-pane fade{{$deliveryPanelCtr == 0 ? ' show active' : ''}}" id="delivery{{ $delivery->id }}" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
+                            <div class="tab-pane fade{{$deliveryPanelCtr == 0 ? ' show active' : ''}} pt-3" id="delivery{{ $delivery->id }}" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <table class="table table-sm">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Unit Cost</th>
+                                        <th scope="col">Total Amount</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($delivery->deliveryDetails as $deliveryDetail)
+                                            <tr>
+                                                <th>{{ $deliveryDetail->item->item_name }}</th>
+                                                <td>{{ $deliveryDetail->quantity + 0}} {{ $deliveryDetail->item->unit }}</td>
+                                                <td>{{ 'PHP ' . number_format($deliveryDetail->unit_price, 2) }}</td>
+                                                <td>{{ 'PHP ' . number_format($deliveryDetail->SubTotal, 2) }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr><td colspan="4">No record/s available</td></tr>
+                                        @endforelse
+                                      
+                                    </tbody>
+                                  </table>
+                            </div>
                             @php $deliveryPanelCtr++; @endphp
                         @endforeach
-
-                        {{-- <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">...</div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div> --}}
                     </div>
                 </div>
         </div>

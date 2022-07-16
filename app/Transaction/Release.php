@@ -21,7 +21,6 @@ class Release extends Model
     protected $fillable = [
         'transaction_code', 
         'location_id', 
-        // 'company_id', 
         'contractor_id', 
         'release_date', 
         'received_by',
@@ -30,8 +29,7 @@ class Release extends Model
 
     public $validationrules = [
         'transaction_code' => 'nullable|max:20', 
-        'location_id' => 'required|integer', 
-        // 'company_id' => 'required|integer', 
+        'location_id' => 'required|integer',  
         'contractor_id' => 'required|integer', 
         'release_date' => 'required|date', 
         'received_by' => 'required|max:20',
@@ -41,9 +39,6 @@ class Release extends Model
     public $validationmessages = [ 
         'location_id.required' => 'Location is required',
         'location_id.integer' => 'Location is required',  
-
-        // 'company_id.required' => 'Company is required',
-        // 'company_id.integer' => 'Company is required',
 
         'contractor_id.required' => 'Contractor is required',
         'contractor_id.integer' => 'Contractor is required',
@@ -95,7 +90,6 @@ class Release extends Model
         }
 
         return $status;
-
     }
 
 }

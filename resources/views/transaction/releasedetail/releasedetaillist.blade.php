@@ -1,4 +1,4 @@
-<div class="card {{ is_null($release->id)? 'd-none' : null }}">
+<div class="card">
     <div class="card-header">
         <strong>Release Details</strong>
     </div>
@@ -40,7 +40,7 @@
                 <tbody> 
                     @forelse ($release->releaseDetails as $releaseDetail)
                         <tr>
-                            <td>{{ $releaseDetail->item->item_name }}</td>
+                            <td>{{ $releaseDetail->item->item_name }} {{ $releaseDetail->item->total_delivery_completed($release->location_id) }}</td>
                             <td>{{ $releaseDetail->quantity }}</td>
                             <td>
                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateReleaseDetail{{ $releaseDetail->id }}">Update</button>

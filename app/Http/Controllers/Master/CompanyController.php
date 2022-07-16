@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Model\Company;
 
@@ -50,10 +51,21 @@ class CompanyController extends Controller
     {
         // adjust active value
         $request['active'] = $request['active'] ? 1 : 0;
-        
+
+        //logo file
+        if($request->hasFile('logo')) {
+
+            $file = $request->file('logo');
+            $fileExtension = $file->guessExtension();
+            $fileName = uniqid() . now()->timestamp . '.' . $fileExtension;
+            $request['logo_filename'] = $fileName;
+            // array_push($request, ['logo_filename' => $fileName]);
+        }
+          
         list($validator, $record, $success) = LogicCRUD::saveRecord('Company', 'Master', $request->all(), $request->id, $request->id ? 'updated' : 'created');
 
         if ($success){
+            $request->hasFile('logo') ?  $file->storeAs('public/company/', $fileName) : null;
             return redirect()->route('companyview');
         } else {
             return redirect()->back()->withErrors($validator)->withInput();

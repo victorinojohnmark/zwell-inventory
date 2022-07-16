@@ -14,12 +14,13 @@ class Company extends Model
     protected $table = 'tbm_companies';
 
     protected $fillable = [
-        'company_name', 'company_code', 'contact_no', 'website', 'email', 'address', 'notes', 'active'
+        'company_name', 'company_code', 'logo_filename', 'contact_no', 'website', 'email', 'address', 'notes', 'active'
     ];
 
     public $validationrules = [
         'company_name' => 'required|max:255|unique:tbm_companies', 
-        'company_code' => 'nullable|max:50|unique:tbm_companies', 
+        'company_code' => 'nullable|max:50|unique:tbm_companies',
+        'logo_filename' => 'required|max:255', 
         'contact_no' => 'required|max:50',
         'website' => 'required|max:100', 
         'email' => 'nullable|email|max:50', 
@@ -37,6 +38,7 @@ class Company extends Model
         return self::create([
             'company_name' => $values['company_name'], 
             'company_code' => $values['company_code'], 
+            'logo_filename' => $values['logo_filename'], 
             'contact_no' => $values['contact_no'], 
             'website' => $values['website'], 
             'email' => $values['email'], 

@@ -20,12 +20,14 @@
   </style>
 </head>
 <body>
+  <div id="bodyWrap">
   @yield('button-options')
   @yield('document-header')
   <center>@yield('document-type')</center>
   @yield('content')
 
   @yield('scripts')
+  </div>
 
 
 

@@ -16,11 +16,12 @@
                 <table id="" class="table table-bordered table-hover datatables">
                     <thead>
                         <tr>
-                            
-                            <th scope="col">Delivery Receipt No.</th>
-                            <th scope="col">Purchase Order No</th>
+                            <th scope="col">Transaction Code</th>
+                            <th scope="col">DR No.</th>
+                            <th scope="col">PO No.</th>
                             <th scope="col">Delivery Date</th>
                             <th scope="col">Supplier</th>
+                            <th scope="col">Location</th>
                             <th scope="col">Total Amount</th>
                             <th scope="col">Status</th>
                             <th scope="col">Options</th>
@@ -29,11 +30,12 @@
                     <tbody> 
                         @forelse ($deliveries as $delivery)
                         <tr>
+                            <td>{{ $delivery->transaction_code }}</td>
                             <td><strong>{{ $delivery->dr_no }}</strong></td>
                             <td>{{ $delivery->purchaseOrder->po_no }}</td>
                             <td>{{ $delivery->delivery_date }}</td>
                             <td>{{ $delivery->supplier->supplier_name }}</td>
-
+                            <td>{{ $delivery->location->location_name }}</td>
                             <td>@if (!is_null($delivery->TotalAmount)) <span class="badge badge-info">Php {{ number_format($delivery->TotalAmount, 2)}}</span> @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>
                             <td><span class="badge badge-{{ $delivery->status['state'] }}">{{ $delivery->status['title'] }}</td>
                             <td>

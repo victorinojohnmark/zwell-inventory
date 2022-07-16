@@ -47,44 +47,50 @@ class Item extends Model
 
     }
 
-    public function getTotalDeliveryCompletedAttribute()
+    public function total_delivery_completed($locationID)
     {
         return $count = DB::table('tbm_items')
                 ->join('tbt_delivery_details', 'tbm_items.id', '=', 'tbt_delivery_details.item_id')
-                ->leftJoin('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
-                ->where([['tbm_items.id', '=', $this->id],['tbt_deliveries.complete_status', '=', 1]])
+                ->join('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
+                ->where([
+                    ['tbm_items.id', '=', $this->id],
+                    ['tbt_deliveries.location_id', '=', $locationID], 
+                    ['tbt_deliveries.complete_status', '=', 1]
+                    ])
                 ->whereNull('tbt_delivery_details.deleted_at')
                 ->sum('tbt_delivery_details.quantity');
     }
 
-    public function getTotalDeliveryEntriesAttribute()
-    {
-        return $count = DB::table('tbm_items')
-                ->join('tbt_delivery_details', 'tbm_items.id', '=', 'tbt_delivery_details.item_id')
-                ->leftJoin('tbt_deliveries', 'tbt_delivery_details.delivery_id', '=', 'tbt_deliveries.id')
-                ->where('tbm_items.id', '=', $this->id)
-                ->whereNull('tbt_delivery_details.deleted_at')
-                ->sum('tbt_delivery_details.quantity');
-    }
-
-    public function getTotalReleaseCompletedAttribute()
+    public function total_release_entry($locationID)
     {
         return $count = DB::table('tbm_items')
             ->join('tbt_release_details', 'tbm_items.id', '=', 'tbt_release_details.item_id')
-            ->leftJoin('tbt_releases', 'tbt_release_details.release_id', '=', 'tbt_releases.id')
-            ->where([['tbm_items.id', '=', $this->id],['tbt_releases.complete_status', '=', 1]])
+            ->join('tbt_releases', 'tbt_release_details.release_id', '=', 'tbt_releases.id')
+            ->where([
+                ['tbm_items.id', '=', $this->id], 
+                ['tbt_releases.location_id', '=', $locationID]
+                ])
             ->whereNull('tbt_release_details.deleted_at')
             ->sum('tbt_release_details.quantity');
     }
 
-    public function getTotalReleaseEntriesAttribute()
+    public function total_release_completed($locationID)
     {
         return $count = DB::table('tbm_items')
             ->join('tbt_release_details', 'tbm_items.id', '=', 'tbt_release_details.item_id')
-            ->leftJoin('tbt_releases', 'tbt_release_details.release_id', '=', 'tbt_releases.id')
-            ->where(['tbm_items.id', '=', $this->id])
+            ->join('tbt_releases', 'tbt_release_details.release_id', '=', 'tbt_releases.id')
+            ->where([
+                ['tbm_items.id', '=', $this->id], 
+                ['tbt_releases.location_id', '=', $locationID], 
+                ['tbt_releases.complete_status', '=', 1]
+                ])
             ->whereNull('tbt_release_details.deleted_at')
             ->sum('tbt_release_details.quantity');
+    }
+
+    public function getCurrentTotalStockAttribute($locationID)
+    {
+        return $total = $this->total_delivery_completed($locationID) - $this->total_release_completed($locationID);
     }
 
 

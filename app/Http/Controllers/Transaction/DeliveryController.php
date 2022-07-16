@@ -66,13 +66,19 @@ class DeliveryController extends Controller
 
     public function deliverysave(Request $request)
     {   
-        
+        //check PO is already completed delivery
+        $purchaseOrder = PurchaseOrder::findOrFail($request->purchase_order_id);
+        if($purchaseOrder->delivery_status['title'] == 'Complete Delivery') {
+            return redirect()->back()->withErrors(['Invalid Transaction, Selected PO already has complete delivery']);
+        }
+
         //delete delivery details of PO id changed
         if(!is_null($request->id)) {
             $delivery = Delivery::findOrFail($request->id);
             if(($delivery->purchase_order_id) <> ($request->purchase_order_id)) {
-                $deliveryDetail = DeliveryDetail::where('delivery_id', $delivery->id);
-                $deliveryDetail->delete();
+                foreach ($delivery->deliveryDetails as $deliveryDetail) {
+                    $deliveryDetail->delete();
+                }
             }
         } 
         
@@ -105,25 +111,11 @@ class DeliveryController extends Controller
         }
     } 
 
-    // public function deliveryapprove(Request $request)
-    // {
-    //     $delivery = Delivery::findOrFail($request->id);
-    //     if($delivery) {
-    //         if(count($delivery->deliveryDetails) && $delivery->complete_status){
-    //             $delivery->approved_by_id = Auth::id();
-    //             $delivery->save();
-    //             return redirect()->route('deliveryview', ['id' => $request->id]);
-    //         }
-    //     }
-        
-    // }
-
     public function deliverydraft(Request $request)
     {
         $delivery = Delivery::findOrFail($request->id);
         if($delivery) {
             $delivery->complete_status = false;
-            $delivery->approved_by_id = 0;
             $delivery->save();
             return redirect()->route('deliveryview', ['id' => $request->id]);
         }

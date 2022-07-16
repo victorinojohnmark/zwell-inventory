@@ -17,7 +17,6 @@ class ReleaseController extends Controller
         if(isset($request->id)) {
             return view('transaction.release.releaseform', [
                 'release' => LogicCRUD::retrieveRecord('Release', 'Transaction', $id = $request->id),
-                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
                 'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
                 'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
                 'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true),
@@ -35,7 +34,6 @@ class ReleaseController extends Controller
     {
         return view('transaction.release.releaseform', [
             'release' => LogicCRUD::createRecord('Release', 'Transaction'),
-            'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
             'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', $id = null, $limitter = null, $active = true),
             'locations' => LogicCRUD::retrieveRecord('Location', 'Master', $id = null, $limitter = null, $active = true),
             'items' => LogicCRUD::retrieveRecord('Item', 'Master', $id = null, $limitter = null, $active = true),
@@ -48,6 +46,16 @@ class ReleaseController extends Controller
             $release = Release::findOrFail($request->id);
             if($release && $release->complete_status) {
                 return redirect()->back()->withErrors(['error' => 'Transaction invalid, Release already completed.']);
+            }
+        }
+
+        //delete release details of location id changed
+        if(!is_null($request->id)) {
+            $release = Release::findOrFail($request->id);
+            if(($release->location_id) <> ($request->location_id)) {
+                foreach($release->releaseDetails as $releaseDetail) {
+                    $releaseDetail->delete();
+                }
             }
         }
 

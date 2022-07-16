@@ -17,11 +17,12 @@
                     <thead>
                         <tr>
                             <th scope="col">Transaction Code</th>
-                            <th scope="col">Purchase Date</th>
-                            <th scope="col">Purchase Order No.</th>
-                            <th scope="col">Requisition Slip No.</th>
-                            <th scope="col">Requested By / Contractor</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">PO No.</th>
+                            <th scope="col">Request Slip No.</th>
+                            <th scope="col">Requested By</th>
                             <th scope="col">Supplier</th>
+                            <th scope="col">Location</th>
                             <th scope="col">Purpose</th>
                             <th scope="col">Purchase Cost</th>
                             <th scope="col">Status</th>
@@ -37,6 +38,7 @@
                             <td>{{ $purchaseOrder->requisition_slip_no }}</td>
                             <td>{{ $purchaseOrder->contractor->contractor_name }}</td>
                             <td>{{ $purchaseOrder->supplier->supplier_name }}</td>
+                            <td>{{ $purchaseOrder->location->location_name }}</td>
                             <td>{{ $purchaseOrder->purpose ? $purchaseOrder->purpose : 'n/a' }}</td>
                             
                             <td>@if (!is_null($purchaseOrder->TotalAmount)) <span class="badge badge-info">Php {{ number_format($purchaseOrder->TotalAmount, 2)}}</span> @else {!! '<span class="badge badge-warning">N/A</span>' !!} @endif</td>

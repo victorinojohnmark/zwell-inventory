@@ -2,13 +2,13 @@
     <div class="card-header">
         <strong>Delivery Details</strong>
     </div>
-    <div class="card-body p-0">     
-        <div class="options p-3">
-            @if ($delivery->approved_by_id == 0)
-            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#modalDeliveryDetail"><i class="fas fa-fw fa-plus"></i> Add Item</button>
-            @include('transaction.deliverydetail.deliverydetailmodal')
-            @endif
-        </div>
+    <div class="card-body p-0"> 
+        @if (!$delivery->complete_status)    
+            <div class="options p-3">
+                <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#modalDeliveryDetail"><i class="fas fa-fw fa-plus"></i> Add Item</button>
+                @include('transaction.deliverydetail.deliverydetailmodal')
+            </div>
+        @endif
         <div class="table-responsive">
             <table id="" class="table table-hover datatables">
                 <thead>

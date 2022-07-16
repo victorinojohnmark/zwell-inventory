@@ -187,7 +187,7 @@ class PurchaseOrder extends Model
         } 
 
         foreach ($this->purchaseOrderDetails as $purchaseOrderDetail) {
-            if($purchaseOrderDetail->quantity != $purchaseOrderDetail->item->total_delivery_completed) {
+            if($purchaseOrderDetail->quantity != $purchaseOrderDetail->delivery_detail_entries_completed()->sum('quantity')) {
                 return ['state' => 'warning', 'title' => 'Incomplete Delivery'];
                 break;
             } else {

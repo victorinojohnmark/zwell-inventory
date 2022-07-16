@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Transaction\Delivery;
+use App\Transaction\PurchaseOrderDetail;
 use App\Master\Item;
 
 class DeliveryDetail extends Model
@@ -55,6 +56,11 @@ class DeliveryDetail extends Model
     public function item()
     {
         return $this->belongsTo(Item::class);
+    }
+
+    public function purchaseOrderDetail()
+    {
+        return $this->belongsTo(PurchaseOrderDetail::class);
     }
     
     public function getSubTotalAttribute()

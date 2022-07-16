@@ -23,8 +23,6 @@ class DeliveryDetailController extends Controller
             return redirect()->back()->withErrors(['msg' => 'Invalid transaction, Please select item']);
         }
 
-        $totalDeliveryEntry = $purchaseOrderDetail->purchaseOrder->total_delivery_per_item($request->item_id);
-
         //Check item if already existed in DR, duplicate entry validation 
         $isItemExist = DeliveryDetail::where([['delivery_id', $request->delivery_id],['item_id', $request->item_id]])->count();
 
@@ -34,7 +32,12 @@ class DeliveryDetailController extends Controller
 
             //find delivery detail 
             $deliveryDetail = DeliveryDetail::find($request->id);
-            $currentTotalDeliveryEntry = is_null(isset($deliveryDetail->id)) ? ($totalDeliveryEntry - $deliveryDetail->quantity) + $request->quantity : ($totalDeliveryEntry + $request->quantity);
+
+            //get total delivery entries regardless of complete status
+            $totalDeliveryEntry = $purchaseOrderDetail->deliveryDetails->sum('quantity');
+
+            //set total delivery entries
+            $currentTotalDeliveryEntry = isset($request->id) ? ($totalDeliveryEntry - $deliveryDetail->quantity) + $request->quantity : ($totalDeliveryEntry + $request->quantity);
             
             if ($currentTotalDeliveryEntry <= $purchaseOrderDetail->quantity) { 
 
@@ -57,8 +60,6 @@ class DeliveryDetailController extends Controller
         $deliveryDetail = DeliveryDetail::findOrFail($request->id);
         $deliveryDetail->delete();
         
-        
         return redirect()->route('deliveryview', ['id' => $request->dr_id]);
-        
     }
 }

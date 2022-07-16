@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 use App\Master\Supplier;
+use App\Master\Location;
 use App\System\FileAttachment;
 use App\Transaction\DeliveryDetail;
 use App\Transaction\PurchaseOrder;
@@ -19,7 +20,7 @@ class Delivery extends Model
     protected $table = "tbt_deliveries";
 
     protected $fillable = [
-        'transaction_code', 'purchase_order_id', 'dr_no', 'supplier_id', 
+        'transaction_code', 'purchase_order_id', 'dr_no', 'supplier_id', 'location_id', 
         'delivery_date', 'total_amount','recieved_by', 'notes'
     ];
 
@@ -28,6 +29,7 @@ class Delivery extends Model
         'purchase_order_id' => 'required|numeric', 
         'dr_no' => 'required|max:20', 
         'supplier_id' => 'required|numeric',
+        'location_id' => 'required|numeric',
         'delivery_date' => 'required|date',  
         'recieved_by' => 'required|max:255', 
         'notes' => 'nullable|max:255'
@@ -38,6 +40,8 @@ class Delivery extends Model
         'purchase_order_id.numeric' => 'Purchase Order No is required',
         'supplier_id.required' => 'Supplier is required',
         'supplier_id.numeric' => 'Supplier is required',
+        'location_id.required' => 'Location is required',
+        'location_id.numeric' => 'Location is required',
     ];
 
     public static function createRecord($values): self
@@ -47,6 +51,7 @@ class Delivery extends Model
             'purchase_order_id' => $values['purchase_order_id'], 
             'dr_no' => $values['dr_no'], 
             'supplier_id' => $values['supplier_id'], 
+            'location_id' => $values['location_id'], 
             'delivery_date' => $values['delivery_date'], 
             'total_amount' => $values['total_amount'],
             'recieved_by' => $values['recieved_by'], 
@@ -58,6 +63,11 @@ class Delivery extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 
     public function purchaseOrder()

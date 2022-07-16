@@ -66,7 +66,7 @@ class PurchaseOrderController extends Controller
 
     public function purchaseorderapprovedsearch(Request $request, $searchKey)
     {
-        return $po = PurchaseOrder::where([['po_no', 'like', $searchKey.'%'],['approved_by_id', '!=', 0]])->get();
+        return $po = PurchaseOrder::where([['po_no', 'like','%'.$searchKey.'%'],['approved_by_id', '!=', 0]])->get();
     }
 
     public function purchaseorderdelete(Request $request)

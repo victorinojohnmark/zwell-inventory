@@ -1,16 +1,16 @@
 <div class="form-row">
     <input type="hidden" name="id" value="{{isset($releaseDetail) ? $releaseDetail->id : null}}">
     <input type="hidden" name="release_id" value="{{ $release->id }}">
+    <input type="hidden" name="location_id" value="{{ $release->location_id }}">
     <div class="col-md-6">
-        <x-adminlte-select name="item_id" label="Item" required
-        id="releaseDetail{{isset($releaseDetail) ? $releaseDetail->id : null }}"
-        data-detailid="{{isset($releaseDetail) ? $releaseDetail->id : null }}">
-            <option selected disabled>Select here...</option>
-            @foreach ($items as $item)
+        <x-adminlte-select name="item_id" label="Item" required 
+        id="releaseDetail{{isset($releaseDetail) ? $releaseDetail->id : null }}"  
+        data-detailid="{{isset($releaseDetail) ? $releaseDetail->id : null }}" {{ 'disabled' }}>
+            {{-- @foreach ($items as $item)
             <option value="{{ $item->id }}" {{isset($releaseDetail) ? !is_null($releaseDetail->id) && ($releaseDetail->item_id == $item->id)? 'selected' : '' : null }}>
                 {{ $item->item_code }}
             </option>
-            @endforeach
+            @endforeach --}}
         </x-adminlte-select>
     </div>
 

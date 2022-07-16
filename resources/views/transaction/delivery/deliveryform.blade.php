@@ -24,10 +24,11 @@
                         @csrf
         
                         <div class="form-row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <input type="hidden" name="id" value="{{ old('id', !is_null($delivery->id)? $delivery->id : null) }}">
                                 <input type="hidden" name="total_amount" value="{{ old('total_amount', !is_null($delivery->total_amount)? $delivery->total_amount : null) }}">
                                 <input type="hidden" name="supplier_id" value="{{ old('supplier_id', !is_null($delivery->supplier_id)? $delivery->supplier_id : null) }}">
+                                <input type="hidden" name="location_id" value="{{ old('location_id', !is_null($delivery->location_id)? $delivery->location_id : null) }}">
 
                                 <x-adminlte-input name="transaction_code" label="Transaction Code" type="text" placeholder="[Auto-Generate]" readonly  
                                 value="{{ old('transaction_code', !is_null($delivery->transaction_code)? $delivery->transaction_code : null) }}"/>
@@ -48,17 +49,22 @@
                                 
                             </div>                          
         
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <x-adminlte-input name="dr_no" label="Delivery No." type="text" placeholder="e.g. 6151" required
                                 value="{{ old('dr_no', !is_null($delivery->dr_no)? $delivery->dr_no : null) }}"/>
                             </div>
 
-                            <div class="col-md-3"> 
+                            <div class="col-md-6"> 
                                 <x-adminlte-input name="supplier" label="Supplier" type="text" readonly  
                                 value="{{ old('supplier', !is_null($delivery->supplier_id)? $delivery->supplier->supplier_name : '...') }}"/>
                             </div>
+
+                            <div class="col-md-6"> 
+                                <x-adminlte-input name="location" label="Location" type="text" readonly  
+                                value="{{ old('location', !is_null($delivery->location_id)? $delivery->location->location_name : '...') }}"/>
+                            </div>
         
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 @php $config = ['format' => 'YYYY-MM-DD']; @endphp
                                 <x-adminlte-input-date name="delivery_date" :config="$config" placeholder="Choose a date..." label="Delivery Date" required 
                                     value="{{ old('delivery_date', !is_null($delivery->delivery_date)? $delivery->delivery_date : null) }}">
@@ -68,17 +74,8 @@
                                     </x-slot>
                                 </x-adminlte-input-date>
                             </div>
-                            {{-- <div class="col-md-3">
-                                <x-adminlte-select name="supplier_id" label="Supplier" required>
-                                    @foreach ($suppliers as $supplier)
-                                    <option value="{{ $supplier->id }}" {{!is_null($supplier->id) && ($delivery->supplier_id == $supplier->id)? 'selected' : '' }}>
-                                        {{ $supplier->supplier_name }}
-                                    </option>
-                                    @endforeach
-                                </x-adminlte-select>
-                            </div> --}}
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <x-adminlte-input name="recieved_by" label="Recieved by: " type="text" placeholder="e.g. Juan Dela Cruz" required
                                 value="{{ old('recieved_by', !is_null($delivery->recieved_by)? $delivery->recieved_by : null) }}"/>
                             </div>
@@ -140,7 +137,9 @@
             </div>
             {{-- FILE ATTACHMENT ONGOING--}}
             @include('transaction.delivery.deliveryfileattachment') 
+            @if (!$delivery->complete_status)
             @include('transaction.deliverydetail.purchaseorderdetaillist')
+            @endif
         </div>
    
    

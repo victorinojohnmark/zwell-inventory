@@ -5,7 +5,12 @@ body {
     display: block;
     max-width: 695px;
     width: 100%;
-    max-height: 900px;
+}
+
+#bodyWrap {
+  height: 100%;
+  max-height: 900px;
+  margin-bottom: 30px;
 }
 
 table {
@@ -50,8 +55,8 @@ table {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
   /* left: 50; */
   width: 695px;
   display: block;
@@ -85,7 +90,7 @@ button#dataToggler {
 }
 
 #tableData tbody{
-  height: 450px;
+  height: 425px;
 }
 
 #tableData tbody tr td{
