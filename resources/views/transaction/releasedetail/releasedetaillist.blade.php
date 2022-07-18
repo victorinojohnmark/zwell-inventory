@@ -3,30 +3,12 @@
         <strong>Release Details</strong>
     </div>
     <div class="card-body">
+        @if (!$release->complete_status)
         <div class="options">
-            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#releaseDetailModal"><i class="fas fa-fw fa-plus"></i> Add Item</button>
-            <div class="modal fade" id="releaseDetailModal{{ isset($releaseDetail) ? $releaseDetail->id : null }}" class="releaseDetailModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Release add item</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="{{ route('releasedetailsave') }}" method="post">
-                        @csrf
-                            <div class="modal-body">
-                                @include('transaction.releasedetail.releasedetailform')
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <button class="btn btn-success font-weight-bold btn-sm" data-toggle="modal" data-target="#modalUpdateReleaseDetail"><i class="fas fa-fw fa-plus"></i> Add Item</button>
+            @include('transaction.releasedetail.releasedetailmodal')
         </div>
+        @endif
 
         <div class="table-responsive">
             <table id="" class="table table-bordered table-hover datatables mt-3">
@@ -43,30 +25,13 @@
                             <td>{{ $releaseDetail->item->item_name }} {{ $releaseDetail->item->total_delivery_completed($release->location_id) }}</td>
                             <td>{{ $releaseDetail->quantity }}</td>
                             <td>
-                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateReleaseDetail{{ $releaseDetail->id }}">Update</button>
-                                <div class="modal fade" id="modalUpdateReleaseDetail{{ isset($releaseDetail) ? $releaseDetail->id : null }}" class="releaseDetailModal" tabindex="-1">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Release add item</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <form action="{{ route('releasedetailsave') }}" method="post">
-                                            @csrf
-                                                <div class="modal-body">
-                                                    @include('transaction.releasedetail.releasedetailform')
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDeleteReleaseDetail{{ $releaseDetail->id }}">Delete</button>
+                                @if (!$release->complete_status)
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateReleaseDetail{{ $releaseDetail->id }}">Update</button>
+                                    @include('transaction.releasedetail.releasedetailmodal')
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDeleteReleaseDetail{{ $releaseDetail->id }}">Delete</button>  
+                                @else
+                                    <button class="btn btn-sm btn-secondary" disabled>N/A</button>
+                                @endif
                             </td>
                         </tr>
                     @empty

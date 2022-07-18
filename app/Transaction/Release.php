@@ -87,6 +87,8 @@ class Release extends Model
         $status = array();
         if($this->complete_status == 0) {
             $status = ['state' => 'warning', 'title' => 'Draft'];
+        } else {
+            $status = ['state' => 'primary', 'title' => 'Complete'];
         }
 
         return $status;

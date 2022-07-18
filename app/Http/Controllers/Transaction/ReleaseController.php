@@ -67,4 +67,30 @@ class ReleaseController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
+
+    public function releaseconfirm(Request $request)
+    {
+        $release = Release::findOrFail($request->id);
+
+        if($release) {
+            if(count($release->releaseDetails)){
+                $release->complete_status = true;
+                $release->save();
+                return redirect()->route('releaseview', ['id' => $request->id]);
+            } else {
+                return redirect()->back()->withErrors(['Please add items before confirming']);
+            }
+        }
+    }
+
+    public function releasedraft(Request $request)
+    {
+        $release = Release::findOrFail($request->id);
+        if($release) {
+            $release->complete_status = false;
+            $release->save();
+            return redirect()->route('releaseview', ['id' => $request->id]);
+        }
+        
+    }
 }

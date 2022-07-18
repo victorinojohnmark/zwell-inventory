@@ -88,9 +88,36 @@ class Item extends Model
             ->sum('tbt_release_details.quantity');
     }
 
-    public function getCurrentTotalStockAttribute($locationID)
+    public function total_stock($locationID)
     {
         return $total = $this->total_delivery_completed($locationID) - $this->total_release_completed($locationID);
+    }
+
+    public function stock_status($locationID)
+    {
+        $currentStock = $this->total_stock($locationID);
+
+        switch ($currentStock) {
+            case ($currentStock == 0):
+                return ['state' => 'danger', 'title' => 'No Stock'];
+                break;
+            
+            case ($currentStock < 0):
+                return ['state' => 'danger', 'title' => 'Negative Stock'];
+                break;
+
+            case ($currentStock <= $this->minimum_stock_qty):
+                return ['state' => 'warning', 'title' => 'Low Stock'];
+                break;
+
+            case ($currentStock > $this->minimum_stock_qty):
+                return ['state' => 'warning', 'title' => 'Normal Stock'];
+                break;
+            
+            default:
+                # code...
+                break;
+        }
     }
 
 

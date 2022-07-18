@@ -14,9 +14,10 @@
                         <input type="hidden" name="id" value="{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}">
                         <input type="hidden" name="purchase_order_detail_id" id="purchaseOrderDetail{{isset($deliveryDetail) ? $deliveryDetail->id : '' }}" value="{{isset($deliveryDetail) ? $deliveryDetail->purchase_order_detail_id : null }}">
                         <input type="hidden" name="delivery_id" value="{{isset($delivery) ? $delivery->id : null }}">
-                        <input type="hidden" name="item_id" value="{{ isset($deliveryDetail) ? $deliveryDetail->item_id : null }}">
+                        
                         @if (isset($deliveryDetail))
                             <div class="col-md-12">
+                                <input type="hidden" name="item_id" value="{{ isset($deliveryDetail) ? $deliveryDetail->item_id : null }}">
                                 <x-adminlte-input name="Item" label="Item" type="text" value="{{ isset($deliveryDetail) ? $deliveryDetail->item->item_name : null }}" disabled> 
                                 </x-adminlte-input>
                         

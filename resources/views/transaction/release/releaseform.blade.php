@@ -11,7 +11,10 @@
             <div class="card">
                 <div class="card-header">
                     {{-- {{ $purchaseOrder->status['state'] }} {{ $purchaseOrder->status['title'] }} --}}
-                    <strong>Release Form</strong> <span class="badge badge-"></span>
+                    <strong>Release Form</strong>
+                    <div class="float-right">
+                        <span class="badge badge-{{ $release->status['state'] }}">{{ $release->status['title'] }}</span>
+                    </div>
                 </div>
                 <div class="card-body">     
                     <div class="options mb-3">
@@ -61,7 +64,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <x-adminlte-input name="received_by" label="Recieved By" type="text" placeholder="e.g. john Doe"
+                                <x-adminlte-input name="received_by" label="Received By" type="text" placeholder="e.g. john Doe"
                                 value="{{ old('received_by', !is_null($release->received_by)? $release->received_by : null) }}" required/>
                             </div>
 
@@ -79,7 +82,7 @@
                         </div>
         
                         @if (!$release->complete_status)<button class="btn btn-sm btn-primary font-weight-bold" type="submit">Save</button> @endif
-                       
+                        
                     </form>
                 </div>
             </div>
@@ -94,6 +97,24 @@
         
         <div class="col-lg-4 {{ is_null($release->id)? 'd-none' : null }}">
             @include('transaction.release.releasefileattachment')
+
+            <div class="mb-2">
+                @if ($release->complete_status)
+                    <form action="{{ route('releasedraft', ['id' => $release->id]) }}" method="post" class="d-inline">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $release->id }}">
+                        <button class="btn btn-sm btn-warning mb-1" type="submit">REVERT BACK TO DRAFT</button>
+                    </form>
+                @endif
+
+                @if ($release->complete_status == 0)
+                    <form action="{{ route('releaseconfirm', ['id' => $release->id]) }}" method="post" class="d-inline">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $release->id }}">
+                        <button class="btn btn-sm btn-primary mb-1" type="submit">CONFIRM RELEASE</button>
+                    </form>
+                @endif
+            </div>
         </div>
     </div>
     

@@ -95,10 +95,13 @@ Route::post('deliverydetail/delete', 'Transaction\DeliveryDetailController@deliv
 Route::get('release/view', 'Transaction\ReleaseController@releaseview')->name('releaseview');
 Route::get('release/create', 'Transaction\ReleaseController@releasecreate')->name('releasecreate');
 Route::post('release/save', 'Transaction\ReleaseController@releasesave')->name('releasesave');
+Route::post('release/confirm', 'Transaction\ReleaseController@releaseconfirm')->name('releaseconfirm');
+Route::post('release/draft', 'Transaction\ReleaseController@releasedraft')->name('releasedraft');
 
 //Release Details
 Route::post('releasedetail/save', 'Transaction\ReleaseDetailController@releasedetailsave')->name('releasedetailsave');
 Route::post('releasedetail/delete', 'Transaction\ReleaseDetailController@releasedetaildelete')->name('releasedetaildelete');
+
 
 //File Attachment
 Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');
