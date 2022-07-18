@@ -26,7 +26,7 @@
                 <tbody> 
                     @forelse ($items as $item)
                     <tr>
-                        <td>{{ $item->item_code }}</td>
+                        <td>{{ $item->item_code }} {{ $item->total_stock(2) }}</td>
                         <td>{{ $item->item_name }}</span></td>
                         <td>{{ $item->minimum_stock_qty }}</td>
                         <td>{{ $item->unit }}</td>

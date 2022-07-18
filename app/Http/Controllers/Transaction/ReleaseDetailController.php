@@ -26,14 +26,14 @@ class ReleaseDetailController extends Controller
         //total release entry - regardless with the complete_status
         $item = Item::find($request->item_id);
 
-        if($item->total_stock($request->location) <= 0) {
+        if($item->total_stock($request->location_id) <= 0) {
             return redirect()->back()->withErrors(['error' => 'Transaction invalid, No stock remaining for '.$item->item_name]);
         }
 
         $releaseDetail = ReleaseDetail::find($request->id);
         $totalReleaseEntry = $item->total_release_entry($request->location_id);
         $currentReleaseEntry = isset($request->id) ? ($totalReleaseEntry - $releaseDetail->quantity) + $request->quantity : $totalReleaseEntry + $request->quantity;
-
+        
         if($currentReleaseEntry <= $item->total_delivery_completed($request->location_id)) {
             //Transaction
             list($validator, $record, $success) = LogicCRUD::saveRecord('ReleaseDetail', 'Transaction', $request->all(), $request->id, $request->id ? 'updated' : 'created');

@@ -295,11 +295,18 @@ return [
             'text' => 'Reports',
             'icon' => 'fas fa-fw fa-file-alt',
             'submenu' => [
-                // [
-                //     'text' => 'Stocks',
-                //     'url'  => 'purchaseorder/view',
-                //     'icon' => 'fas fa-fw fa-credit-card',
-                // ],
+                [
+                    'text' => 'Inventory',
+                    'icon' => 'fas fa-fw fa-warehouse',
+                    'submenu' => [
+                        [
+                            'text' => 'Stocks',
+                            'url'  => 'stock/view',
+                            'icon' => 'fas fa-fw fa-boxes',
+                        ],
+                        
+                    ]
+                ],
                 // [
                 //     'text' => 'Delivery Receipts',
                 //     'url'  => '#',

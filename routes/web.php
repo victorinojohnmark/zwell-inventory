@@ -107,6 +107,11 @@ Route::post('releasedetail/delete', 'Transaction\ReleaseDetailController@release
 Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}', 'System\FileAttachmentController@fileattachmentupload')->name('fileattachmentupload');
 Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@fileattachmentdelete')->name('fileattachmentdelete');
 
+## REPORTS ##
+
+//Inventory
+Route::get('stock/view', 'Report\InventoryController@stockview')->name('stockview');
+// Route::post('stock/search', 'Report\InventoryController@stocksearch')->name('stocksearch');
 });
 
 
