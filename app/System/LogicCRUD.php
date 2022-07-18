@@ -15,6 +15,7 @@ class LogicCRUD
 
     public static function retrieveRecord($record_type, $namespace, $id = NULL, $limitter = null, $active = false)
     {
+        $pagination = 4;
         $record_type = "App"."\\".$namespace."\\".$record_type;
 
         if (!is_null($limitter)) {
@@ -24,7 +25,7 @@ class LogicCRUD
                 return is_null($id)? $record_type::where('active','1')->latest()->get() : $record_type::find($id);
                 
             } else {
-                return is_null($id)? $record_type::latest()->get() : $record_type::find($id);
+                return is_null($id)? $record_type::latest()->paginate($pagination) : $record_type::find($id);
             }
             
         }

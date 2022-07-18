@@ -19,7 +19,7 @@ class SupplierController extends Controller
 
         else {
             return view('master.supplier.supplierlist', [
-                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', null, 50)
+                'suppliers' => LogicCRUD::retrieveRecord('Supplier', 'Master', null)
             ]);
         }
     }

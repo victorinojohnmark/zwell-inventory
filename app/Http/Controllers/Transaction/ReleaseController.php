@@ -25,7 +25,7 @@ class ReleaseController extends Controller
 
         else {
             return view('transaction.release.releaselist', [
-                'releases' => LogicCRUD::retrieveRecord('Release', 'Transaction', null, 50)
+                'releases' => LogicCRUD::retrieveRecord('Release', 'Transaction', null)
             ]);
         }
     }

@@ -17,7 +17,7 @@ class ContractorController extends Controller
 
         else {
             return view('master.contractor.contractorlist', [
-                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', null, 50)
+                'contractors' => LogicCRUD::retrieveRecord('Contractor', 'Master', null)
             ]);
         }
     }

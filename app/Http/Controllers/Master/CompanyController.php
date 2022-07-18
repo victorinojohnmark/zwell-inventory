@@ -22,7 +22,7 @@ class CompanyController extends Controller
 
         else {
             return view('master.company.companylist', [
-                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', null, 50)
+                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', null)
             ]);
         }
     }

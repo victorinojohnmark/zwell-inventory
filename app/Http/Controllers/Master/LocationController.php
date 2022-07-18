@@ -20,7 +20,7 @@ class LocationController extends Controller
 
         else {
             return view('master.location.locationlist', [
-                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', null, 50)
+                'locations' => LogicCRUD::retrieveRecord('Location', 'Master', null)
             ]);
         }
     }

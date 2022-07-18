@@ -22,7 +22,7 @@ class ItemController extends Controller
 
         else {
             return view('master.item.itemlist', [
-                'items' => LogicCRUD::retrieveRecord('Item', 'Master', null, 50)
+                'items' => LogicCRUD::retrieveRecord('Item', 'Master', null)
             ]);
         }
     }

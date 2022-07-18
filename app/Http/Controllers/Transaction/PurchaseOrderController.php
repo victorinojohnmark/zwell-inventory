@@ -29,7 +29,7 @@ class PurchaseOrderController extends Controller
 
         else {
             return view('transaction.purchaseorder.purchaseorderlist', [
-                'purchaseOrders' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', null, 50)
+                'purchaseOrders' => LogicCRUD::retrieveRecord('PurchaseOrder', 'Transaction', null)
             ]);
         }
     }

@@ -48,6 +48,10 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="mt-2">
+                {{ $deliveries->links() }}
+            </div>
         </div>
     </div>
     

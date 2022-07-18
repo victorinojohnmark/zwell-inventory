@@ -27,7 +27,7 @@ class DeliveryController extends Controller
 
         else {
             return view('transaction.delivery.deliverylist', [
-                'deliveries' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', null, 50)
+                'deliveries' => LogicCRUD::retrieveRecord('Delivery', 'Transaction', null)
             ]);
         }
     }
