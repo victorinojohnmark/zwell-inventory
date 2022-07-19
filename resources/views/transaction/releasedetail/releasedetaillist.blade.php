@@ -28,7 +28,8 @@
                                 @if (!$release->complete_status)
                                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalUpdateReleaseDetail{{ $releaseDetail->id }}">Update</button>
                                     @include('transaction.releasedetail.releasedetailmodal')
-                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDeleteReleaseDetail{{ $releaseDetail->id }}">Delete</button>  
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#releaseDetailDeleteModal{{ $releaseDetail->id }}">Delete</button>  
+                                    @include('transaction.releasedetail.releasedetailmodaldelete')
                                 @else
                                     <button class="btn btn-sm btn-secondary" disabled>N/A</button>
                                 @endif

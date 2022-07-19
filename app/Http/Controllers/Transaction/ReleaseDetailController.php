@@ -50,6 +50,9 @@ class ReleaseDetailController extends Controller
 
     public function releasedetaildelete(Request $request)
     {
+        $releasedetail = ReleaseDetail::findOrFail($request->id);
+        $releasedetail->delete();
         
+        return redirect()->route('releaseview', ['id' => $request->release_id]);
     } 
 }
