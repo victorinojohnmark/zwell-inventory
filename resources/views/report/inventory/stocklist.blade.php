@@ -27,7 +27,7 @@
 
             </div>
 
-            <table id="" class="table table-bordered table-hover">
+            <table id="" class="table table-bordered table-hover{{ isset($location_id)? ' datatable' : '' }}">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -72,9 +72,13 @@
 @stop
 
 @section('css')
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    
 @stop
 
 @section('js')
-   <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/datatable.js') }}"></script>
 @stop

@@ -149,7 +149,6 @@
 
 @section('plugins.Moment', true)
 @section('plugins.TempusDominus', true)
-@section('plugins.BootstrapSwitch', true)
 @section('css')
     <link rel="stylesheet" href="{{ asset('vendor/filepond/filepond.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">

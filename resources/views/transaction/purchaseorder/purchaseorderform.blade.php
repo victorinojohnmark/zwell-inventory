@@ -191,7 +191,6 @@
 
 @section('plugins.Moment', true)
 @section('plugins.TempusDominus', true)
-@section('plugins.BootstrapSwitch', true)
 @section('css')
     <link rel="stylesheet" href="/vendor/filepond/filepond.min.css">
     <link rel="stylesheet" href="/css/custom.css">

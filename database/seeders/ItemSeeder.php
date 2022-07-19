@@ -15,15 +15,6 @@ class ItemSeeder extends Seeder
      */
     public function run()
     {
-        // Units List
-        // "Pc/s",
-        // "Box/es",
-        // "Meter/s",
-        // "Lot/s",
-        // "Unit/s",
-        // "Kg/s",
-        // "Bag/s,",
-        // "Pack/s"
 
         Item::create([
             'item_code' => 'Cement',

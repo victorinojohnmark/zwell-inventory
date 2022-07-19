@@ -43,14 +43,11 @@
         <td class="bg-dark">Transaction Code/PO No.:</td><td><span class="data">{{ $purchaseOrder->transaction_code }}</span></td>
       </tr>
       <tr>
-        <td class="bg-dark">Address:</td><td><span class="data">{{ $purchaseOrder->supplier->address }}</span></td>
+        <td rowspan="2" class="bg-dark">Address:</td><td rowspan="2"><span class="data">{{ $purchaseOrder->supplier->address }}</span></td>
         <td class="bg-dark">Purchasing Date:</td><td><span class="data">{{ $purchaseOrder->purchase_date }}</span></td>
       </tr>
       <tr>
-        <td class="bg-dark">Transaction Code:</td>
-        <td><span class="data">{{ $purchaseOrder->transaction_code }}</span></td>
-        <td class="bg-dark">Purchasing Date:</td>
-        <td><span class="data">{{ $purchaseOrder->purchase_date }}</span></td>
+        <td class="bg-dark">Terms:</td><td><span class="data">{{ $purchaseOrder->terms }}</span></td>
       </tr>
       {{-- <tr>
         <td class="bg-dark">Supplier:</td>
@@ -61,7 +58,7 @@
   </tbody>
 </table>
 <div id="tableDataWrapper">
-  <table class="tbl header" id="tableData" style="margin-top: 20px;" cellspacing="0">
+  <table class="tbl" style="margin-bottom: 0px;" id="tableData" cellspacing="0">
     <thead>
       <tr>
         <th class="bg-dark" style="width:20px;">#</th>

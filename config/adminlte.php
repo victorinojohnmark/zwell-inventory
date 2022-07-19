@@ -307,16 +307,30 @@ return [
                         
                     ]
                 ],
-                // [
-                //     'text' => 'Delivery Receipts',
-                //     'url'  => '#',
-                //     'icon' => 'fas fa-fw fa-credit-card',
-                // ],
-                // [
-                //     'text' => 'Release Requests',
-                //     'url'  => '#',
-                //     'icon' => 'fas fa-fw fa-credit-card',
-                // ],
+                [
+                    'text' => 'Transactions',
+                    'icon' => 'fas fa-fw fa-exchange-alt',
+                    'submenu' => [
+                        [
+                            'text' => 'Purchase Orders',
+                            'url'  => '#',
+                            'icon' => 'fas fa-fw fa-credit-card',
+                        ],
+                        [
+                            'text' => 'Deliveries',
+                            'url'  => '#',
+                            'icon' => 'fas fa-fw fa-truck',
+                        ],
+                        [
+                            'text' => 'Releases',
+                            'url'  => '#',
+                            'icon' => 'fas fa-fw fa-drumstick-bite',
+                        ],
+                        
+                    ]
+                ],
+                
+
             ]
         ],
         
