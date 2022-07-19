@@ -9,23 +9,12 @@
         </div>
         <div class="card-body">
             <div class="options mb-3">
-                <form action="" class="form-row">
+                <form action="{{ route('stockview') }}" class="form-row">
                     <div class="col-md-5">
                         <x-adminlte-select name="location_id" label="Location" class="" required>
                             @foreach ($locations as $location)
                             <option value="{{ $location->id }}">
                                 {{ $location->location_name }}
-                            </option>
-                            @endforeach
-                        </x-adminlte-select>
-                    </div>
-
-                    <div class="col-md-5">
-                        <x-adminlte-select name="item_id" label="Item" class="" required>
-                            <option value="all">All Item</option>
-                            @foreach ($items as $item)
-                            <option value="{{ $item->id }}">
-                                {{ $item->item_name }}
                             </option>
                             @endforeach
                         </x-adminlte-select>
@@ -45,9 +34,35 @@
                         <th scope="col">Item</th>
                         <th scope="col">Current Stock</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Option</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @if (isset($location_id))
+                        @if (isset($item))
+                            <tr>
+                                <td>1</td>
+                                <td>{{ $item->item_name }}</td>
+                                <td>{{ $item->total_stock($location_id) + 0}} {{ $item->unit }}</td>
+                                <td><span class="badge badge-{{ $item->stock_status($location_id)['state'] }}">{{ $item->stock_status($location_id)['title'] }}</td>
+                            </tr>
+                        @else
+                            @php $ctr = 1; @endphp
+                            @forelse ($items->sortBy('item_name') as $item)
+                            <tr>
+                                <td>{{ $ctr }}</td>
+                                <td>{{ $item->item_name }}</td>
+                                <td>{{ $item->total_stock($location_id) + 0}} {{ $item->unit }}</td>
+                                <td><span class="badge badge-{{ $item->stock_status($location_id)['state'] }}">{{ $item->stock_status($location_id)['title'] }}</td>
+                            </tr>
+                            @php $ctr++; @endphp
+                            @empty
+                            @endforelse
+                        @endif
+                    @else
+                        <tr><td colspan="5">...</td></tr>
+                    @endif
+                    
+                </tbody>
             </table>
 
             

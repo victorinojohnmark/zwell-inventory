@@ -37,7 +37,7 @@ class Item extends Model
     {
         return self::create([
             'item_name' => $values['item_name'], 
-            'item_code' => $values['item_name'],
+            'item_code' => $values['item_code'],
             'description' => $values['description'], 
             'unit'   => $values['unit'],
             'minimum_stock_qty' => $values['minimum_stock_qty'],
@@ -97,27 +97,18 @@ class Item extends Model
     {
         $currentStock = $this->total_stock($locationID);
 
-        switch ($currentStock) {
-            case ($currentStock == 0):
-                return ['state' => 'danger', 'title' => 'No Stock'];
-                break;
-            
-            case ($currentStock < 0):
-                return ['state' => 'danger', 'title' => 'Negative Stock'];
-                break;
-
-            case ($currentStock <= $this->minimum_stock_qty):
-                return ['state' => 'warning', 'title' => 'Low Stock'];
-                break;
-
-            case ($currentStock > $this->minimum_stock_qty):
-                return ['state' => 'warning', 'title' => 'Normal Stock'];
-                break;
-            
-            default:
-                # code...
-                break;
+        if($currentStock <= 0) {
+            return ['state' => 'danger', 'title' => 'No Stock'];
         }
+
+        if($currentStock <= $this->minimum_stock_qty) {
+            return ['state' => 'warning', 'title' => 'Low Stock'];
+        }
+
+        if($currentStock > $this->minimum_stock_qty) {
+            return ['state' => 'success', 'title' => 'Normal Stock'];
+        }
+
     }
 
 

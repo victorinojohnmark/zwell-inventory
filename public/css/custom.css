@@ -21,6 +21,10 @@
     display: none !important;
 }
 
+.alert h5 {
+    display: none !important;
+}
+
 .pagination {
     margin-bottom: 0px !important;
 }

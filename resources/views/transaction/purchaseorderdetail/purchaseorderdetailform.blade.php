@@ -2,18 +2,26 @@
     <input type="hidden" name="id" value="{{isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}">
     <input type="hidden" name="purchase_order_id" value="{{isset($purchaseOrder) ? $purchaseOrder->id : null }}">
 
-    <div class="col-md-12">
-        <x-adminlte-select name="item_id" label="Item" required
-        id="purchaseOrderDetailItem{{isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}"
-        data-detailid="{{isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}">
-            <option>Select here...</option>
-            @foreach ($items as $item)
-            <option value="{{ $item->id }}" {{isset($purchaseOrderDetail) ? !is_null($purchaseOrderDetail->id) && ($purchaseOrderDetail->item_id == $item->id)? 'selected' : '' : null }}>
-                {{ $item->item_code }}
-            </option>
-            @endforeach
-        </x-adminlte-select>
-    </div>
+    @if (isset($purchaseOrderDetail))
+        <div class="col-md-12">
+            <input type="hidden" name="item_id" value="{{ isset($purchaseOrderDetail) ? $purchaseOrderDetail->item_id : null }}">
+            <x-adminlte-input name="Item" label="Item" type="text" value="{{ isset($purchaseOrderDetail) ? $purchaseOrderDetail->item->item_name : null }}" disabled> 
+            </x-adminlte-input>
+        </div>
+    @else
+        <div class="col-md-12">
+            <x-adminlte-select name="item_id" label="Item" required
+            id="purchaseOrderDetailItem{{isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}"
+            data-detailid="{{isset($purchaseOrderDetail) ? $purchaseOrderDetail->id : null }}">
+                @foreach ($items as $item)
+                <option value="{{ $item->id }}" {{isset($purchaseOrderDetail) ? !is_null($purchaseOrderDetail->id) && ($purchaseOrderDetail->item_id == $item->id)? 'selected' : '' : null }}>
+                    {{ $item->item_code }}
+                </option>
+                @endforeach
+            </x-adminlte-select>
+
+        </div>
+    @endif
     
     <div class="col-md-6">
         <x-adminlte-input name="quantity" label="Quantity" type="number" 
