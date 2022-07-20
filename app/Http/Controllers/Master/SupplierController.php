@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+    function __construct() 
+    {
+        $this->middleware('permission:supplier-view', ['only' => ['supplierview']]);
+        $this->middleware('permission:supplier-create', ['only' => ['suppliercreate']]);
+        $this->middleware('permission:supplier-save', ['only' => ['suppliersave']]);
+    }
+
     //supplierview
     public function supplierview(Request $request)
     {
@@ -44,18 +51,6 @@ class SupplierController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-
-    public function supplierupdate(Request $request)
-    {
-        if(!is_null($request->id)) {
-            return view('master.supplier.supplierform', [
-                'supplier' => LogicCRUD::retrieveRecord('Supplier', 'Master', $request->id),
-            ]);
-        } else {
-            return redirect()->back();
-        }
-    }
-
 
     public function supplierdelete()
     {

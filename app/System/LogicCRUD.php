@@ -13,7 +13,7 @@ class LogicCRUD
         return new $record_type();
     }
 
-    public static function retrieveRecord($record_type, $namespace, $id = NULL, $limitter = null, $active = false, $paginated = true)
+    public static function retrieveRecord($record_type, $namespace, $id = null, $limitter = null, $active = false, $paginated = true)
     {
         $pagination = 10;
         $record_type = "App"."\\".$namespace."\\".$record_type;

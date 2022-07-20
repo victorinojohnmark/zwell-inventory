@@ -33,7 +33,7 @@
                             <td>{{ $item->unit }}</td>
                             <td><span class="badge badge-{{ $item->active ? 'success' : 'danger' }}">{{ $item->active ? 'Active' : 'Inactive' }}</span></td>
                             <td>
-                                <a href="{{ route('itemupdate', ['id' => $item->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
+                                <a href="{{ route('itemview', ['id' => $item->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
                             </td>
                         </tr>
                         @empty

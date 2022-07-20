@@ -37,7 +37,7 @@
                             <td>{{ $location->email }}</td>
                             <td><span class="badge badge-{{ $location->active ? 'success' : 'danger' }}">{{ $location->active ? 'Active' : 'Inactive' }}</span></td>
                             <td>
-                                <a href="{{ route('locationupdate', ['id' => $location->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
+                                <a href="{{ route('locationview', ['id' => $location->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
                             </td>
                         </tr>
                         @empty

@@ -35,7 +35,7 @@
                             <td>{{ $contractor->email }}</td>
                             <td><span class="badge badge-{{ $contractor->active ? 'success' : 'danger' }}">{{ $contractor->active ? 'Active' : 'Inactive' }}</span></td>
                             <td>
-                                <a href="{{ route('contractorupdate', ['id' => $contractor->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
+                                <a href="{{ route('contractorview', ['id' => $contractor->id]) }}" class="btn btn-sm btn-info font-weight rounded-pril">Update</a>
                             </td>
                         </tr>
                         @empty

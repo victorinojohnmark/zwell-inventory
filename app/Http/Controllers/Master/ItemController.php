@@ -12,10 +12,18 @@ use App\Master\Item;
 
 class ItemController extends Controller
 {
+    function __construct() 
+    {
+        $this->middleware('permission:item-view', ['only' => ['itemview']]);
+        $this->middleware('permission:item-create', ['only' => ['itemcreate']]);
+        $this->middleware('permission:item-save', ['only' => ['itemsave']]);
+    }
+
     public function itemview(Request $request)
     {
         if(isset($request->id)) {
             return view('master.item.itemform', [
+                'units' => LogicCONF::getDropDownJson('units.json'),
                 'item' => LogicCRUD::retrieveRecord('Item', 'Master', $request->id)
             ]);
         } 
@@ -33,20 +41,6 @@ class ItemController extends Controller
             'units' => LogicCONF::getDropDownJson('units.json'),
             'item' => LogicCRUD::createRecord('Item', 'Master'),
         ]);
-    }
-
-    public function itemupdate(Request $request)
-    {
-        if(!is_null($request->id)) {
-            return view('master.item.itemform', [
-                'units' => LogicCONF::getDropDownJson('units.json'),
-                'item' => LogicCRUD::retrieveRecord('Item', 'Master', $request->id),
-            ]);
-        } else {
-            return redirect()->back();
-        }
-
-        
     }
 
     public function itemsave(Request $request)

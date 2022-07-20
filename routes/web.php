@@ -33,32 +33,26 @@ Route::group(['middleware' => ['auth']], function() {
 //Company
 Route::get('company/view', 'Master\CompanyController@companyview')->name('companyview');
 Route::get('company/create', 'Master\CompanyController@companycreate')->name('companycreate');
-Route::get('company/update', 'Master\CompanyController@companyupdate')->name('companyupdate');
 Route::post('company/save', 'Master\CompanyController@companysave')->name('companysave');
-
 
 //Supplier
 Route::get('supplier/view', 'Master\SupplierController@supplierview')->name('supplierview');
 Route::get('supplier/create', 'Master\SupplierController@suppliercreate')->name('suppliercreate');
-Route::get('supplier/update', 'Master\SupplierController@supplierupdate')->name('supplierupdate');
 Route::post('supplier/save', 'Master\SupplierController@suppliersave')->name('suppliersave');
 
 //Contractor
 Route::get('contractor/view', 'Master\ContractorController@contractorview')->name('contractorview');
 Route::get('contractor/create', 'Master\ContractorController@contractorcreate')->name('contractorcreate');
-Route::get('contractor/update', 'Master\ContractorController@contractorupdate')->name('contractorupdate');
 Route::post('contractor/save', 'Master\ContractorController@contractorsave')->name('contractorsave');
 
 //Location
 Route::get('location/view', 'Master\LocationController@locationview')->name('locationview');
 Route::get('location/create', 'Master\LocationController@locationcreate')->name('locationcreate');
-Route::get('location/update', 'Master\LocationController@locationupdate')->name('locationupdate');
 Route::post('location/save', 'Master\LocationController@locationsave')->name('locationsave');
 
 //Item
 Route::get('item/view', 'Master\ItemController@itemview')->name('itemview');
 Route::get('item/create', 'Master\ItemController@itemcreate')->name('itemcreate');
-Route::get('item/update', 'Master\ItemController@itemupdate')->name('itemupdate');
 Route::post('item/save', 'Master\ItemController@itemsave')->name('itemsave');
 Route::post('item/getunit', 'Master\ItemController@itemgetunit')->name('itemgetunit');
 
@@ -112,7 +106,27 @@ Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@
 //Inventory
 Route::get('stock/view', 'Report\InventoryController@stockview')->name('stockview');
 // Route::post('stock/search', 'Report\InventoryController@stocksearch')->name('stocksearch');
+
+
+## SYSTEM ##
+
+//User
+Route::get('user/view', 'System\UserController@userview')->name('userview');
+Route::get('user/create', 'System\UserController@usercreate')->name('usercreate');
+Route::post('user/save', 'System\UserController@usersave')->name('usersave');
+Route::post('user/resetpassword', 'System\UserController@userresetpassword')->name('userresetpassword');
+
+//Role
+Route::get('role/view', 'System\RoleController@roleview')->name('roleview');
+Route::get('role/create', 'System\RoleController@rolecreate')->name('rolecreate');
+Route::post('role/save', 'System\RoleController@rolesave')->name('rolesave');
+
+
+
 });
+
+
+
 
 
 

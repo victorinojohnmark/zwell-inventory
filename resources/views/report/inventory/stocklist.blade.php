@@ -27,7 +27,7 @@
 
             </div>
 
-            <table id="" class="table table-bordered table-hover{{ isset($location_id)? ' datatable' : '' }}">
+            <table id="" class="table table-bordered table-hover table-sm{{ isset($location_id)? ' datatable' : '' }}">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

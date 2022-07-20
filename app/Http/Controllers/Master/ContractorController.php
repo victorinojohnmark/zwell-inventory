@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ContractorController extends Controller
 {
+    function __construct() 
+    {
+        $this->middleware('permission:contractor-view', ['only' => ['contractorview']]);
+        $this->middleware('permission:contractor-create', ['only' => ['contractorcreate']]);
+        $this->middleware('permission:contractor-save', ['only' => ['contractorsave']]);
+    }
+
     public function contractorview(Request $request){
         if(isset($request->id)) {
             return view('master.contractor.contractorform', [
@@ -43,18 +50,6 @@ class ContractorController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
     }
-
-    public function contractorupdate(Request $request)
-    {
-        if(!is_null($request->id)) {
-            return view('master.contractor.contractorform', [
-                'contractor' => LogicCRUD::retrieveRecord('Contractor', 'Master', $request->id),
-            ]);
-        } else {
-            return redirect()->back();
-        }
-    }
-
 
     public function contractordelete()
     {

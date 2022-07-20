@@ -9,6 +9,13 @@ use App\System\LogicCRUD;
 
 class LocationController extends Controller
 {
+    function __construct() 
+    {
+        $this->middleware('permission:location-view', ['only' => ['locationview']]);
+        $this->middleware('permission:location-create', ['only' => ['locationcreate']]);
+        $this->middleware('permission:location-save', ['only' => ['locationsave']]);
+    }
+
     public function locationview(Request $request)
     {
         if(isset($request->id)) {
@@ -31,20 +38,6 @@ class LocationController extends Controller
             'location' => LogicCRUD::createRecord('Location', 'Master'),
             'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
         ]);
-    }
-
-    public function locationupdate(Request $request)
-    {
-        if(!is_null($request->id)) {
-            return view('master.location.locationform', [
-                'location' => LogicCRUD::retrieveRecord('Location', 'Master', $request->id),
-                'companies' => LogicCRUD::retrieveRecord('Company', 'Master', $id = null, $limitter = null, $active = true),
-            ]);
-        } else {
-            return redirect()->back();
-        }
-
-        
     }
 
     public function locationsave(Request $request)

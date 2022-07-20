@@ -240,30 +240,40 @@ return [
         [
             'text' => 'Master Records',
             'icon' => 'fas fa-fw fa-clipboard-list',
+            'can' => ['company-view', 'company-create', 'company-save',
+                    'contractor-view', 'contractor-create', 'contractor-save',
+                    'item-view', 'item-create', 'item-save',
+                    'location-view', 'location-create', 'location-save',
+                    'supplier-view', 'supplier-create', 'supplier-save'],
             'submenu' => [
                 [
                     'text' => 'Companies',
                     'url'  => 'company/view',
+                    'can' => ['company-view', 'company-create', 'company-save'],
                     'icon' => 'fas fa-fw fa-building',
                 ],
                 [
                     'text' => 'Suppliers',
                     'url'  => 'supplier/view',
+                    'can' => ['supplier-view', 'supplier-create', 'supplier-save'],
                     'icon' => 'fas fa-fw fa-check-circle',
                 ],
                 [
                     'text' => 'Contractors',
                     'url'  => 'contractor/view',
+                    'can' => ['contractor-view', 'contractor-create', 'contractor-save'],
                     'icon' => 'fas fa-fw fa-user-astronaut',
                 ],
                 [
                     'text' => 'Locations',
                     'url'  => 'location/view',
+                    'can' => ['location-view', 'location-create', 'location-save'],
                     'icon' => 'fas fa-fw fa-map-marked-alt',
                 ],
                 [
                     'text' => 'Items',
                     'url'  => 'item/view',
+                    'can' => ['item-view', 'item-create', 'item-save'],
                     'icon' => 'fas fa-fw fa-boxes',
                 ]
             ]
@@ -296,16 +306,9 @@ return [
             'icon' => 'fas fa-fw fa-file-alt',
             'submenu' => [
                 [
-                    'text' => 'Inventory',
-                    'icon' => 'fas fa-fw fa-warehouse',
-                    'submenu' => [
-                        [
-                            'text' => 'Stocks',
-                            'url'  => 'stock/view',
-                            'icon' => 'fas fa-fw fa-boxes',
-                        ],
-                        
-                    ]
+                    'text' => 'Stocks',
+                    'url'  => 'stock/view',
+                    'icon' => 'fas fa-fw fa-boxes',
                 ],
                 [
                     'text' => 'Transactions',
@@ -331,6 +334,29 @@ return [
                 ],
                 
 
+            ]
+        ],
+
+        [
+            'text' => 'System',
+            'icon' => 'fas fa-fw fa-cog',
+            'submenu' => [
+                [
+                    'text' => 'User Management',
+                    'icon' => 'fas fa-fw fa-user-cog ',
+                    'submenu' => [
+                        [
+                            'text' => 'Users',
+                            'url'  => 'user/view',
+                            'icon' => 'fas fa-fw fa-users',
+                        ],
+                        [
+                            'text' => 'Roles',
+                            'url'  => 'role/view',
+                            'icon' => 'fas fa-fw fa-user-check',
+                        ],
+                    ]
+                ],
             ]
         ],
         
@@ -403,6 +429,11 @@ return [
                     'type' => 'css',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
                 ],
             ],
         ],

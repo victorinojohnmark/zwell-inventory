@@ -12,6 +12,14 @@ use App\System\LogicCRUD;
 
 class CompanyController extends Controller
 {
+
+    function __construct() 
+    {
+        $this->middleware('permission:company-view', ['only' => ['companyview']]);
+        $this->middleware('permission:company-create', ['only' => ['companycreate']]);
+        $this->middleware('permission:company-save', ['only' => ['companysave']]);
+    }
+
     public function companyview(Request $request)
     {
         if(isset($request->id)) {
@@ -32,19 +40,6 @@ class CompanyController extends Controller
         return view('master.company.companyform', [
             'company' => LogicCRUD::createRecord('Company', 'Master'),
         ]);
-    }
-
-    public function companyupdate(Request $request)
-    {
-        if(!is_null($request->id)) {
-            return view('master.company.companyform', [
-                'company' => LogicCRUD::retrieveRecord('Company', 'Master', $request->id),
-            ]);
-        } else {
-            return redirect()->back();
-        }
-
-        
     }
 
     public function companysave(Request $request)
