@@ -14,6 +14,13 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+    function __construct() 
+    {
+        $this->middleware('permission:user-view', ['only' => ['userview']]);
+        $this->middleware('permission:user-create', ['only' => ['usercreate']]);
+        $this->middleware('permission:user-save', ['only' => ['usersave']]);
+    }
+
     public function userview(Request $request)
     {
         if(isset($request->id)) {

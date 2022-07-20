@@ -10,6 +10,13 @@ use App\System\LogicCRUD;
 
 class RoleController extends Controller
 {
+    function __construct() 
+    {
+        $this->middleware('permission:role-view', ['only' => ['roleview']]);
+        $this->middleware('permission:role-create', ['only' => ['rolecreate']]);
+        $this->middleware('permission:role-save', ['only' => ['rolesave']]);
+    }
+
     public function roleview(Request $request)
     {
         if(isset($request->id)) {
