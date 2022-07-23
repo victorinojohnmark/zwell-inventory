@@ -102,11 +102,14 @@ Route::post('/fileattachment/upload/{transactionType}/{transactionID}/{userID}',
 Route::post('/fileattachment/delete/{fileid}', 'System\FileAttachmentController@fileattachmentdelete')->name('fileattachmentdelete');
 
 ## REPORTS ##
+Route::prefix('report')->group(function() {
+  //Inventory
+  Route::get('stock/view', 'Report\InventoryController@stockview')->name('reportstockview');
 
-//Inventory
-Route::get('stock/view', 'Report\InventoryController@stockview')->name('stockview');
-// Route::post('stock/search', 'Report\InventoryController@stocksearch')->name('stocksearch');
+  //Purchase Order
+  Route::get('purchaseorder/view', 'Report\TransactionController@reportpurchaseorderview')->name('reportpurchaseorderview');
 
+});
 
 ## SYSTEM ##
 

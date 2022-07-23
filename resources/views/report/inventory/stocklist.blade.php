@@ -9,7 +9,7 @@
         </div>
         <div class="card-body">
             <div class="options mb-3">
-                <form action="{{ route('stockview') }}" class="form-row">
+                <form action="{{ route('reportstockview') }}" class="form-row">
                     <div class="col-md-5">
                         <x-adminlte-select name="location_id" label="Location" class="" required>
                             @foreach ($locations as $location)

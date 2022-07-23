@@ -307,7 +307,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Stocks',
-                    'url'  => 'stock/view',
+                    'url'  => 'report/stock/view',
                     'icon' => 'fas fa-fw fa-boxes',
                 ],
                 [
@@ -316,7 +316,7 @@ return [
                     'submenu' => [
                         [
                             'text' => 'Purchase Orders',
-                            'url'  => '#',
+                            'url'  => 'report/purchaseorder/view',
                             'icon' => 'fas fa-fw fa-credit-card',
                         ],
                         [

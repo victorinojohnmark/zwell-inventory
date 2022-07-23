@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "autoprefixer": "10.4.5",
-        "filepond": "^4.30.4"
+        "filepond": "^4.30.4",
+        "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.9/xlsx-0.18.9.tgz"
     }
 }
