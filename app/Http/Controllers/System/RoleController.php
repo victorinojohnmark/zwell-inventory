@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\System\LogicCRUD;
+use App\System\Permission;
 
 class RoleController extends Controller
 {
@@ -22,7 +23,7 @@ class RoleController extends Controller
         if(isset($request->id)) {
             return view('system.role.roleform', [
                 'role' => LogicCRUD::retrieveRecord('Role', 'System', $request->id),
-                'permissions' => LogicCRUD::retrieveRecord('Permission', 'System', null)
+                'permissions' => Permission::all()
             ]);
         } 
 
@@ -37,7 +38,7 @@ class RoleController extends Controller
     {
         return view('system.role.roleform', [
             'role' => LogicCRUD::createRecord('Role', 'System'),
-            'permissions' => LogicCRUD::retrieveRecord('Permission', 'System', null)
+            'permissions' => Permission::all()
             
         ]);
     }
@@ -62,7 +63,7 @@ class RoleController extends Controller
                 $role->syncPermissions($request->input('permission'));
             }
 
-            return redirect()->route('roleview');
+            return redirect()->route('roleview')->with('success', 'Role Updated');;
 
         } else {
             return redirect()->back()->withErrors($validator)->withInput();

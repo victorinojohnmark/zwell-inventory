@@ -22,6 +22,8 @@ class PermissionSystemSeeder extends Seeder
             ['name' => 'user-view', 'title' => 'View User'],
             ['name' => 'user-create', 'title' => 'Create User'],
             ['name' => 'user-save', 'title' => 'Save/Update User'],
+            ['name' => 'user-resetpassword', 'title' => 'Reset User Password'],
+            
          ];
  
  

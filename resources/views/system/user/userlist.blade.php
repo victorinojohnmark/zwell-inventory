@@ -3,6 +3,7 @@
 @section('title', config('app.name') . " - Users")
 
 @section('content')
+@include('layouts.includes.errors')
     <div class="card">
         <div class="card-header">
             <strong>Users</strong>

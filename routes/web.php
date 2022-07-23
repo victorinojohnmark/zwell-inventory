@@ -121,8 +121,6 @@ Route::get('role/view', 'System\RoleController@roleview')->name('roleview');
 Route::get('role/create', 'System\RoleController@rolecreate')->name('rolecreate');
 Route::post('role/save', 'System\RoleController@rolesave')->name('rolesave');
 
-
-
 });
 
 

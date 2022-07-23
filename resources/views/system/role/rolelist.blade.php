@@ -3,6 +3,7 @@
 @section('title', config('app.name') . " - User Roles")
 
 @section('content')
+@include('layouts.includes.errors')
     <div class="card">
         <div class="card-header">
             <strong>User Roles</strong>

@@ -340,6 +340,8 @@ return [
         [
             'text' => 'System',
             'icon' => 'fas fa-fw fa-cog',
+            'can' => ['role-view','role-create','role-save',
+                      'user-view','user-create','user-save','user-resetpassword',],
             'submenu' => [
                 [
                     'text' => 'User Management',
@@ -348,11 +350,13 @@ return [
                         [
                             'text' => 'Users',
                             'url'  => 'user/view',
+                            'can'  => ['user-view','user-create','user-save','user-resetpassword'],
                             'icon' => 'fas fa-fw fa-users',
                         ],
                         [
                             'text' => 'Roles',
                             'url'  => 'role/view',
+                            'can'  => ['role-view','role-create','role-save'],
                             'icon' => 'fas fa-fw fa-user-check',
                         ],
                     ]

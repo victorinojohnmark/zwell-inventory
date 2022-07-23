@@ -7,3 +7,9 @@
     </ul>
 </x-adminlte-alert>
 @endif
+
+@if (Session::has('success'))
+<x-adminlte-alert theme="success" dismissable>
+    {{ Session::get('success') }}
+</x-adminlte-alert>
+@endif

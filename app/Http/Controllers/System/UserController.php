@@ -19,6 +19,7 @@ class UserController extends Controller
         $this->middleware('permission:user-view', ['only' => ['userview']]);
         $this->middleware('permission:user-create', ['only' => ['usercreate']]);
         $this->middleware('permission:user-save', ['only' => ['usersave']]);
+        $this->middleware('permission:user-resetpassword', ['only' => ['userresetpassword']]);
     }
 
     public function userview(Request $request)
@@ -100,7 +101,7 @@ class UserController extends Controller
             $user->password = $hashPassword;
             $user->save();
 
-            return redirect()->route('userview');
+            return redirect()->route('userview')->with('success', 'Password reset successful');
 
         } else {
             return redirect()->back()->withErrors($validator)->withInput();

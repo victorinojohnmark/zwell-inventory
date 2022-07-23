@@ -7,7 +7,7 @@
             </div>
 
             <div class="col-md-6">
-                <x-adminlte-input name="confirm_password" name="confirm_password{{ $user->id }}" label="Confirm Password" type="password" placeholder="..." required value=""/>
+                <x-adminlte-input name="confirm_password" id="confirm_password{{ $user->id }}" label="Confirm Password" type="password" placeholder="..." required value=""/>
             </div>
         </div>
 
